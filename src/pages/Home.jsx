@@ -5,75 +5,102 @@ import { motion } from 'framer-motion';
 import { Zap, Lightbulb, Wrench, Cpu, ArrowRight } from 'lucide-react';
 
 export default function Home() {
-  const [glitchText, setGlitchText] = useState('TRIFFT');
-
-  useEffect(() => {
-    const glitchChars = '█▓▒░TRIFFT01';
-    const originalText = 'TRIFFT';
-    
-    const interval = setInterval(() => {
-      if (Math.random() > 0.95) {
-        let glitched = '';
-        for (let i = 0; i < originalText.length; i++) {
-          glitched += Math.random() > 0.7 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : originalText[i];
-        }
-        setGlitchText(glitched);
-        setTimeout(() => setGlitchText(originalText), 100);
-      }
-    }, 150);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="bg-[#F5F2EB]">
-      {/* Hero Section - Light and Fresh */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-6">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#CDFF00] rounded-full blur-[100px] opacity-30" />
-          <div className="absolute bottom-1/3 left-1/3 w-[400px] h-[400px] bg-[#3B5BDB] rounded-full blur-[120px] opacity-20" />
+    <div className="bg-[#0A0A0A]">
+      {/* Hero Section - Image Collage like UNStudio */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        {/* Image Grid Collage */}
+        <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-1">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1581092918484-8313e1f7e8c6?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1597587026534-8f61ed6c5ed3?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="overflow-hidden"
+          >
+            <img src="https://images.unsplash.com/photo-1581092160366-4ee93eb8116b?w=800" alt="" className="w-full h-full object-cover" />
+          </motion.div>
         </div>
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-[#0A0A0A]/70" />
         
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 1 }}
           >
-            <div className="inline-block mb-12">
-              <div className="text-sm font-bold tracking-[0.3em] text-[#0A0A0A]/40 mb-8">
-                LUCKYTECH — EST. 2010
-              </div>
-            </div>
-            
-            <h1 className="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tighter leading-[0.9] mb-12 text-[#0A0A0A]">
-              <span className="block">WO</span>
-              <span className="block">HANDWERK</span>
-              <span className="block relative inline-block">
-                <span className="relative z-10">{glitchText}</span>
-                <span className="absolute inset-0 text-[#CDFF00] opacity-50 blur-sm">{glitchText}</span>
-              </span>
-              <span className="block">INNOVATION</span>
+            <h1 className="text-7xl md:text-9xl lg:text-[11rem] font-bold tracking-tighter leading-[0.85] mb-12 text-white">
+              LUCKYTECH
             </h1>
             
-            <div className="text-xl text-[#0A0A0A]/50 max-w-2xl mx-auto mb-16">
-              Elektrotechnik & Ingenieurskunst — Eine Symbiose
-            </div>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link
-                to={createPageUrl('Handwerk')}
-                className="group px-10 py-5 bg-[#0A0A0A] text-[#F5F2EB] font-bold hover:bg-[#C8A850] hover:text-[#0A0A0A] transition-all inline-flex items-center justify-center gap-3"
-              >
-                <span>Handwerk</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to={createPageUrl('Engineering')}
-                className="group px-10 py-5 border-2 border-[#0A0A0A] text-[#0A0A0A] font-bold hover:bg-[#0A0A0A] hover:text-[#F5F2EB] transition-all inline-flex items-center justify-center gap-3"
-              >
-                <span>Engineering</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
+            <div className="text-2xl md:text-4xl text-white/80 font-light mb-20 font-mono">
+              = Elektrotechnik + Ingenieurskunst
             </div>
           </motion.div>
         </div>
@@ -84,103 +111,179 @@ export default function Home() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 border-[#0A0A0A]/20 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-[#0A0A0A]/20 rounded-full" />
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-white/40 rounded-full" />
           </div>
         </motion.div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-32 px-6 bg-white">
+      {/* Handwerk Section - Appears First on Scroll */}
+      <section className="min-h-screen flex items-center justify-center py-32 px-6 bg-[#F5F2EB]">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-20"
-          >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-[#0A0A0A]">
-              ZWEI WELTEN
-            </h2>
-            <p className="text-xl text-[#0A0A0A]/50 max-w-2xl">
-              Handwerk trifft auf digitale Innovation
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Handwerk Card */}
-            <Link to={createPageUrl('Handwerk')}>
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="group relative h-[600px] bg-[#C8A850] p-12 hover:scale-[1.02] transition-all overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-[#0A0A0A] opacity-0 group-hover:opacity-5 transition-opacity" />
-                
-                <div className="relative z-10 h-full flex flex-col justify-between text-[#0A0A0A]">
-                  <div>
-                    <Zap className="w-16 h-16 mb-6" />
-                    <h3 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-                      HANDWERK
-                    </h3>
-                    <p className="text-xl mb-8 leading-relaxed">
-                      Präzision und Erfahrung in der Elektrotechnik
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-3 text-lg">
-                    <div>→ Smarthome Installation</div>
-                    <div>→ Wallbox Installation</div>
-                    <div>→ Kabelverlegung</div>
-                    <div>→ Reparaturen</div>
-                  </div>
-
-                  <div className="flex items-center gap-2 font-bold text-lg group-hover:gap-4 transition-all">
-                    Mehr erfahren <ArrowRight className="w-5 h-5" />
-                  </div>
+          <Link to={createPageUrl('Handwerk')} className="block">
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8 }}
+              className="group"
+            >
+              <div className="mb-12">
+                <div className="text-sm font-bold tracking-[0.3em] text-[#0A0A0A]/40 mb-4">
+                  01 / HANDWERK
                 </div>
-              </motion.div>
-            </Link>
+                <h2 className="text-7xl md:text-9xl font-bold tracking-tighter text-[#0A0A0A] mb-6">
+                  ELEKTRO<br/>TECHNIK
+                </h2>
+                <p className="text-2xl text-[#0A0A0A]/60 max-w-2xl">
+                  Präzision und Erfahrung in der Installation, Wartung und Reparatur
+                </p>
+              </div>
 
-            {/* Engineering Card */}
-            <Link to={createPageUrl('Engineering')}>
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="group relative h-[600px] bg-[#0A0A0A] p-12 hover:scale-[1.02] transition-all overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-[#CDFF00] opacity-0 group-hover:opacity-5 transition-opacity" />
-                
-                <div className="relative z-10 h-full flex flex-col justify-between text-[#F5F2EB]">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="aspect-square bg-[#C8A850] p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
                   <div>
-                    <Cpu className="w-16 h-16 mb-6" />
-                    <h3 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-                      ENGINEERING
-                    </h3>
-                    <p className="text-xl text-[#F5F2EB]/70 mb-8 leading-relaxed">
-                      Innovation und kreative Lösungen für die Zukunft
-                    </p>
+                    <Zap className="w-8 h-8 mb-3 text-[#0A0A0A]" />
+                    <div className="font-bold text-lg text-[#0A0A0A]">Smarthome</div>
                   </div>
-                  
-                  <div className="space-y-3 text-lg text-[#F5F2EB]/80 font-mono">
-                    <div>{'>'} Prototypenbau</div>
-                    <div>{'>'} Produktentwicklung</div>
-                    <div>{'>'} Creative Thinking</div>
-                    <div>{'>'} Beratung</div>
-                  </div>
+                </motion.div>
 
-                  <div className="flex items-center gap-2 font-bold text-lg group-hover:gap-4 transition-all">
-                    Mehr erfahren <ArrowRight className="w-5 h-5" />
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="aspect-square bg-white p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Cable className="w-8 h-8 mb-3 text-[#0A0A0A]" />
+                    <div className="font-bold text-lg text-[#0A0A0A]">Wallbox</div>
                   </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="aspect-square bg-white p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Lightbulb className="w-8 h-8 mb-3 text-[#0A0A0A]" />
+                    <div className="font-bold text-lg text-[#0A0A0A]">Kabel<br/>verlegung</div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="aspect-square bg-[#C8A850] p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Wrench className="w-8 h-8 mb-3 text-[#0A0A0A]" />
+                    <div className="font-bold text-lg text-[#0A0A0A]">Reparaturen</div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="mt-12 flex items-center gap-3 text-[#0A0A0A] font-bold text-lg group-hover:gap-5 transition-all">
+                Mehr erfahren <ArrowRight className="w-6 h-6" />
+              </div>
+            </motion.div>
+          </Link>
+        </div>
+      </section>
+
+      {/* Engineering Section - Builds on Top */}
+      <section className="min-h-screen flex items-center justify-center py-32 px-6 bg-[#0A0A0A]">
+        <div className="max-w-7xl mx-auto">
+          <Link to={createPageUrl('Engineering')} className="block">
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8 }}
+              className="group"
+            >
+              <div className="mb-12">
+                <div className="text-sm font-bold tracking-[0.3em] text-white/40 mb-4 font-mono">
+                  02 / ENGINEERING
                 </div>
-              </motion.div>
-            </Link>
-          </div>
+                <h2 className="text-7xl md:text-9xl font-bold tracking-tighter text-white mb-6">
+                  INGENIEURS<br/>KUNST
+                </h2>
+                <p className="text-2xl text-white/60 max-w-2xl font-mono">
+                  Innovation und kreative Lösungen für komplexe Herausforderungen
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="aspect-square bg-[#00EAFF] p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Cpu className="w-8 h-8 mb-3 text-[#0A0A0A]" />
+                    <div className="font-bold text-lg text-[#0A0A0A]">Prototypen<br/>bau</div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="aspect-square bg-white/10 border border-white/20 p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Lightbulb className="w-8 h-8 mb-3 text-white" />
+                    <div className="font-bold text-lg text-white">Produkt<br/>entwicklung</div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="aspect-square bg-white/10 border border-white/20 p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Sparkles className="w-8 h-8 mb-3 text-white" />
+                    <div className="font-bold text-lg text-white">Creative<br/>Thinking</div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="aspect-square bg-[#CDFF00] p-6 flex items-end group-hover:scale-105 transition-transform"
+                >
+                  <div>
+                    <Cpu className="w-8 h-8 mb-3 text-[#0A0A0A]" />
+                    <div className="font-bold text-lg text-[#0A0A0A]">Beratung</div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="mt-12 flex items-center gap-3 text-white font-bold text-lg group-hover:gap-5 transition-all">
+                Mehr erfahren <ArrowRight className="w-6 h-6" />
+              </div>
+            </motion.div>
+          </Link>
         </div>
       </section>
 
