@@ -1,12 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
 import { Zap, Lightbulb, Wrench, Cpu, ArrowRight } from 'lucide-react';
 
 export default function Home() {
+  const [glitchText, setGlitchText] = useState('TRIFFT');
+
+  useEffect(() => {
+    const glitchChars = '█▓▒░TRIFFT01';
+    const originalText = 'TRIFFT';
+    
+    const interval = setInterval(() => {
+      if (Math.random() > 0.95) {
+        let glitched = '';
+        for (let i = 0; i < originalText.length; i++) {
+          glitched += Math.random() > 0.7 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : originalText[i];
+        }
+        setGlitchText(glitched);
+        setTimeout(() => setGlitchText(originalText), 100);
+      }
+    }, 150);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-[#0A0A0A]">
+      {/* ASCII Background */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none font-mono text-[8px] leading-[8px] text-[#C8A850] overflow-hidden whitespace-pre">
+        {Array(50).fill(null).map((_, i) => (
+          <div key={i}>
+            {Array(200).fill(null).map((_, j) => 
+              Math.random() > 0.5 ? '█' : Math.random() > 0.7 ? '▓' : '░'
+            ).join('')}
+          </div>
+        ))}
+      </div>
+
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -20,14 +51,23 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none mb-8">
-              WO HANDWERK<br />
-              AUF INNOVATION<br />
-              <span className="text-[#C8A850]">TRIFFT</span>
+            <div className="font-mono text-xs text-[#C8A850] mb-8 tracking-widest">
+              {'>'} LOCATION: 49.4872° N, 8.4683° E // SYSTEM: ONLINE
+            </div>
+            
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none mb-8 relative">
+              <span className="block">WO HANDWERK</span>
+              <span className="block">AUF INNOVATION</span>
+              <span className="block relative inline-block">
+                <span className="text-[#C8A850] relative z-10">{glitchText}</span>
+                <span className="absolute inset-0 text-[#C8A850] opacity-50 blur-sm animate-pulse">{glitchText}</span>
+                <span className="absolute inset-0 text-[#3B5BDB] opacity-30" style={{transform: 'translate(2px, 2px)'}}>{glitchText}</span>
+              </span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#F5F2EB]/60 max-w-3xl mx-auto mb-12">
-              Elektrotechnik & Ingenieurskunst — Zwei Welten, eine Vision
-            </p>
+            
+            <div className="font-mono text-sm text-[#F5F2EB]/40 max-w-3xl mx-auto mb-12">
+              [ELEKTROTECHNIK.exe] && [INGENIEURSKUNST.sys] → FUSION_PROTOCOL.init()
+            </div>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 to={createPageUrl('Handwerk')}

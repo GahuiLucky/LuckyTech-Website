@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
-import { Cpu, Lightbulb, Boxes, Sparkles, ArrowRight, CheckCircle } from 'lucide-react';
+import { Cpu, Lightbulb, Boxes, Sparkles, ArrowRight, CheckCircle, Terminal } from 'lucide-react';
 
 export default function Engineering() {
+  const [glitchActive, setGlitchActive] = useState(false);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGlitchActive(true);
+      setTimeout(() => setGlitchActive(false), 200);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
   const services = [
     {
       icon: Boxes,
@@ -53,102 +62,212 @@ export default function Engineering() {
   ];
 
   return (
-    <div className="bg-[#0A0A0A]">
-      {/* Hero Section */}
-      <section className="min-h-[70vh] flex items-center justify-center relative overflow-hidden px-6">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#3B5BDB] rounded-full blur-[150px]" />
+    <div className="bg-[#0A0A0A] relative">
+      {/* Matrix-style Background */}
+      <div className="fixed inset-0 opacity-[0.02] pointer-events-none overflow-hidden font-mono text-[10px] leading-[10px] text-[#3B5BDB]">
+        <div className="animate-scroll-slow">
+          {Array(100).fill(null).map((_, i) => (
+            <div key={i} className="whitespace-nowrap">
+              {Array(200).fill(null).map((_, j) => 
+                String.fromCharCode(33 + Math.floor(Math.random() * 94))
+              ).join('')}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Hero Section - Experimental */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-6">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#3B5BDB] rounded-full blur-[150px] opacity-20" />
+          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#C8A850] rounded-full blur-[120px] opacity-10" />
         </div>
         
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
+        <div className="relative z-10 max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-block px-6 py-2 border border-[#3B5BDB] text-[#3B5BDB] text-sm uppercase tracking-wider mb-8">
-              Engineering
+            <div className="font-mono text-xs text-[#3B5BDB] mb-8 tracking-widest flex items-center gap-2">
+              <Terminal className="w-4 h-4" />
+              <span className="animate-pulse">{'>'} SYSTEM.ENGINEERING.init()</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-8">
-              INNOVATION<br />
-              <span className="text-[#3B5BDB]">TRIFFT</span><br />
-              KREATIVITÄT
-            </h1>
-            <p className="text-xl md:text-2xl text-[#F5F2EB]/60 max-w-3xl mx-auto mb-12">
-              Von der Idee zum Produkt — wir gestalten die Zukunft durch innovative Ingenieurskunst
-            </p>
+            
+            <div className="relative mb-12">
+              <h1 className={`text-6xl md:text-9xl font-bold tracking-tighter leading-none transition-all ${glitchActive ? 'animate-glitch' : ''}`}>
+                <span className="block mb-4">INNOVATION</span>
+                <span className="block mb-4">
+                  <span className="relative inline-block">
+                    <span className="relative z-10 text-[#3B5BDB]">TRIFFT</span>
+                    {glitchActive && (
+                      <>
+                        <span className="absolute inset-0 text-[#C8A850] opacity-70" style={{transform: 'translate(-3px, -3px)'}}>TRIFFT</span>
+                        <span className="absolute inset-0 text-[#3B5BDB] opacity-70" style={{transform: 'translate(3px, 3px)'}}>TRIFFT</span>
+                      </>
+                    )}
+                  </span>
+                </span>
+                <span className="block">KREATIVITÄT</span>
+              </h1>
+              
+              {/* Duplicate text layers for glitch effect */}
+              <div className="absolute inset-0 pointer-events-none opacity-30 blur-[2px]">
+                <h1 className="text-6xl md:text-9xl font-bold tracking-tighter leading-none text-[#3B5BDB]">
+                  <span className="block mb-4">INNOVATION</span>
+                  <span className="block mb-4">TRIFFT</span>
+                  <span className="block">KREATIVITÄT</span>
+                </h1>
+              </div>
+            </div>
+            
+            <div className="font-mono text-sm text-[#F5F2EB]/40 mb-12 max-w-2xl">
+              {'// '} from_concept(idea) → to_prototype(reality) <br/>
+              {'// '} iterate(innovation) && solve(impossible)
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <div className="px-6 py-3 border border-[#3B5BDB] text-[#3B5BDB] font-mono text-sm">
+                [PROTOTYPING]
+              </div>
+              <div className="px-6 py-3 border border-[#3B5BDB] text-[#3B5BDB] font-mono text-sm">
+                [DEVELOPMENT]
+              </div>
+              <div className="px-6 py-3 border border-[#3B5BDB] text-[#3B5BDB] font-mono text-sm">
+                [INNOVATION]
+              </div>
+            </div>
           </motion.div>
         </div>
+
+        <style jsx>{`
+          @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+          }
+          .animate-glitch {
+            animation: glitch 0.3s ease-in-out;
+          }
+          @keyframes scroll-slow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+          }
+          .animate-scroll-slow {
+            animation: scroll-slow 60s linear infinite;
+          }
+        `}</style>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20 px-6">
+      {/* Services Grid - Tech Style */}
+      <section className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-20 font-mono"
+          >
+            <div className="text-[#3B5BDB] text-sm mb-4">{'>'} services.list()</div>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
+              <span className="text-[#F5F2EB]/30">{'{'}</span> CAPABILITIES <span className="text-[#F5F2EB]/30">{'}'}</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {services.map((service, index) => (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group bg-[#F5F2EB]/5 border border-[#3B5BDB]/20 p-10 hover:border-[#3B5BDB] hover:bg-[#3B5BDB]/5 transition-all"
+                className="group relative bg-[#0A0A0A] border border-[#3B5BDB]/20 p-10 hover:border-[#3B5BDB] hover:bg-[#3B5BDB]/5 transition-all overflow-hidden"
               >
-                <service.icon className="w-14 h-14 text-[#3B5BDB] mb-6" />
-                <h3 className="text-3xl font-bold mb-4 tracking-tight">{service.title}</h3>
-                <p className="text-[#F5F2EB]/70 mb-8 text-lg leading-relaxed">
-                  {service.description}
-                </p>
-                <ul className="space-y-3">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-[#F5F2EB]/80">
-                      <CheckCircle className="w-5 h-5 text-[#3B5BDB] mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#3B5BDB]/5 transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-6">
+                    <service.icon className="w-12 h-12 text-[#3B5BDB]" />
+                    <div className="font-mono text-xs text-[#3B5BDB]/50">
+                      {'['}0{index + 1}{']'}
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-3xl font-bold mb-4 tracking-tight group-hover:text-[#3B5BDB] transition-colors">
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-[#F5F2EB]/60 mb-8 text-lg leading-relaxed font-light">
+                    {service.description}
+                  </p>
+                  
+                  <div className="space-y-2 font-mono text-sm">
+                    {service.features.map((feature, i) => (
+                      <div key={feature} className="flex items-start gap-3 text-[#F5F2EB]/70">
+                        <span className="text-[#3B5BDB] mt-0.5">{'>'}</span>
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Approach Section */}
-      <section className="py-32 px-6 bg-[#F5F2EB]/5">
-        <div className="max-w-7xl mx-auto">
+      {/* Approach Section - Terminal Style */}
+      <section className="py-32 px-6 bg-[#0A0A0A] border-y border-[#3B5BDB]/20">
+        <div className="max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-20 text-center"
+            className="mb-20"
           >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
-              UNSER ANSATZ
+            <div className="font-mono text-sm text-[#3B5BDB] mb-6">
+              {'>'} process.workflow() <span className="animate-pulse">_</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
+              SYSTEMATIC<br/>INNOVATION
             </h2>
-            <p className="text-xl text-[#F5F2EB]/60 max-w-2xl mx-auto">
-              Systematisch von der Vision zur Realität
-            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="space-y-6">
             {[
-              { step: '01', title: 'Analyse', description: 'Verstehen Ihrer Anforderungen und Ziele' },
-              { step: '02', title: 'Konzeption', description: 'Kreative Lösungsentwicklung und Design' },
-              { step: '03', title: 'Prototyping', description: 'Iterative Entwicklung und Testing' },
-              { step: '04', title: 'Realisierung', description: 'Umsetzung und Markteinführung' }
+              { step: '01', title: 'ANALYSE', cmd: 'analyze.requirements()', description: 'Deep-dive in Ihre Vision. Wir verstehen nicht nur was Sie wollen, sondern auch warum.' },
+              { step: '02', title: 'KONZEPTION', cmd: 'design.solution()', description: 'Kreative Lösungsentwicklung mit iterativem Design Thinking und Rapid Ideation.' },
+              { step: '03', title: 'PROTOTYPING', cmd: 'build.prototype()', description: 'Von digital zu physisch — schnelle Iteration, kontinuierliches Testing, echtes Feedback.' },
+              { step: '04', title: 'REALISIERUNG', cmd: 'deploy.production()', description: 'Serienreife Umsetzung mit Qualitätssicherung und Produktionsbegleitung.' }
             ].map((item, index) => (
               <motion.div
                 key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center"
+                className="group border border-[#3B5BDB]/20 hover:border-[#3B5BDB] p-8 bg-[#0A0A0A] hover:bg-[#3B5BDB]/5 transition-all"
               >
-                <div className="text-6xl font-bold text-[#3B5BDB]/20 mb-4">{item.step}</div>
-                <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-                <p className="text-[#F5F2EB]/60">{item.description}</p>
+                <div className="flex items-start gap-6">
+                  <div className="font-mono text-4xl font-bold text-[#3B5BDB]/30 group-hover:text-[#3B5BDB] transition-colors min-w-[80px]">
+                    {item.step}
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-mono text-xs text-[#3B5BDB]/60 mb-2">
+                      {'// '}{item.cmd}
+                    </div>
+                    <h3 className="text-3xl font-bold mb-3 group-hover:text-[#3B5BDB] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-[#F5F2EB]/60 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -197,7 +316,7 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Terminal */}
       <section className="py-32 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -205,21 +324,31 @@ export default function Engineering() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="border border-[#3B5BDB] p-12 md:p-20 text-center"
+            className="border-2 border-[#3B5BDB] p-12 md:p-20 relative overflow-hidden group"
           >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
-              INNOVATION STARTEN?
-            </h2>
-            <p className="text-xl text-[#F5F2EB]/70 mb-12 max-w-2xl mx-auto">
-              Lassen Sie uns gemeinsam Ihre Vision in die Realität umsetzen
-            </p>
-            <Link
-              to={createPageUrl('Kontakt')}
-              className="inline-flex items-center gap-3 px-10 py-5 bg-[#3B5BDB] text-white font-bold uppercase tracking-wider hover:bg-[#4C6BEB] transition-all group"
-            >
-              Jetzt Kontakt aufnehmen
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            <div className="absolute inset-0 bg-[#3B5BDB]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            
+            <div className="relative z-10">
+              <div className="font-mono text-xs text-[#3B5BDB] mb-6">
+                {'>'} ready_to_start = true <span className="animate-pulse">_</span>
+              </div>
+              
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
+                EXECUTE(<span className="text-[#3B5BDB]">YOUR_VISION</span>)
+              </h2>
+              
+              <p className="text-xl text-[#F5F2EB]/70 mb-12 max-w-2xl mx-auto font-mono">
+                {'// '} Lassen Sie uns gemeinsam Ihre Vision in Code, Hardware und Realität übersetzen.
+              </p>
+              
+              <Link
+                to={createPageUrl('Kontakt')}
+                className="inline-flex items-center gap-3 px-10 py-5 bg-[#3B5BDB] text-white font-bold font-mono hover:bg-[#4C6BEB] transition-all group/btn border-2 border-[#3B5BDB]"
+              >
+                {'>'} START_PROJECT()
+                <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
