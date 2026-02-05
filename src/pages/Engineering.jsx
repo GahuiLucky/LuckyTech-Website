@@ -62,79 +62,56 @@ export default function Engineering() {
   ];
 
   return (
-    <div className="bg-[#0A0A0A] relative">
-      {/* Matrix-style Background */}
-      <div className="fixed inset-0 opacity-[0.02] pointer-events-none overflow-hidden font-mono text-[10px] leading-[10px] text-[#3B5BDB]">
-        <div className="animate-scroll-slow">
-          {Array(100).fill(null).map((_, i) => (
-            <div key={i} className="whitespace-nowrap">
-              {Array(200).fill(null).map((_, j) => 
-                String.fromCharCode(33 + Math.floor(Math.random() * 94))
-              ).join('')}
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="bg-[#0A1820] relative text-[#F5F2EB]">
+      {/* Subtle Grid Pattern */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none" style={{
+        backgroundImage: 'linear-gradient(#3B5BDB 1px, transparent 1px), linear-gradient(90deg, #3B5BDB 1px, transparent 1px)',
+        backgroundSize: '40px 40px'
+      }} />
 
-      {/* Hero Section - Experimental */}
+      {/* Hero Section - OXI Instruments Style */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-6">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#3B5BDB] rounded-full blur-[150px] opacity-20" />
-          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#C8A850] rounded-full blur-[120px] opacity-10" />
+          <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[#00EAFF] rounded-full blur-[150px] opacity-10" />
+          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-[#CDFF00] rounded-full blur-[180px] opacity-10" />
         </div>
         
-        <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="relative z-10 max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="font-mono text-xs text-[#3B5BDB] mb-8 tracking-widest flex items-center gap-2">
-              <Terminal className="w-4 h-4" />
-              <span className="animate-pulse">{'>'} SYSTEM.ENGINEERING.init()</span>
-            </div>
-            
-            <div className="relative mb-12">
-              <h1 className={`text-6xl md:text-9xl font-bold tracking-tighter leading-none transition-all ${glitchActive ? 'animate-glitch' : ''}`}>
-                <span className="block mb-4">INNOVATION</span>
-                <span className="block mb-4">
-                  <span className="relative inline-block">
-                    <span className="relative z-10 text-[#3B5BDB]">TRIFFT</span>
-                    {glitchActive && (
-                      <>
-                        <span className="absolute inset-0 text-[#C8A850] opacity-70" style={{transform: 'translate(-3px, -3px)'}}>TRIFFT</span>
-                        <span className="absolute inset-0 text-[#3B5BDB] opacity-70" style={{transform: 'translate(3px, 3px)'}}>TRIFFT</span>
-                      </>
-                    )}
-                  </span>
-                </span>
-                <span className="block">KREATIVITÄT</span>
-              </h1>
-              
-              {/* Duplicate text layers for glitch effect */}
-              <div className="absolute inset-0 pointer-events-none opacity-30 blur-[2px]">
-                <h1 className="text-6xl md:text-9xl font-bold tracking-tighter leading-none text-[#3B5BDB]">
-                  <span className="block mb-4">INNOVATION</span>
-                  <span className="block mb-4">TRIFFT</span>
-                  <span className="block">KREATIVITÄT</span>
-                </h1>
+            <div className="mb-20">
+              <div className="text-sm font-mono tracking-widest text-[#00EAFF] mb-8 uppercase">
+                WITH INNOVATION, CREATIVITY MOVES AT THE SPEED OF INSPIRATION
               </div>
-            </div>
-            
-            <div className="font-mono text-sm text-[#F5F2EB]/40 mb-12 max-w-2xl">
-              {'// '} from_concept(idea) → to_prototype(reality) <br/>
-              {'// '} iterate(innovation) && solve(impossible)
+              
+              <h1 className={`text-7xl md:text-[10rem] lg:text-[12rem] font-bold tracking-tighter leading-[0.85] mb-12 ${glitchActive ? 'animate-glitch' : ''}`}>
+                <span className="block">OXI</span>
+                <span className="block relative">
+                  <span className="text-[#00EAFF]">ENGINEERING</span>
+                  {glitchActive && (
+                    <>
+                      <span className="absolute inset-0 text-[#CDFF00] opacity-50" style={{transform: 'translate(-2px, -2px)'}}>ENGINEERING</span>
+                      <span className="absolute inset-0 text-[#00EAFF] opacity-50" style={{transform: 'translate(2px, 2px)'}}>ENGINEERING</span>
+                    </>
+                  )}
+                </span>
+              </h1>
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <div className="px-6 py-3 border border-[#3B5BDB] text-[#3B5BDB] font-mono text-sm">
-                [PROTOTYPING]
-              </div>
-              <div className="px-6 py-3 border border-[#3B5BDB] text-[#3B5BDB] font-mono text-sm">
-                [DEVELOPMENT]
-              </div>
-              <div className="px-6 py-3 border border-[#3B5BDB] text-[#3B5BDB] font-mono text-sm">
-                [INNOVATION]
+            <div className="flex flex-wrap gap-6 items-center">
+              <Link
+                to={createPageUrl('Kontakt')}
+                className="px-12 py-5 bg-[#00EAFF] text-[#0A1820] font-bold uppercase tracking-wider hover:bg-[#CDFF00] transition-all"
+              >
+                Start Your Project
+              </Link>
+              <div className="flex gap-4 font-mono text-sm text-[#F5F2EB]/60">
+                <span>[Prototyping]</span>
+                <span>[Development]</span>
+                <span>[Innovation]</span>
               </div>
             </div>
           </motion.div>
