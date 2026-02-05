@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
-import { Zap, Lightbulb, Wrench, Cpu, ArrowRight } from 'lucide-react';
+import { Zap, Lightbulb, Wrench, Cpu, ArrowRight, Cable, Sparkles } from 'lucide-react';
 
 export default function Home() {
   return (
