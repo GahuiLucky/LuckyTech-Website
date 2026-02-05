@@ -323,51 +323,99 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Philosophy Section */}
-      <section className="py-32 px-6 bg-[#F5F2EB]">
-        <div className="max-w-5xl mx-auto">
+      {/* Philosophy Section with Parallax */}
+      <section className="py-20 md:py-32 px-6 bg-gradient-to-b from-[#0A0A0A] via-[#1A1A2E] to-[#0A0A0A] relative overflow-hidden">
+        <motion.div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #C8A850 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+            y: useTransform(scrollYProgress, [0.5, 1], [0, -200])
+          }}
+        />
+        
+        <div className="max-w-5xl mx-auto relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1 }}
             className="text-center"
           >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-12 text-[#0A0A0A]">
-              EINE EINZIGARTIGE<br />SYMBIOSE
-            </h2>
-            <p className="text-xl md:text-2xl text-[#0A0A0A]/60 leading-relaxed max-w-3xl mx-auto">
+            <motion.h2 
+              className="text-5xl md:text-7xl font-bold tracking-tighter mb-12 text-white"
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              EINE EINZIGARTIGE<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#00EAFF]">
+                SYMBIOSE
+              </span>
+            </motion.h2>
+            <motion.p 
+              className="text-xl md:text-2xl text-white/70 leading-relaxed max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.4 }}
+            >
               Bei LuckyTech verbinden wir das Fundament solider Elektrotechnik mit der 
               Freiheit innovativen Denkens. Unser Team vereint jahrzehntelange Handwerkserfahrung 
               mit modernster Ingenieurskunst — für Lösungen, die funktionieren und begeistern.
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-32 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      {/* CTA Section with Dynamic Elements */}
+      <section className="py-20 md:py-32 px-6 bg-[#F5F2EB] relative overflow-hidden">
+        <motion.div 
+          className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C8A850] rounded-full blur-[150px] opacity-20"
+          style={{ y: useTransform(scrollYProgress, [0.8, 1], [100, -100]) }}
+        />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1 }}
             className="text-center"
           >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 text-[#0A0A0A]">
-              BEREIT FÜR<br />IHR PROJEKT?
-            </h2>
-            <p className="text-xl text-[#0A0A0A]/50 mb-12 max-w-2xl mx-auto">
-              Lassen Sie uns gemeinsam die perfekte Lösung entwickeln
-            </p>
-            <Link
-              to={createPageUrl('Kontakt')}
-              className="inline-flex items-center gap-3 px-12 py-6 bg-[#0A0A0A] text-[#F5F2EB] font-bold hover:bg-[#CDFF00] hover:text-[#0A0A0A] transition-all group text-lg"
+            <motion.h2 
+              className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 text-[#0A0A0A]"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Jetzt Kontakt aufnehmen
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </Link>
+              BEREIT FÜR<br />IHR PROJEKT?
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-[#0A0A0A]/50 mb-12 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Lassen Sie uns gemeinsam die perfekte Lösung entwickeln
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
+            >
+              <Link
+                to={createPageUrl('Kontakt')}
+                className="inline-flex items-center gap-3 px-12 py-6 bg-[#0A0A0A] text-[#F5F2EB] font-bold hover:bg-[#CDFF00] hover:text-[#0A0A0A] transition-all group text-lg"
+              >
+                Jetzt Kontakt aufnehmen
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
