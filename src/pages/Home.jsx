@@ -10,22 +10,12 @@ import EngineeringTile from '../components/home/EngineeringTile';
 import HomeContactSection from '../components/home/HomeContactSection';
 
 export default function Home() {
-  const [heroReady, setHeroReady] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service_type: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  
-  const containerRef = useRef(null);
-  const handwerkRef = useRef(null);
-  const transitionRef = useRef(null);
-  const engineeringRef = useRef(null);
-  const contactRef = useRef(null);
+    const [heroReady, setHeroReady] = useState(false);
+
+    const containerRef = useRef(null);
+    const handwerkRef = useRef(null);
+    const transitionRef = useRef(null);
+    const engineeringRef = useRef(null);
   
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
