@@ -76,52 +76,37 @@ export default function Handwerk() {
         </motion.div>
       </section>
 
-      {/* ===== NUMBERS — Animated ticker on cream bg ===== */}
-      <section className="py-20 md:py-28 px-6 md:px-16 bg-[#F5F2EB]">
-        <div className="max-w-6xl mx-auto">
-          <NumbersTicker />
-        </div>
-      </section>
-
-      {/* ===== INTRO — Big editorial statement ===== */}
-      <section className="px-6 md:px-16 pb-24 md:pb-36">
-        <div className="max-w-5xl mx-auto">
+      {/* ===== INTRO ===== */}
+      <section className="py-24 md:py-36 px-6 md:px-16 bg-[#F5F2EB]">
+        <div className="max-w-4xl mx-auto">
           <motion.p
-            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.05]"
-            initial={{ opacity: 0, y: 50 }}
+            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.1] text-[#0A0A0A]"
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9 }}
+            transition={{ duration: 0.8 }}
           >
             Wir sehen jede Installation
             als <span className="text-[#C8A850]">Designprojekt</span> —
             durchdacht, funktional,{' '}
-            <span className="text-[#0A0A0A]/25">zukunftssicher.</span>
+            <span className="text-[#0A0A0A]/20">zukunftssicher.</span>
           </motion.p>
         </div>
       </section>
 
-      {/* ===== HORIZONTAL SCROLL SHOWCASE ===== */}
-      <HorizontalShowcase />
-
-      {/* ===== BENTO GRID — Warum wir? ===== */}
-      <section className="py-24 md:py-36 px-6 md:px-16 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="mb-16 md:mb-20"
+      {/* ===== SERVICE TILES ===== */}
+      <section className="px-6 md:px-16 pb-24 md:pb-36 bg-[#F5F2EB]">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
-              Warum wir<span className="text-[#C8A850]">.</span>
-            </h2>
-            <p className="text-lg text-[#0A0A0A]/40 mt-4 max-w-lg">
-              Sechs Versprechen, die uns von anderen unterscheiden.
-            </p>
-          </motion.div>
-          <BentoGrid />
+            Leistungen<span className="text-[#C8A850]">.</span>
+          </motion.h2>
+          <ServiceTilesWithDialog />
         </div>
       </section>
 
