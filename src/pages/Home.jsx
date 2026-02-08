@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CircuitBoardBg from '../components/CircuitBoardBg';
+import SectionTransition from '../components/home/SectionTransition';
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -154,30 +155,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Puzzle Transition 1 */}
-      <div className="h-32 relative overflow-hidden bg-[#0A0A0A]/90">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={`puzzle1-${i}`}
-            className="absolute bg-[#F5F2EB]/95"
-            style={{
-              width: '25%',
-              height: '100%',
-              left: `${(i % 4) * 25}%`,
-              top: 0
-            }}
-            initial={{ y: 100, opacity: 0, rotate: -10 }}
-            whileInView={{ y: 0, opacity: 1, rotate: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: i * 0.05,
-              type: "spring",
-              stiffness: 100
-            }}
-          />
-        ))}
-      </div>
+      {/* Transition: Hero → Handwerk */}
+      <SectionTransition fromColor="#0A0A0A" toColor="rgba(245,242,235,0.95)" variant="wave" />
 
       {/* Handwerk Section - Light & Warm */}
       <section 
@@ -294,30 +273,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Puzzle Transition 2 */}
-      <div className="h-32 relative overflow-hidden bg-[#F5F2EB]/95">
-        {[...Array(16)].map((_, i) => (
-          <motion.div
-            key={`puzzle2-${i}`}
-            className="absolute bg-[#0A0A0A]/95"
-            style={{
-              width: '25%',
-              height: '50%',
-              left: `${(i % 4) * 25}%`,
-              top: i < 8 ? 0 : '50%'
-            }}
-            initial={{ scale: 0, opacity: 0, rotate: 45 }}
-            whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ 
-              duration: 0.5, 
-              delay: i * 0.04,
-              type: "spring",
-              stiffness: 120
-            }}
-          />
-        ))}
-      </div>
+      {/* Transition: Handwerk → Engineering */}
+      <SectionTransition fromColor="rgba(245,242,235,0.95)" toColor="rgba(10,10,10,0.9)" variant="diagonal" />
 
       {/* Engineering Section - Dark & Tech */}
       <section 
@@ -442,39 +399,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Puzzle Transition 3 */}
-      <div className="h-32 relative overflow-hidden bg-[#0A0A0A]">
-        {[...Array(24)].map((_, i) => (
-          <motion.div
-            key={`puzzle3-${i}`}
-            className="absolute"
-            style={{
-              width: `${100 / 6}%`,
-              height: '33.33%',
-              left: `${(i % 6) * (100 / 6)}%`,
-              top: `${Math.floor(i / 6) * 33.33}%`,
-              background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A2E 100%)'
-            }}
-            initial={{ 
-              y: -100, 
-              opacity: 0,
-              rotateX: 90
-            }}
-            whileInView={{ 
-              y: 0, 
-              opacity: 1,
-              rotateX: 0
-            }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: i * 0.03,
-              type: "spring",
-              stiffness: 100
-            }}
-          />
-        ))}
-      </div>
+      {/* Transition: Engineering → Contact */}
+      <SectionTransition fromColor="rgba(10,10,10,0.9)" toColor="#0A0A0A" variant="shards" />
 
       {/* Contact Section - Integrated */}
       <section 
