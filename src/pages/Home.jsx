@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import CircuitBoardBg from '../components/CircuitBoardBg';
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -76,147 +77,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
-      {/* Circuit Board Background - 3D Style with Glowing Tracks */}
-      <div className="fixed inset-0 pointer-events-none z-[5] opacity-40">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            {/* Strong glow effect */}
-            <filter id="strongGlow">
-              <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-            
-            {/* Gradient for tracks */}
-            <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#06b6d4', stopOpacity: 0.8 }} />
-              <stop offset="100%" style={{ stopColor: '#0891b2', stopOpacity: 0.4 }} />
-            </linearGradient>
-            
-            <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#f97316', stopOpacity: 0.8 }} />
-              <stop offset="100%" style={{ stopColor: '#ea580c', stopOpacity: 0.4 }} />
-            </linearGradient>
-          </defs>
-
-          {/* Main Circuit Tracks - Cyan/Blue Theme */}
-          <path d="M 100,0 L 100,400 L 300,400 L 300,800 L 500,800 L 500,1200" 
-                stroke="url(#cyanGrad)" strokeWidth="6" fill="none" opacity="0.6" />
-          <path d="M 300,0 L 300,300 L 600,300 L 600,700 L 900,700 L 900,1200" 
-                stroke="url(#cyanGrad)" strokeWidth="5" fill="none" opacity="0.5" />
-          <path d="M 1200,0 L 1200,500 L 900,500 L 900,900 L 600,900 L 600,1200" 
-                stroke="url(#cyanGrad)" strokeWidth="6" fill="none" opacity="0.6" />
-
-          {/* Orange/Amber Tracks */}
-          <path d="M 800,0 L 800,350 L 1100,350 L 1100,650 L 1400,650 L 1400,1200" 
-                stroke="url(#orangeGrad)" strokeWidth="5" fill="none" opacity="0.5" />
-          <path d="M 1600,0 L 1600,400 L 1300,400 L 1300,800 L 1000,800 L 1000,1200" 
-                stroke="url(#orangeGrad)" strokeWidth="6" fill="none" opacity="0.6" />
-
-          {/* Horizontal Connectors */}
-          <path d="M 0,200 L 400,200 L 400,250 L 800,250" 
-                stroke="#06b6d4" strokeWidth="4" fill="none" opacity="0.4" />
-          <path d="M 0,600 L 500,600 L 500,650 L 1000,650" 
-                stroke="#f97316" strokeWidth="4" fill="none" opacity="0.4" />
-          <path d="M 800,900 L 1200,900 L 1200,950 L 1920,950" 
-                stroke="#06b6d4" strokeWidth="4" fill="none" opacity="0.4" />
-
-          {/* Connection Nodes with 3D effect */}
-          <circle cx="300" cy="400" r="12" fill="#0891b2" opacity="0.7" filter="url(#strongGlow)" />
-          <circle cx="300" cy="400" r="6" fill="#06b6d4" opacity="0.9" />
-          
-          <circle cx="900" cy="700" r="12" fill="#0891b2" opacity="0.7" filter="url(#strongGlow)" />
-          <circle cx="900" cy="700" r="6" fill="#06b6d4" opacity="0.9" />
-
-          <circle cx="1100" cy="350" r="12" fill="#ea580c" opacity="0.7" filter="url(#strongGlow)" />
-          <circle cx="1100" cy="350" r="6" fill="#f97316" opacity="0.9" />
-
-          <circle cx="600" cy="900" r="12" fill="#0891b2" opacity="0.7" filter="url(#strongGlow)" />
-          <circle cx="600" cy="900" r="6" fill="#06b6d4" opacity="0.9" />
-        </svg>
-      </div>
-
-      {/* Animated Traveling Lights - Like Cars on Highway */}
-      <div className="fixed inset-0 pointer-events-none z-[6]">
-        {/* Vertical paths */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`v-light-${i}`}
-            className="absolute w-3 h-3 rounded-full"
-            style={{
-              left: i % 2 === 0 ? '100px' : '300px',
-              background: i % 2 === 0 ? 'radial-gradient(circle, #06b6d4 0%, transparent 70%)' : 'radial-gradient(circle, #f97316 0%, transparent 70%)',
-              boxShadow: i % 2 === 0 ? '0 0 20px #06b6d4' : '0 0 20px #f97316'
-            }}
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ 
-              y: ['0vh', '100vh'],
-              opacity: [0, 1, 1, 0]
-            }}
-            transition={{ 
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: i * 0.5,
-              ease: "linear"
-            }}
-          />
-        ))}
-
-        {/* Horizontal paths */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`h-light-${i}`}
-            className="absolute w-3 h-3 rounded-full"
-            style={{
-              top: `${20 + i * 15}%`,
-              background: i % 2 === 0 ? 'radial-gradient(circle, #06b6d4 0%, transparent 70%)' : 'radial-gradient(circle, #f97316 0%, transparent 70%)',
-              boxShadow: i % 2 === 0 ? '0 0 20px #06b6d4' : '0 0 20px #f97316'
-            }}
-            initial={{ x: '-5%', opacity: 0 }}
-            animate={{ 
-              x: ['-5%', '105%'],
-              opacity: [0, 1, 1, 0]
-            }}
-            transition={{ 
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: i * 0.7,
-              ease: "linear"
-            }}
-          />
-        ))}
-
-        {/* Diagonal traveling lights */}
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={`d-light-${i}`}
-            className="absolute w-2 h-2 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)',
-              boxShadow: '0 0 15px #f59e0b'
-            }}
-            initial={{ 
-              x: i % 2 === 0 ? '10%' : '80%',
-              y: '0%',
-              opacity: 0 
-            }}
-            animate={{ 
-              x: i % 2 === 0 ? '60%' : '30%',
-              y: '100%',
-              opacity: [0, 1, 1, 0]
-            }}
-            transition={{ 
-              duration: 5,
-              repeat: Infinity,
-              delay: i * 1.2,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
+      <CircuitBoardBg />
       
       <div className="relative z-10">
       {/* Hero Section */}
