@@ -2,17 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Zap, Lightbulb, Wrench, Cpu, ArrowRight, Cable, Sparkles, Mail, Phone, MapPin, Send } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Zap, Lightbulb, Wrench, Cpu, ArrowRight, Cable, Sparkles } from 'lucide-react';
 import SectionTransition from '../components/home/SectionTransition';
 import HeroBackground from '../components/home/HeroBackground';
 import HandwerkCard from '../components/home/HandwerkCard';
 import EngineeringTile from '../components/home/EngineeringTile';
+import HomeContactSection from '../components/home/HomeContactSection';
 
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
