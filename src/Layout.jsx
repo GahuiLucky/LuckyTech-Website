@@ -109,10 +109,10 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h4 className="text-sm uppercase tracking-wider mb-4 text-[#C8A850]">Handwerk</h4>
               <ul className="space-y-2 text-sm text-[#F5F2EB]/60">
-                <li>Smarthome Installation</li>
-                <li>Wallbox Installation</li>
-                <li>Kabelverlegung</li>
-                <li>Reparaturen</li>
+                <li><Link to={createPageUrl('Smarthome')} className="hover:text-[#F5F2EB] transition-colors">Smarthome Installation</Link></li>
+                <li><Link to={createPageUrl('Wallbox')} className="hover:text-[#F5F2EB] transition-colors">Wallbox Installation</Link></li>
+                <li><Link to={createPageUrl('Elektroinstallation')} className="hover:text-[#F5F2EB] transition-colors">Elektroinstallation</Link></li>
+                <li><Link to={createPageUrl('Reparatur')} className="hover:text-[#F5F2EB] transition-colors">Reparatur & Service</Link></li>
               </ul>
             </div>
             <div>

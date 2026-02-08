@@ -10,24 +10,28 @@ const services = [
     tagline: 'Ein Zuhause, das mitdenkt',
     description: 'Intelligente Gebäudeautomation — von Lichtsteuerung bis Sicherheitssysteme. Wir machen Ihr Zuhause smart.',
     image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=900&q=80',
+    page: 'Smarthome',
   },
   {
     title: 'Wallbox',
     tagline: 'Elektromobilität beginnt zuhause',
     description: 'Professionelle Ladeinfrastruktur für Elektromobilität, fachgerecht installiert und optimal integriert.',
     image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=900&q=80',
+    page: 'Wallbox',
   },
   {
     title: 'Elektroinstallation',
     tagline: 'Vom Kabel bis zum Verteiler',
     description: 'Komplette Elektrik für Neubau, Sanierung und Gewerbe auf höchstem Niveau.',
     image: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=900&q=80',
+    page: 'Elektroinstallation',
   },
   {
     title: 'Reparatur',
     tagline: 'Schnelle Hilfe, wenn es zählt',
     description: 'Notdienst und Reparaturen — rund um die Uhr erreichbar, kompetent und transparent.',
     image: 'https://images.unsplash.com/photo-1581092918484-8313e1f7e8c6?w=900&q=80',
+    page: 'Reparatur',
   },
 ];
 
@@ -37,15 +41,18 @@ export default function ServiceGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#0A0A0A]/10">
       {services.map((s, i) => (
-        <motion.div
+        <Link
           key={s.title}
-          className="group relative bg-white overflow-hidden cursor-pointer"
+          to={createPageUrl(s.page)}
+          className="group relative bg-white overflow-hidden cursor-pointer block"
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
+        >
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: i * 0.1 }}
-          onMouseEnter={() => setHovered(i)}
-          onMouseLeave={() => setHovered(null)}
         >
           {/* Image */}
           <div className="relative overflow-hidden aspect-[16/10]">
@@ -85,6 +92,7 @@ export default function ServiceGrid() {
             </motion.div>
           </div>
         </motion.div>
+        </Link>
       ))}
     </div>
   );
