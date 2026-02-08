@@ -66,10 +66,8 @@ export default function About() {
               transition={{ delay: 0.4, duration: 1 }}
             >
               WO HANDWERK<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#00EAFF]">
-                AUF INNOVATION<br/>
-                TRIFFT
-              </span>
+              AUF INNOVATION<br/>
+              TRIFFT
             </motion.h1>
 
             <motion.p
@@ -92,7 +90,7 @@ export default function About() {
             >
               <Link
                 to={createPageUrl('Kontakt')}
-                className="px-8 py-4 bg-gradient-to-r from-[#C8A850] to-[#00EAFF] text-[#0A0A0A] font-bold hover:opacity-90 transition-all"
+                className="px-8 py-4 bg-white text-[#0A0A0A] font-bold hover:bg-white/90 transition-all"
               >
                 Kontakt aufnehmen
               </Link>
@@ -167,28 +165,24 @@ export default function About() {
                   icon: Zap,
                   title: 'Präzision',
                   description: 'Jedes Detail zählt. Von der Kabelverlegung bis zum finalen Prototypen.',
-                  color: '#C8A850',
                   delay: 0.1
                 },
                 {
                   icon: Lightbulb,
                   title: 'Innovation',
                   description: 'Wir denken über Konventionen hinaus und entwickeln zukunftsorientierte Lösungen.',
-                  color: '#00EAFF',
                   delay: 0.2
                 },
                 {
                   icon: Heart,
                   title: 'Leidenschaft',
                   description: 'Wir lieben, was wir tun — und das spürt man in jedem Projekt.',
-                  color: '#CDFF00',
                   delay: 0.3
                 },
                 {
                   icon: Target,
                   title: 'Qualität',
                   description: 'Kompromisslose Qualität in Handwerk und Engineering.',
-                  color: '#C8A850',
                   delay: 0.4
                 }
               ].map((value, index) => (
@@ -204,12 +198,10 @@ export default function About() {
                     stiffness: 100
                   }}
                   whileHover={{ scale: 1.05, y: -10 }}
-                  className="p-8 bg-white/5 border-2 backdrop-blur-sm hover:bg-white/10 transition-all"
-                  style={{ borderColor: `${value.color}30` }}
+                  className="p-8 bg-white/5 border border-white/20 backdrop-blur-sm hover:bg-white/10 transition-all"
                 >
                   <value.icon 
-                    className="w-12 h-12 mb-6" 
-                    style={{ color: value.color }}
+                    className="w-12 h-12 mb-6 text-white" 
                   />
                   <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
                   <p className="text-white/60 leading-relaxed">{value.description}</p>
@@ -241,8 +233,8 @@ export default function About() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="space-y-6"
               >
-                <div className="border-l-4 border-[#C8A850] pl-6">
-                  <h3 className="text-2xl font-bold mb-4 text-[#C8A850]">Handwerk</h3>
+                <div className="border-l-4 border-white/40 pl-6">
+                  <h3 className="text-2xl font-bold mb-4">Handwerk</h3>
                   <p className="text-white/70 leading-relaxed">
                     Mit über 15 Jahren Erfahrung in der Elektrotechnik kennen wir die 
                     Herausforderungen des Alltags. Jede Installation wird mit der Sorgfalt 
@@ -258,8 +250,8 @@ export default function About() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="space-y-6"
               >
-                <div className="border-l-4 border-[#00EAFF] pl-6">
-                  <h3 className="text-2xl font-bold mb-4 text-[#00EAFF]">Engineering</h3>
+                <div className="border-l-4 border-white/40 pl-6">
+                  <h3 className="text-2xl font-bold mb-4">Engineering</h3>
                   <p className="text-white/70 leading-relaxed">
                     Unser Engineering-Team verbindet technisches Know-how mit kreativem 
                     Denken. Vom ersten Konzept bis zum fertigen Prototypen begleiten wir 
@@ -285,19 +277,19 @@ export default function About() {
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div>
-                  <div className="text-4xl font-bold text-[#C8A850] mb-2">15+</div>
+                  <div className="text-4xl font-bold text-white mb-2">15+</div>
                   <div className="text-sm text-white/60">Jahre Erfahrung</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-[#00EAFF] mb-2">500+</div>
+                  <div className="text-4xl font-bold text-white mb-2">500+</div>
                   <div className="text-sm text-white/60">Projekte</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-[#CDFF00] mb-2">100%</div>
+                  <div className="text-4xl font-bold text-white mb-2">100%</div>
                   <div className="text-sm text-white/60">Kundenzufriedenheit</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-[#C8A850] mb-2">24/7</div>
+                  <div className="text-4xl font-bold text-white mb-2">24/7</div>
                   <div className="text-sm text-white/60">Support</div>
                 </div>
               </div>
@@ -323,18 +315,16 @@ export default function About() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight text-white">
               BEREIT FÜR<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#00EAFF]">
-                IHR PROJEKT?
-              </span>
+              IHR PROJEKT?
             </h2>
             <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">
               Lassen Sie uns gemeinsam etwas Außergewöhnliches schaffen
             </p>
             <Link
               to={createPageUrl('Kontakt')}
-              className="inline-flex items-center gap-3 px-12 py-6 bg-gradient-to-r from-[#C8A850] to-[#00EAFF] text-[#0A0A0A] font-bold text-lg hover:opacity-90 transition-all group"
+              className="inline-flex items-center gap-3 px-12 py-6 bg-white text-[#0A0A0A] font-bold text-lg hover:bg-white/90 transition-all group"
             >
               Jetzt Kontakt aufnehmen
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />

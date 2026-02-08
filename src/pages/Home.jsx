@@ -128,9 +128,9 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <span className="text-[#C8A850]">Elektrotechnik</span>
+              <span className="text-white/90">Elektrotechnik</span>
               <span className="text-white/40">+</span>
-              <span className="text-[#00EAFF]">Engineering</span>
+              <span className="text-white/90">Engineering</span>
             </motion.div>
           </motion.div>
         </div>
@@ -233,7 +233,7 @@ export default function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ delay: service.delay + 0.3 }}
                   >
-                    <service.icon className="w-10 h-10 mb-4 text-[#C8A850]" />
+                    <service.icon className="w-10 h-10 mb-4 text-white" />
                     <h3 className="text-3xl font-bold mb-2">{service.title}</h3>
                     <p className="text-white/70">{service.subtitle}</p>
                   </motion.div>
@@ -298,24 +298,16 @@ export default function Home() {
               y: useTransform(transitionProgress, [0, 1], [100, -100])
             }}
           >
-            <motion.div 
-              className="text-5xl md:text-7xl font-bold tracking-tighter"
-              style={{
-                background: 'linear-gradient(90deg, #C8A850, #00EAFF, #CDFF00)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
+            <div className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
               INNOVATION<br/>TRIFFT<br/>PRÄZISION
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
 
         <motion.div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'linear-gradient(45deg, transparent 48%, rgba(0, 234, 255, 0.1) 49%, rgba(0, 234, 255, 0.1) 51%, transparent 52%)',
+            backgroundImage: 'linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.03) 49%, rgba(255, 255, 255, 0.03) 51%, transparent 52%)',
             backgroundSize: '20px 20px',
             opacity: useTransform(transitionProgress, [0, 0.5, 1], [0, 0.5, 0])
           }}
@@ -330,19 +322,10 @@ export default function Home() {
         <motion.div 
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: 'linear-gradient(#00EAFF 1px, transparent 1px), linear-gradient(90deg, #00EAFF 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)',
             backgroundSize: '80px 80px',
             y: useTransform(engineeringProgress, [0, 1], [0, -150])
           }}
-        />
-
-        <motion.div 
-          className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#00EAFF] rounded-full blur-[200px] opacity-10"
-          style={{ y: useTransform(engineeringProgress, [0, 1], [0, 200]) }}
-        />
-        <motion.div 
-          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#CDFF00] rounded-full blur-[200px] opacity-10"
-          style={{ y: useTransform(engineeringProgress, [0, 1], [0, -200]) }}
         />
 
         <motion.div 
@@ -390,12 +373,12 @@ export default function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
               {[
-                { icon: Cpu, title: 'Prototyping', color: '#00EAFF', delay: 0.1 },
-                { icon: Lightbulb, title: 'Development', color: '#CDFF00', delay: 0.15 },
-                { icon: Sparkles, title: 'Innovation', color: '#C8A850', delay: 0.2 },
-                { icon: Wrench, title: 'Consulting', color: '#00EAFF', delay: 0.25 },
-                { icon: Cpu, title: 'Testing', color: '#CDFF00', delay: 0.3 },
-                { icon: Sparkles, title: '3D Design', color: '#C8A850', delay: 0.35 }
+                { icon: Cpu, title: 'Prototyping', delay: 0.1 },
+                { icon: Lightbulb, title: 'Development', delay: 0.15 },
+                { icon: Sparkles, title: 'Innovation', delay: 0.2 },
+                { icon: Wrench, title: 'Consulting', delay: 0.25 },
+                { icon: Cpu, title: 'Testing', delay: 0.3 },
+                { icon: Sparkles, title: '3D Design', delay: 0.35 }
               ].map((service, index) => (
                 <motion.div
                   key={service.title + index}
@@ -422,10 +405,9 @@ export default function Home() {
                     rotate: index % 2 === 0 ? 8 : -8,
                     y: -12
                   }}
-                  className="relative aspect-square bg-white/5 border-2 p-4 md:p-6 flex flex-col justify-end transition-all cursor-pointer backdrop-blur-sm"
-                  style={{ borderColor: `${service.color}30` }}
+                  className="relative aspect-square bg-white/5 border border-white/20 p-4 md:p-6 flex flex-col justify-end transition-all cursor-pointer backdrop-blur-sm hover:bg-white/10"
                 >
-                  <service.icon className="w-8 h-8 md:w-10 md:h-10 mb-2" style={{ color: service.color }} />
+                  <service.icon className="w-8 h-8 md:w-10 md:h-10 mb-2 text-white" />
                   <div className="text-sm md:text-base font-bold text-white">{service.title}</div>
                 </motion.div>
               ))}
@@ -481,15 +463,13 @@ export default function Home() {
                 / KONTAKT
               </motion.div>
               <motion.h2 
-                className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6"
+                className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 text-white"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] via-[#00EAFF] to-[#CDFF00]">
-                  LET'S TALK
-                </span>
+                LET'S TALK
               </motion.h2>
               <motion.p 
                 className="text-xl text-white/50 max-w-2xl mx-auto"
@@ -516,7 +496,7 @@ export default function Home() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-[#00EAFF] backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm"
                       placeholder="Ihr Name"
                     />
                   </div>
@@ -528,7 +508,7 @@ export default function Home() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-[#00EAFF] backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm"
                       placeholder="ihre@email.de"
                     />
                   </div>
@@ -539,7 +519,7 @@ export default function Home() {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-[#00EAFF] backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm"
                       placeholder="+49 123 456789"
                     />
                   </div>
@@ -551,7 +531,7 @@ export default function Home() {
                       onValueChange={(value) => setFormData({ ...formData, service_type: value })}
                       required
                     >
-                      <SelectTrigger className="bg-white/5 border-white/10 text-white focus:border-[#00EAFF] backdrop-blur-sm">
+                      <SelectTrigger className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm">
                         <SelectValue placeholder="Bitte wählen" />
                       </SelectTrigger>
                       <SelectContent className="bg-[#1A1A2E] border-white/10 backdrop-blur-xl">
@@ -568,7 +548,7 @@ export default function Home() {
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-[#00EAFF] min-h-[120px] backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 min-h-[120px] backdrop-blur-sm"
                       placeholder="Beschreiben Sie Ihr Projekt..."
                     />
                   </div>
@@ -586,7 +566,7 @@ export default function Home() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-[#00EAFF] to-[#CDFF00] hover:opacity-90 text-[#0A0A0A] font-bold py-6 text-lg border-0"
+                    className="w-full bg-white hover:bg-white/90 text-[#0A0A0A] font-bold py-6 text-lg border-0"
                   >
                     {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
                     <Send className="w-5 h-5 ml-2" />
@@ -603,9 +583,9 @@ export default function Home() {
               >
                 <div className="space-y-6">
                   {[
-                    { icon: Mail, title: 'E-Mail', value: 'info@luckytech.de', href: 'mailto:info@luckytech.de', color: '#00EAFF' },
-                    { icon: Phone, title: 'Telefon', value: '+49 123 456 7890', href: 'tel:+491234567890', color: '#CDFF00' },
-                    { icon: MapPin, title: 'Standort', value: 'Musterstraße 123\n12345 Musterstadt', color: '#C8A850' }
+                    { icon: Mail, title: 'E-Mail', value: 'info@luckytech.de', href: 'mailto:info@luckytech.de' },
+                    { icon: Phone, title: 'Telefon', value: '+49 123 456 7890', href: 'tel:+491234567890' },
+                    { icon: MapPin, title: 'Standort', value: 'Musterstraße 123\n12345 Musterstadt' }
                   ].map((contact, index) => (
                     <motion.div
                       key={contact.title}
@@ -615,8 +595,8 @@ export default function Home() {
                       transition={{ delay: 0.7 + index * 0.1 }}
                       className="flex items-start gap-4 p-6 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-white/20 transition-all"
                     >
-                      <div className="p-3 rounded-full" style={{ backgroundColor: `${contact.color}20` }}>
-                        <contact.icon className="w-6 h-6" style={{ color: contact.color }} />
+                      <div className="p-3 rounded-full bg-white/10">
+                        <contact.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h3 className="font-bold text-white mb-1">{contact.title}</h3>
@@ -640,7 +620,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 1 }}
-                  className="p-6 bg-gradient-to-br from-[#00EAFF]/10 to-[#CDFF00]/10 border border-white/10 backdrop-blur-sm"
+                  className="p-6 bg-white/5 border border-white/10 backdrop-blur-sm"
                 >
                   <h3 className="text-xl font-bold text-white mb-3">Schnelle Antwort</h3>
                   <p className="text-white/60 text-sm">

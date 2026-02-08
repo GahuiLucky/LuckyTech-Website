@@ -35,7 +35,7 @@ export default function Layout({ children, currentPageName }) {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-[#F5F2EB]/10">
         <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-          <Link to={createPageUrl('Home')} className="text-2xl font-bold tracking-tighter hover:text-[#C8A850] transition-colors">
+          <Link to={createPageUrl('Home')} className="text-2xl font-bold tracking-tighter hover:text-white/70 transition-colors">
             LUCKYTECH
           </Link>
 
@@ -45,8 +45,8 @@ export default function Layout({ children, currentPageName }) {
               <Link
                 key={item.path}
                 to={createPageUrl(item.path)}
-                className={`text-sm uppercase tracking-wider hover:text-[#C8A850] transition-colors ${
-                  currentPageName === item.path ? 'text-[#C8A850]' : ''
+                className={`text-sm uppercase tracking-wider hover:text-white/70 transition-colors ${
+                  currentPageName === item.path ? 'text-white' : 'text-white/60'
                 }`}
               >
                 {item.name}
@@ -78,8 +78,8 @@ export default function Layout({ children, currentPageName }) {
                     key={item.path}
                     to={createPageUrl(item.path)}
                     onClick={() => setMenuOpen(false)}
-                    className={`block text-2xl uppercase tracking-wider hover:text-[#C8A850] transition-colors ${
-                      currentPageName === item.path ? 'text-[#C8A850]' : ''
+                    className={`block text-2xl uppercase tracking-wider hover:text-white/70 transition-colors ${
+                      currentPageName === item.path ? 'text-white' : 'text-white/60'
                     }`}
                   >
                     {item.name}
