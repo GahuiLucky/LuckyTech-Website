@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden">
       {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center relative overflow-hidden">
+      <section className="h-screen flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
         {heroImages.map((img, index) => (
           <motion.div
             key={img}
@@ -88,7 +88,7 @@ export default function Home() {
           >
             <motion.img 
               src={img} 
-              alt="" 
+              alt={`LuckyTech background ${index + 1}`}
               className="w-full h-full object-cover"
               animate={{ scale: index === currentImageIndex ? [1, 1.15] : 1 }}
               transition={{ duration: 10, ease: "easeOut" }}
@@ -150,10 +150,36 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Puzzle Transition 1 */}
+      <div className="h-32 relative overflow-hidden bg-[#0A0A0A]">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={`puzzle1-${i}`}
+            className="absolute bg-[#F5F2EB]"
+            style={{
+              width: '25%',
+              height: '100%',
+              left: `${(i % 4) * 25}%`,
+              top: 0
+            }}
+            initial={{ y: 100, opacity: 0, rotate: -10 }}
+            whileInView={{ y: 0, opacity: 1, rotate: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: i * 0.05,
+              type: "spring",
+              stiffness: 100
+            }}
+          />
+        ))}
+      </div>
+
       {/* Handwerk Section - Light & Warm */}
       <section 
         ref={handwerkRef}
         className="min-h-screen relative py-20 md:py-32 px-6 bg-[#F5F2EB]"
+        aria-labelledby="handwerk-heading"
       >
         <motion.div 
           className="max-w-7xl mx-auto"
@@ -179,6 +205,7 @@ export default function Home() {
                 / HANDWERK
               </motion.div>
               <motion.h2 
+                id="handwerk-heading"
                 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-[#0A0A0A] mb-6"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -216,8 +243,11 @@ export default function Home() {
                     stiffness: 60
                   }}
                   whileHover={{ y: -15, scale: 1.02 }}
-                  className="group relative h-[500px] overflow-hidden cursor-pointer"
+                  className="group relative h-[500px] overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-[#0A0A0A] focus-within:ring-offset-4 focus-within:ring-offset-[#F5F2EB]"
                   style={{ transformStyle: 'preserve-3d' }}
+                  tabIndex={0}
+                  role="article"
+                  aria-label={`${service.title}: ${service.subtitle}`}
                 >
                   <motion.img 
                     src={`https://images.unsplash.com/${service.img}?w=800`}
@@ -250,20 +280,58 @@ export default function Home() {
             >
               <Link 
                 to={createPageUrl('Handwerk')} 
-                className="inline-flex items-center gap-3 text-[#0A0A0A] font-bold text-lg hover:gap-5 transition-all group border-b-2 border-[#0A0A0A] pb-1"
+                className="inline-flex items-center gap-3 text-[#0A0A0A] font-bold text-lg hover:gap-5 transition-all group border-b-2 border-[#0A0A0A] pb-1 focus:outline-none focus:ring-2 focus:ring-[#0A0A0A] focus:ring-offset-4 focus:ring-offset-[#F5F2EB]"
+                aria-label="Mehr über Handwerk erfahren"
               >
-                Mehr erfahren <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                Mehr erfahren <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" aria-hidden="true" />
               </Link>
             </motion.div>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* Dynamic Transition Section */}
+      {/* Dynamic Transition Section - Puzzle Assembly */}
       <section 
         ref={transitionRef}
         className="h-screen relative overflow-hidden bg-gradient-to-b from-[#F5F2EB] via-[#1A1A2E] to-[#0A0A0A]"
+        aria-hidden="true"
       >
+        {/* Puzzle Pieces Building Effect */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={`puzzle-piece-${i}`}
+              className="absolute bg-white/5 backdrop-blur-sm border border-white/10"
+              style={{
+                width: `${Math.random() * 15 + 10}%`,
+                height: `${Math.random() * 15 + 10}%`,
+                left: `${(i % 5) * 20}%`,
+                top: `${Math.floor(i / 5) * 25}%`,
+              }}
+              initial={{ 
+                scale: 0, 
+                rotate: Math.random() * 360,
+                x: Math.random() * 200 - 100,
+                y: Math.random() * 200 - 100,
+                opacity: 0
+              }}
+              whileInView={{ 
+                scale: 1, 
+                rotate: 0,
+                x: 0,
+                y: 0,
+                opacity: 1
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 1, 
+                delay: i * 0.05,
+                type: "spring",
+                stiffness: 80
+              }}
+            />
+          ))}
+        </div>
         <motion.div
           className="absolute inset-0"
           style={{
@@ -314,10 +382,36 @@ export default function Home() {
         />
       </section>
 
+      {/* Puzzle Transition 2 */}
+      <div className="h-32 relative overflow-hidden bg-[#F5F2EB]">
+        {[...Array(16)].map((_, i) => (
+          <motion.div
+            key={`puzzle2-${i}`}
+            className="absolute bg-[#0A0A0A]"
+            style={{
+              width: '25%',
+              height: '50%',
+              left: `${(i % 4) * 25}%`,
+              top: i < 8 ? 0 : '50%'
+            }}
+            initial={{ scale: 0, opacity: 0, rotate: 45 }}
+            whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ 
+              duration: 0.5, 
+              delay: i * 0.04,
+              type: "spring",
+              stiffness: 120
+            }}
+          />
+        ))}
+      </div>
+
       {/* Engineering Section - Dark & Tech */}
       <section 
         ref={engineeringRef}
         className="min-h-screen relative py-20 md:py-32 px-6 bg-[#0A0A0A]"
+        aria-labelledby="engineering-heading"
       >
         <motion.div 
           className="absolute inset-0 opacity-[0.02]"
@@ -352,6 +446,7 @@ export default function Home() {
                 / ENGINEERING
               </motion.div>
               <motion.h2 
+                id="engineering-heading"
                 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-6"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -405,7 +500,10 @@ export default function Home() {
                     rotate: index % 2 === 0 ? 8 : -8,
                     y: -12
                   }}
-                  className="relative aspect-square bg-white/5 border border-white/20 p-4 md:p-6 flex flex-col justify-end transition-all cursor-pointer backdrop-blur-sm hover:bg-white/10"
+                  className="relative aspect-square bg-white/5 border border-white/20 p-4 md:p-6 flex flex-col justify-end transition-all cursor-pointer backdrop-blur-sm hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
+                  tabIndex={0}
+                  role="article"
+                  aria-label={service.title}
                 >
                   <service.icon className="w-8 h-8 md:w-10 md:h-10 mb-2 text-white" />
                   <div className="text-sm md:text-base font-bold text-white">{service.title}</div>
@@ -422,19 +520,55 @@ export default function Home() {
             >
               <Link 
                 to={createPageUrl('Engineering')} 
-                className="inline-flex items-center gap-3 text-white font-bold text-lg hover:gap-5 transition-all group border-b-2 border-white pb-1"
+                className="inline-flex items-center gap-3 text-white font-bold text-lg hover:gap-5 transition-all group border-b-2 border-white pb-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-4 focus:ring-offset-[#0A0A0A]"
+                aria-label="Mehr über Engineering erfahren"
               >
-                Mehr erfahren <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                Mehr erfahren <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" aria-hidden="true" />
               </Link>
             </motion.div>
           </motion.div>
         </motion.div>
       </section>
 
+      {/* Puzzle Transition 3 */}
+      <div className="h-32 relative overflow-hidden bg-[#0A0A0A]">
+        {[...Array(24)].map((_, i) => (
+          <motion.div
+            key={`puzzle3-${i}`}
+            className="absolute"
+            style={{
+              width: `${100 / 6}%`,
+              height: '33.33%',
+              left: `${(i % 6) * (100 / 6)}%`,
+              top: `${Math.floor(i / 6) * 33.33}%`,
+              background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A2E 100%)'
+            }}
+            initial={{ 
+              y: -100, 
+              opacity: 0,
+              rotateX: 90
+            }}
+            whileInView={{ 
+              y: 0, 
+              opacity: 1,
+              rotateX: 0
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: i * 0.03,
+              type: "spring",
+              stiffness: 100
+            }}
+          />
+        ))}
+      </div>
+
       {/* Contact Section - Integrated */}
       <section 
         ref={contactRef}
         className="min-h-screen relative py-20 md:py-32 px-6 bg-gradient-to-b from-[#0A0A0A] to-[#1A1A2E]"
+        aria-labelledby="contact-heading"
       >
         <motion.div
           className="absolute inset-0 opacity-5"
@@ -463,6 +597,7 @@ export default function Home() {
                 / KONTAKT
               </motion.div>
               <motion.h2 
+                id="contact-heading"
                 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 text-white"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -489,49 +624,58 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" aria-label="Kontaktformular">
                   <div>
-                    <Label className="text-white/70 mb-2 block text-sm">Name *</Label>
+                    <Label htmlFor="contact-name" className="text-white/70 mb-2 block text-sm">Name *</Label>
                     <Input
+                      id="contact-name"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 focus:ring-2 focus:ring-white/20 backdrop-blur-sm"
                       placeholder="Ihr Name"
+                      aria-required="true"
                     />
                   </div>
 
                   <div>
-                    <Label className="text-white/70 mb-2 block text-sm">E-Mail *</Label>
+                    <Label htmlFor="contact-email" className="text-white/70 mb-2 block text-sm">E-Mail *</Label>
                     <Input
+                      id="contact-email"
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 focus:ring-2 focus:ring-white/20 backdrop-blur-sm"
                       placeholder="ihre@email.de"
+                      aria-required="true"
                     />
                   </div>
 
                   <div>
-                    <Label className="text-white/70 mb-2 block text-sm">Telefon</Label>
+                    <Label htmlFor="contact-phone" className="text-white/70 mb-2 block text-sm">Telefon</Label>
                     <Input
+                      id="contact-phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 focus:ring-2 focus:ring-white/20 backdrop-blur-sm"
                       placeholder="+49 123 456789"
                     />
                   </div>
 
                   <div>
-                    <Label className="text-white/70 mb-2 block text-sm">Interessengebiet *</Label>
+                    <Label htmlFor="contact-service" className="text-white/70 mb-2 block text-sm">Interessengebiet *</Label>
                     <Select
                       value={formData.service_type}
                       onValueChange={(value) => setFormData({ ...formData, service_type: value })}
                       required
                     >
-                      <SelectTrigger className="bg-white/5 border-white/10 text-white focus:border-white/40 backdrop-blur-sm">
+                      <SelectTrigger 
+                        id="contact-service"
+                        className="bg-white/5 border-white/10 text-white focus:border-white/40 focus:ring-2 focus:ring-white/20 backdrop-blur-sm"
+                        aria-required="true"
+                      >
                         <SelectValue placeholder="Bitte wählen" />
                       </SelectTrigger>
                       <SelectContent className="bg-[#1A1A2E] border-white/10 backdrop-blur-xl">
@@ -543,13 +687,15 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <Label className="text-white/70 mb-2 block text-sm">Nachricht *</Label>
+                    <Label htmlFor="contact-message" className="text-white/70 mb-2 block text-sm">Nachricht *</Label>
                     <Textarea
+                      id="contact-message"
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="bg-white/5 border-white/10 text-white focus:border-white/40 min-h-[120px] backdrop-blur-sm"
+                      className="bg-white/5 border-white/10 text-white focus:border-white/40 focus:ring-2 focus:ring-white/20 min-h-[120px] backdrop-blur-sm"
                       placeholder="Beschreiben Sie Ihr Projekt..."
+                      aria-required="true"
                     />
                   </div>
 
@@ -558,6 +704,8 @@ export default function Home() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="p-4 bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded"
+                      role="alert"
+                      aria-live="polite"
                     >
                       ✓ Nachricht erfolgreich gesendet!
                     </motion.div>
@@ -566,10 +714,11 @@ export default function Home() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-white hover:bg-white/90 text-[#0A0A0A] font-bold py-6 text-lg border-0"
+                    className="w-full bg-white hover:bg-white/90 focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#0A0A0A] text-[#0A0A0A] font-bold py-6 text-lg border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label={isSubmitting ? 'Nachricht wird gesendet' : 'Nachricht senden'}
                   >
                     {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
-                    <Send className="w-5 h-5 ml-2" />
+                    <Send className="w-5 h-5 ml-2" aria-hidden="true" />
                   </Button>
                 </form>
               </motion.div>
@@ -603,7 +752,8 @@ export default function Home() {
                         {contact.href ? (
                           <a 
                             href={contact.href} 
-                            className="text-white/60 hover:text-white transition-colors whitespace-pre-line"
+                            className="text-white/60 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white/40 transition-colors whitespace-pre-line"
+                            aria-label={`${contact.title}: ${contact.value}`}
                           >
                             {contact.value}
                           </a>
