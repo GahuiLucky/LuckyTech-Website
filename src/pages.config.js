@@ -52,6 +52,10 @@ import Engineering from './pages/Engineering';
 import Handwerk from './pages/Handwerk';
 import Home from './pages/Home';
 import Kontakt from './pages/Kontakt';
+import Smarthome from './pages/Smarthome';
+import Wallbox from './pages/Wallbox';
+import Elektroinstallation from './pages/Elektroinstallation';
+import Reparatur from './pages/Reparatur';
 import __Layout from './Layout.jsx';
 
 
@@ -61,6 +65,10 @@ export const PAGES = {
     "Handwerk": Handwerk,
     "Home": Home,
     "Kontakt": Kontakt,
+    "Smarthome": Smarthome,
+    "Wallbox": Wallbox,
+    "Elektroinstallation": Elektroinstallation,
+    "Reparatur": Reparatur,
 }
 
 export const pagesConfig = {
