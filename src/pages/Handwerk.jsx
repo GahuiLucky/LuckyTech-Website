@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import ProjectCarousel from '../components/handwerk/ProjectCarousel';
-import ServiceGrid from '../components/handwerk/ServiceGrid';
-import ManifestoBlock from '../components/handwerk/ManifestoBlock';
+import MarqueeStrip from '../components/handwerk/MarqueeStrip';
+import ServiceCards from '../components/handwerk/ServiceCards';
+import ProcessSteps from '../components/handwerk/ProcessSteps';
 
 export default function Handwerk() {
   const heroRef = useRef(null);
@@ -18,201 +18,191 @@ export default function Handwerk() {
   const heroScale = useTransform(heroProgress, [0, 1], [1, 1.08]);
 
   return (
-    <div className="bg-white text-[#0A0A0A]">
+    <div className="bg-[#0A0A0A] text-[#F5F2EB]">
 
-      {/* ============ HERO — Full viewport, centered type ============ */}
-      <section ref={heroRef} className="h-screen relative overflow-hidden flex items-center justify-center">
+      {/* ============ HERO — Dark, immersive, split type ============ */}
+      <section ref={heroRef} className="h-screen relative overflow-hidden flex items-end">
         <motion.div className="absolute inset-0" style={{ y: heroY, scale: heroScale }}>
           <img
             src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1920&q=80"
             alt="Elektrotechnik"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[#0A0A0A]/45" />
+          <div className="absolute inset-0 bg-[#0A0A0A]/60" />
         </motion.div>
 
         <motion.div
-          className="relative z-10 text-center px-6"
+          className="relative z-10 w-full px-6 md:px-16 pb-16 md:pb-24"
           style={{ opacity: heroOpacity }}
         >
-          <motion.h1
-            className="text-[3.5rem] md:text-[7rem] lg:text-[10rem] font-black text-white tracking-tighter leading-[0.88] uppercase"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, type: "spring", stiffness: 30 }}
-          >
-            Wir schaffen<br/>
-            <span className="text-white/40">Handwerk</span>
-          </motion.h1>
-          <motion.div
-            className="flex justify-center gap-8 mt-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-          >
-            <Link
-              to={createPageUrl('Kontakt')}
-              className="text-sm text-white/70 border-b border-white/30 pb-1 hover:text-white hover:border-white transition-all uppercase tracking-widest"
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              className="text-xs tracking-[0.4em] text-[#C8A850] uppercase mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7 }}
             >
-              Kontakt
-            </Link>
-            <span className="text-sm text-white/30 uppercase tracking-widest hidden md:block">
-              Elektroinstallation · Smarthome · E-Mobilität
-            </span>
-          </motion.div>
+              Meisterbetrieb für Elektrotechnik
+            </motion.div>
+            <motion.h1
+              className="text-[3rem] md:text-[6rem] lg:text-[9rem] font-black tracking-tighter leading-[0.85]"
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, type: "spring", stiffness: 30 }}
+            >
+              HAND—<br/>
+              <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(245,242,235,0.5)' }}>
+                WERK
+              </span>
+            </motion.h1>
+            <motion.div
+              className="flex gap-8 mt-8 items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+            >
+              <Link
+                to={createPageUrl('Kontakt')}
+                className="text-sm text-[#C8A850] border border-[#C8A850]/40 px-6 py-3 hover:bg-[#C8A850] hover:text-[#0A0A0A] transition-all uppercase tracking-widest"
+              >
+                Projekt starten
+              </Link>
+              <span className="text-sm text-white/25 uppercase tracking-widest hidden md:block">
+                Smarthome · Wallbox · Installation · Service
+              </span>
+            </motion.div>
+          </div>
         </motion.div>
       </section>
 
-      {/* ============ MANIFESTO — UNS rotating text style ============ */}
+      {/* ============ MARQUEE STRIP ============ */}
+      <MarqueeStrip />
+
+      {/* ============ INTRO — Asymmetric editorial ============ */}
       <section className="py-28 md:py-44 px-6 md:px-16">
-        <div className="max-w-6xl mx-auto">
-          <motion.p
-            className="text-xl md:text-2xl text-[#0A0A0A]/40 leading-relaxed max-w-3xl mb-20"
-            initial={{ opacity: 0, y: 30 }}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+          <motion.div
+            className="lg:col-span-5"
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8 }}
           >
-            Wir verbinden traditionelle Handwerkskunst mit modernster Technologie.
-            Jede Installation erzählt eine Geschichte von Sorgfalt, Expertise und dem
-            Anspruch, das Gewöhnliche zu übertreffen.
-          </motion.p>
-
-          <ManifestoBlock />
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95] mb-8">
+              Architektur<br/>
+              <span className="text-[#C8A850]">der</span> Elektrik
+            </h2>
+            <div className="w-16 h-px bg-[#C8A850]/40 mb-8" />
+            <p className="text-lg text-white/40 leading-relaxed">
+              Wir sehen jede Elektroinstallation als ein Designprojekt — durchdacht,
+              funktional, zukunftssicher. Von der ersten Beratung bis zur letzten Schraube.
+            </p>
+          </motion.div>
+          <motion.div
+            className="lg:col-span-7 grid grid-cols-2 gap-4"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {[
+              { value: '15+', label: 'Jahre Erfahrung' },
+              { value: '500+', label: 'Projekte realisiert' },
+              { value: '100%', label: 'Meister-Qualität' },
+              { value: '24/7', label: 'Notdienst' },
+            ].map((s, i) => (
+              <motion.div
+                key={s.label}
+                className="border border-white/8 p-6 md:p-8 hover:border-[#C8A850]/30 transition-colors"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
+              >
+                <div className="text-3xl md:text-5xl font-bold tracking-tighter text-[#C8A850] mb-2">
+                  {s.value}
+                </div>
+                <div className="text-xs text-white/30 uppercase tracking-wider">{s.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* ============ FEATURED PROJECTS — Horizontal scroll like UNS ============ */}
-      <section className="py-20 md:py-32 bg-[#F5F2EB]">
-        <ProjectCarousel />
-      </section>
-
-      {/* ============ PHILOSOPHY — Large image + editorial text ============ */}
-      <section className="bg-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]">
-          {/* Image */}
-          <div className="relative overflow-hidden min-h-[50vh]">
-            <motion.img
-              src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80"
-              alt="Werkstatt"
-              className="w-full h-full object-cover"
-              initial={{ scale: 1.1 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2 }}
-            />
-          </div>
-
-          {/* Text */}
-          <div className="flex flex-col justify-center p-10 md:p-20 lg:p-28">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
+      {/* ============ SERVICE CARDS — Full-bleed vertical cards ============ */}
+      <section>
+        <div className="px-6 md:px-16 mb-12">
+          <div className="max-w-7xl mx-auto">
+            <motion.h2
+              className="text-5xl md:text-7xl font-bold tracking-tighter"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.05] mb-8">
-                Architektur<br/>
-                der Elektrik
-              </h2>
-              <p className="text-lg text-[#0A0A0A]/50 leading-relaxed mb-6">
-                Unsere Arbeit beginnt dort, wo andere aufhören. Wir sehen jede
-                Elektroinstallation als ein Designprojekt — durchdacht, funktional,
-                zukunftssicher.
-              </p>
-              <p className="text-lg text-[#0A0A0A]/50 leading-relaxed mb-10">
-                Als Meisterbetrieb entwickeln wir Lösungen, die über Jahrzehnte bestehen.
-                Von der Beratung bis zur letzten Schraube — Präzision in jedem Detail.
-              </p>
-              <Link
-                to={createPageUrl('Kontakt')}
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#0A0A0A] border-b border-[#0A0A0A]/20 pb-1 hover:border-[#0A0A0A] transition-all uppercase tracking-wider"
-              >
-                Projekt starten <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
+              Leistungen
+            </motion.h2>
+            <p className="text-lg text-white/30 mt-4 max-w-lg">
+              Vier Kernbereiche. Eine Philosophie: Präzision in jedem Detail.
+            </p>
           </div>
         </div>
+        <ServiceCards />
       </section>
 
-      {/* ============ SERVICES — UNS grid with clean cards ============ */}
-      <section className="py-24 md:py-36 px-6 md:px-16 bg-white">
+      {/* ============ PROCESS — Interactive accordion ============ */}
+      <section className="py-24 md:py-36 px-6 md:px-16">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="mb-16 md:mb-24"
+            className="mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
-              Leistungen
+              So arbeiten<br/>
+              <span className="text-white/25">wir.</span>
             </h2>
-            <p className="text-lg text-[#0A0A0A]/40 mt-6 max-w-xl">
-              Umfassende Elektrotechnik-Lösungen für Wohn- und Gewerbeimmobilien.
-            </p>
           </motion.div>
         </div>
-        <div className="max-w-7xl mx-auto">
-          <ServiceGrid />
+        <div className="max-w-7xl mx-auto border border-white/10 overflow-hidden">
+          <ProcessSteps />
         </div>
       </section>
 
-      {/* ============ STATS — Clean horizontal bar ============ */}
-      <section className="bg-[#0A0A0A] py-20 md:py-28 px-6 md:px-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
-            {[
-              { value: '15+', label: 'Jahre Erfahrung' },
-              { value: '500+', label: 'Abgeschlossene Projekte' },
-              { value: '100%', label: 'Kundenzufriedenheit' },
-              { value: '24/7', label: 'Notdienst verfügbar' },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                className="text-center md:text-left"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <div className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-3">
-                  {s.value}
-                </div>
-                <div className="text-sm text-white/35 uppercase tracking-wider">
-                  {s.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      {/* ============ IMMERSIVE QUOTE ============ */}
+      <section className="relative py-32 md:py-48 px-6 md:px-16 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            alt=""
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
         </div>
-      </section>
-
-      {/* ============ FULL-BLEED IMAGE + QUOTE ============ */}
-      <section className="relative h-[60vh] md:h-[80vh] overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
-          alt="Detail"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[#0A0A0A]/50" />
-        <div className="absolute inset-0 flex items-center justify-center px-6">
-          <motion.blockquote
-            className="text-center max-w-4xl"
-            initial={{ opacity: 0, y: 30 }}
+        <div className="max-w-5xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter leading-[1.05]">
-              „Qualität ist kein Zufall — sie ist das Ergebnis von Sorgfalt und Anspruch."
-            </p>
-          </motion.blockquote>
+            <div className="w-12 h-px bg-[#C8A850] mb-10" />
+            <blockquote className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.05]">
+              „Qualität ist kein Zufall —<br/>
+              <span className="text-[#C8A850]">sie ist das Ergebnis</span><br/>
+              von Sorgfalt und Anspruch."
+            </blockquote>
+          </motion.div>
         </div>
       </section>
 
-      {/* ============ CTA — Minimal like UNS ============ */}
-      <section className="py-28 md:py-44 px-6 md:px-16 bg-white">
+      {/* ============ MARQUEE AGAIN ============ */}
+      <MarqueeStrip />
+
+      {/* ============ CTA ============ */}
+      <section className="py-28 md:py-44 px-6 md:px-16">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -221,12 +211,11 @@ export default function Handwerk() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.05] mb-8">
-              Bereit für Ihr nächstes Projekt?<br/>
-              <span className="text-[#0A0A0A]/25">Lassen Sie uns reden.</span>
+              Bereit für Ihr<br/>nächstes Projekt?
             </h2>
             <Link
               to={createPageUrl('Kontakt')}
-              className="inline-flex items-center gap-3 text-lg font-medium text-[#0A0A0A] border-b-2 border-[#0A0A0A] pb-1 hover:text-[#0A0A0A]/60 hover:border-[#0A0A0A]/60 transition-all group"
+              className="inline-flex items-center gap-3 text-lg font-medium text-[#C8A850] border-b-2 border-[#C8A850] pb-1 hover:text-white hover:border-white transition-all group"
             >
               Kontakt aufnehmen
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
