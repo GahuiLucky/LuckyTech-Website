@@ -11,7 +11,7 @@ const services = [
   {
     title: 'Smarthome',
     description: 'Intelligente Gebäudeautomation — von Lichtsteuerung bis Sicherheitssysteme.',
-    image: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80',
     features: ['Lichtsteuerung', 'Heizungsautomation', 'Sicherheitssysteme', 'Sprachassistenten']
   },
   {
