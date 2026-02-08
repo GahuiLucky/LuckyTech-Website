@@ -76,28 +76,166 @@ export default function Home() {
 
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
-      {/* Circuit Board Background - Persistent */}
-      <div className="fixed inset-0 pointer-events-none opacity-10 z-0">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          {/* Vertical Lines */}
-          <line x1="20%" y1="0" x2="20%" y2="100%" stroke="white" strokeWidth="1" opacity="0.3" />
-          <line x1="40%" y1="0" x2="40%" y2="100%" stroke="white" strokeWidth="1" opacity="0.2" />
-          <line x1="60%" y1="0" x2="60%" y2="100%" stroke="white" strokeWidth="1" opacity="0.3" />
-          <line x1="80%" y1="0" x2="80%" y2="100%" stroke="white" strokeWidth="1" opacity="0.2" />
+      {/* Circuit Board Background - Visible */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            {/* Glowing effect for animated lines */}
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Main Vertical Traces */}
+          <line x1="15%" y1="0" x2="15%" y2="100%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
+          <line x1="35%" y1="0" x2="35%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+          <line x1="50%" y1="0" x2="50%" y2="100%" stroke="rgba(255,255,255,0.2)" strokeWidth="3" />
+          <line x1="65%" y1="0" x2="65%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+          <line x1="85%" y1="0" x2="85%" y2="100%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
           
-          {/* Horizontal Lines */}
-          <line x1="0" y1="25%" x2="100%" y2="25%" stroke="white" strokeWidth="1" opacity="0.2" />
-          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="white" strokeWidth="1" opacity="0.3" />
-          <line x1="0" y1="75%" x2="100%" y2="75%" stroke="white" strokeWidth="1" opacity="0.2" />
+          {/* Horizontal Connection Traces */}
+          <line x1="0" y1="20%" x2="100%" y2="20%" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
+          <line x1="0" y1="40%" x2="100%" y2="40%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
+          <line x1="0" y1="60%" x2="100%" y2="60%" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
+          <line x1="0" y1="80%" x2="100%" y2="80%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
           
-          {/* Connection Nodes */}
-          <circle cx="20%" cy="25%" r="4" fill="white" opacity="0.4" />
-          <circle cx="40%" cy="50%" r="4" fill="white" opacity="0.4" />
-          <circle cx="60%" cy="25%" r="4" fill="white" opacity="0.4" />
-          <circle cx="80%" cy="75%" r="4" fill="white" opacity="0.4" />
-          <circle cx="20%" cy="75%" r="4" fill="white" opacity="0.4" />
-          <circle cx="80%" cy="50%" r="4" fill="white" opacity="0.4" />
+          {/* Diagonal Connections */}
+          <line x1="15%" y1="20%" x2="35%" y2="40%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+          <line x1="35%" y1="40%" x2="50%" y2="60%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+          <line x1="50%" y1="60%" x2="65%" y2="80%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+          <line x1="65%" y1="20%" x2="85%" y2="40%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+          
+          {/* Connection Nodes (Solder Pads) */}
+          <circle cx="15%" cy="20%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          <circle cx="35%" cy="40%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          <circle cx="50%" cy="60%" r="8" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
+          <circle cx="65%" cy="80%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          <circle cx="85%" cy="40%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          <circle cx="50%" cy="20%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          <circle cx="15%" cy="80%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          <circle cx="85%" cy="80%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+
+          {/* Animated Glowing Traces - Data Flow */}
+          <motion.line 
+            x1="15%" y1="0" x2="15%" y2="100%" 
+            stroke="#60A5FA" 
+            strokeWidth="3" 
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 0.8, 0.8, 0]
+            }}
+            transition={{ 
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut"
+            }}
+          />
+          
+          <motion.line 
+            x1="50%" y1="0" x2="50%" y2="100%" 
+            stroke="#F59E0B" 
+            strokeWidth="4" 
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 0.9, 0.9, 0]
+            }}
+            transition={{ 
+              duration: 5,
+              repeat: Infinity,
+              repeatDelay: 1,
+              delay: 1,
+              ease: "easeInOut"
+            }}
+          />
+
+          <motion.line 
+            x1="85%" y1="0" x2="85%" y2="100%" 
+            stroke="#A78BFA" 
+            strokeWidth="3" 
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 0.7, 0.7, 0]
+            }}
+            transition={{ 
+              duration: 4.5,
+              repeat: Infinity,
+              repeatDelay: 1.5,
+              delay: 2,
+              ease: "easeInOut"
+            }}
+          />
+
+          {/* Horizontal Animated Traces */}
+          <motion.line 
+            x1="0" y1="40%" x2="100%" y2="40%" 
+            stroke="#10B981" 
+            strokeWidth="3" 
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 0.8, 0.8, 0]
+            }}
+            transition={{ 
+              duration: 3.5,
+              repeat: Infinity,
+              repeatDelay: 2.5,
+              delay: 0.5,
+              ease: "easeInOut"
+            }}
+          />
+
+          <motion.line 
+            x1="0" y1="80%" x2="100%" y2="80%" 
+            stroke="#EC4899" 
+            strokeWidth="3" 
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 0.7, 0.7, 0]
+            }}
+            transition={{ 
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 2,
+              delay: 1.5,
+              ease: "easeInOut"
+            }}
+          />
+
+          {/* Animated Connection Nodes */}
+          <motion.circle 
+            cx="50%" cy="60%" r="8" 
+            fill="#60A5FA" 
+            filter="url(#glow)"
+            animate={{ 
+              opacity: [0.3, 1, 0.3],
+              scale: [1, 1.3, 1]
+            }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
         </svg>
+
+        {/* Additional subtle grid pattern */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px)',
+        }} />
       </div>
       
       <div className="relative z-10">
