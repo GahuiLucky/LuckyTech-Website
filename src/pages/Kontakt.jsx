@@ -47,32 +47,56 @@ export default function Kontakt() {
       {/* Hero Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-8">
-              LASSEN SIE UNS<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#3B5BDB]">
+          <div className="text-center mb-20">
+            <motion.h1 
+              className="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-8"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, type: "spring", stiffness: 40 }}
+            >
+              <motion.span
+                className="block"
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                LASSEN SIE UNS
+              </motion.span>
+              <motion.span 
+                className="block text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#3B5BDB]"
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+              >
                 SPRECHEN
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-[#F5F2EB]/60 max-w-3xl mx-auto">
+              </motion.span>
+            </motion.h1>
+            <motion.p 
+              className="text-xl md:text-2xl text-[#F5F2EB]/60 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
               Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch
-            </p>
-          </motion.div>
+            </motion.p>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 40 }}
               className="bg-[#F5F2EB]/5 border border-[#F5F2EB]/10 p-10"
             >
-              <h2 className="text-3xl font-bold mb-8">Anfrage senden</h2>
+              <motion.h2 
+                className="text-3xl font-bold mb-8"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                Anfrage senden
+              </motion.h2>
               
               {isSuccess && (
                 <motion.div
@@ -176,55 +200,56 @@ export default function Kontakt() {
 
             {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 1, delay: 0.5, type: "spring", stiffness: 40 }}
               className="space-y-12"
             >
               <div>
-                <h2 className="text-3xl font-bold mb-8">Direkter Kontakt</h2>
+                <motion.h2 
+                  className="text-3xl font-bold mb-8"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  Direkter Kontakt
+                </motion.h2>
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-[#C8A850]/10 border border-[#C8A850]/20">
-                      <Mail className="w-6 h-6 text-[#C8A850]" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">E-Mail</h3>
-                      <a href="mailto:info@luckytech.de" className="text-[#F5F2EB]/70 hover:text-[#C8A850] transition-colors">
-                        info@luckytech.de
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-[#3B5BDB]/10 border border-[#3B5BDB]/20">
-                      <Phone className="w-6 h-6 text-[#3B5BDB]" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Telefon</h3>
-                      <a href="tel:+491234567890" className="text-[#F5F2EB]/70 hover:text-[#3B5BDB] transition-colors">
-                        +49 123 456 7890
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-[#F5F2EB]/10 border border-[#F5F2EB]/20">
-                      <MapPin className="w-6 h-6 text-[#F5F2EB]" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Standort</h3>
-                      <p className="text-[#F5F2EB]/70">
-                        Musterstraße 123<br />
-                        12345 Musterstadt<br />
-                        Deutschland
-                      </p>
-                    </div>
-                  </div>
+                  {[
+                    { icon: Mail, title: 'E-Mail', content: <a href="mailto:info@luckytech.de" className="text-[#F5F2EB]/70 hover:text-[#C8A850] transition-colors">info@luckytech.de</a>, bg: 'bg-[#C8A850]/10 border-[#C8A850]/20', iconColor: 'text-[#C8A850]' },
+                    { icon: Phone, title: 'Telefon', content: <a href="tel:+491234567890" className="text-[#F5F2EB]/70 hover:text-[#3B5BDB] transition-colors">+49 123 456 7890</a>, bg: 'bg-[#3B5BDB]/10 border-[#3B5BDB]/20', iconColor: 'text-[#3B5BDB]' },
+                    { icon: MapPin, title: 'Standort', content: <p className="text-[#F5F2EB]/70">Musterstraße 123<br />12345 Musterstadt<br />Deutschland</p>, bg: 'bg-[#F5F2EB]/10 border-[#F5F2EB]/20', iconColor: 'text-[#F5F2EB]' }
+                  ].map((item, i) => (
+                    <motion.div 
+                      key={item.title}
+                      className="flex items-start gap-4"
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.8 + i * 0.15, type: "spring", stiffness: 70 }}
+                    >
+                      <motion.div 
+                        className={`p-3 ${item.bg} border`}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.4, delay: 0.9 + i * 0.15, type: "spring", stiffness: 150 }}
+                      >
+                        <item.icon className={`w-6 h-6 ${item.iconColor}`} />
+                      </motion.div>
+                      <div>
+                        <h3 className="font-bold mb-1">{item.title}</h3>
+                        {item.content}
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
 
-              <div className="bg-[#F5F2EB]/5 border border-[#F5F2EB]/10 p-8">
+              <motion.div 
+                className="bg-[#F5F2EB]/5 border border-[#F5F2EB]/10 p-8"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.3, type: "spring", stiffness: 60 }}
+              >
                 <h3 className="text-2xl font-bold mb-4">Öffnungszeiten</h3>
                 <div className="space-y-3 text-[#F5F2EB]/70">
                   <div className="flex justify-between">
@@ -247,26 +272,31 @@ export default function Kontakt() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-[#C8A850]/10 to-[#3B5BDB]/10 border border-[#F5F2EB]/10 p-8">
+              <motion.div 
+                className="bg-gradient-to-br from-[#C8A850]/10 to-[#3B5BDB]/10 border border-[#F5F2EB]/10 p-8"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.5, type: "spring", stiffness: 60 }}
+              >
                 <h3 className="text-2xl font-bold mb-4">Schnelle Antwort</h3>
                 <p className="text-[#F5F2EB]/70 mb-4">
                   Wir melden uns innerhalb von 24 Stunden bei Ihnen zurück.
                 </p>
                 <ul className="space-y-2 text-sm text-[#F5F2EB]/60">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#C8A850]" />
-                    Kostenlose Erstberatung
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#C8A850]" />
-                    Unverbindliches Angebot
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#C8A850]" />
-                    Persönliche Betreuung
-                  </li>
+                  {['Kostenlose Erstberatung', 'Unverbindliches Angebot', 'Persönliche Betreuung'].map((text, i) => (
+                    <motion.li 
+                      key={text}
+                      className="flex items-center gap-2"
+                      initial={{ opacity: 0, x: 15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 1.6 + i * 0.1 }}
+                    >
+                      <CheckCircle className="w-4 h-4 text-[#C8A850]" />
+                      {text}
+                    </motion.li>
+                  ))}
                 </ul>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
