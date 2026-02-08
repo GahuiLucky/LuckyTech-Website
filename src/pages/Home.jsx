@@ -11,9 +11,10 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CircuitBoardBg from '../components/CircuitBoardBg';
 import SectionTransition from '../components/home/SectionTransition';
+import HeroBackground from '../components/home/HeroBackground';
 
 export default function Home() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [heroReady, setHeroReady] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,17 +49,9 @@ export default function Home() {
     offset: ["start end", "end start"]
   });
 
-  const heroImages = [
-    'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1920',
-    'https://images.unsplash.com/photo-1581092918484-8313e1f7e8c6?w=1920',
-    'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1920',
-  ];
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    const t = setTimeout(() => setHeroReady(true), 200);
+    return () => clearTimeout(t);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -81,74 +74,78 @@ export default function Home() {
       <CircuitBoardBg />
       
       <div className="relative z-10">
-      {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
-        {heroImages.map((img, index) => (
-          <motion.div
-            key={img}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
-            transition={{ duration: 2 }}
-          >
-            <motion.img 
-              src={img} 
-              alt={`LuckyTech background ${index + 1}`}
-              className="w-full h-full object-cover"
-              animate={{ scale: index === currentImageIndex ? [1, 1.15] : 1 }}
-              transition={{ duration: 10, ease: "easeOut" }}
-            />
-          </motion.div>
-        ))}
+      {/* Hero Section — isolated text with animated background */}
+      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-[#0A0A0A]" aria-label="Hero section">
+        {/* Animated electrotechnical canvas background */}
+        <HeroBackground />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/70 to-[#0A0A0A]" />
+        {/* Subtle vignette overlay */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(10,10,10,0.6) 100%)'
+        }} />
         
+        {/* Text layer — isolated, bold, no images behind */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: heroReady ? 1 : 0 }}
+            transition={{ duration: 0.8 }}
           >
             <motion.div
-              className="text-sm tracking-[0.4em] text-white/60 mb-8 font-mono"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              WO HANDWERK AUF INNOVATION TRIFFT
-            </motion.div>
-            
-            <motion.h1 
-              className="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tighter leading-[0.85] mb-8 text-white"
-              style={{
-                textShadow: "0 0 60px rgba(200,168,80,0.4)"
-              }}
-            >
-              LUCKYTECH
-            </motion.h1>
-            
-            <motion.div 
-              className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 text-xl md:text-2xl font-light"
+              className="text-xs md:text-sm tracking-[0.5em] text-[#C8A850]/70 mb-6 font-mono uppercase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
             >
-              <span className="text-white/90">Elektrotechnik</span>
-              <span className="text-white/40">+</span>
-              <span className="text-white/90">Engineering</span>
+              Wo Handwerk auf Innovation trifft
+            </motion.div>
+
+            {/* Main title with text-stroke outline effect like eloyb */}
+            <motion.h1
+              className="font-bold tracking-tighter leading-[0.85] mb-4"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 1, type: "spring", stiffness: 40 }}
+            >
+              <span 
+                className="block text-7xl md:text-9xl lg:text-[11rem] text-transparent"
+                style={{
+                  WebkitTextStroke: '2px rgba(245,242,235,0.9)',
+                }}
+              >
+                LUCKY
+              </span>
+              <span 
+                className="block text-7xl md:text-9xl lg:text-[11rem] text-[#F5F2EB]"
+              >
+                TECH
+              </span>
+            </motion.h1>
+
+            {/* Subtitle row */}
+            <motion.div
+              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mt-8"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.7 }}
+            >
+              <span className="text-lg md:text-xl text-[#F5F2EB]/80 font-light tracking-wider">Elektrotechnik</span>
+              <span className="hidden md:block w-12 h-px bg-[#C8A850]/50" />
+              <span className="text-lg md:text-xl text-[#F5F2EB]/80 font-light tracking-wider">Engineering</span>
             </motion.div>
           </motion.div>
         </div>
 
+        {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-            <motion.div 
-              className="w-1 h-3 bg-white/60 rounded-full"
-              animate={{ opacity: [1, 0.3, 1] }}
+          <div className="w-5 h-9 border border-white/25 rounded-full flex justify-center pt-2">
+            <motion.div
+              className="w-0.5 h-2.5 bg-white/50 rounded-full"
+              animate={{ opacity: [1, 0.2, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           </div>
