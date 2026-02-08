@@ -40,21 +40,6 @@ export default function Home() {
     return () => clearTimeout(t);
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await base44.entities.ContactInquiry.create(formData);
-      setIsSuccess(true);
-      setFormData({ name: '', email: '', phone: '', service_type: '', message: '' });
-      setTimeout(() => setIsSuccess(false), 5000);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
       {/* Animated electrotechnical canvas — full page background */}
