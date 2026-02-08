@@ -76,166 +76,146 @@ export default function Home() {
 
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
-      {/* Circuit Board Background - Visible */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      {/* Circuit Board Background - 3D Style with Glowing Tracks */}
+      <div className="fixed inset-0 pointer-events-none z-[5] opacity-40">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <defs>
-            {/* Glowing effect for animated lines */}
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            {/* Strong glow effect */}
+            <filter id="strongGlow">
+              <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
               <feMerge>
+                <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
+            
+            {/* Gradient for tracks */}
+            <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#06b6d4', stopOpacity: 0.8 }} />
+              <stop offset="100%" style={{ stopColor: '#0891b2', stopOpacity: 0.4 }} />
+            </linearGradient>
+            
+            <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#f97316', stopOpacity: 0.8 }} />
+              <stop offset="100%" style={{ stopColor: '#ea580c', stopOpacity: 0.4 }} />
+            </linearGradient>
           </defs>
 
-          {/* Main Vertical Traces */}
-          <line x1="15%" y1="0" x2="15%" y2="100%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
-          <line x1="35%" y1="0" x2="35%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-          <line x1="50%" y1="0" x2="50%" y2="100%" stroke="rgba(255,255,255,0.2)" strokeWidth="3" />
-          <line x1="65%" y1="0" x2="65%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-          <line x1="85%" y1="0" x2="85%" y2="100%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
-          
-          {/* Horizontal Connection Traces */}
-          <line x1="0" y1="20%" x2="100%" y2="20%" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
-          <line x1="0" y1="40%" x2="100%" y2="40%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
-          <line x1="0" y1="60%" x2="100%" y2="60%" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
-          <line x1="0" y1="80%" x2="100%" y2="80%" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
-          
-          {/* Diagonal Connections */}
-          <line x1="15%" y1="20%" x2="35%" y2="40%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
-          <line x1="35%" y1="40%" x2="50%" y2="60%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
-          <line x1="50%" y1="60%" x2="65%" y2="80%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
-          <line x1="65%" y1="20%" x2="85%" y2="40%" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
-          
-          {/* Connection Nodes (Solder Pads) */}
-          <circle cx="15%" cy="20%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-          <circle cx="35%" cy="40%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-          <circle cx="50%" cy="60%" r="8" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
-          <circle cx="65%" cy="80%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-          <circle cx="85%" cy="40%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-          <circle cx="50%" cy="20%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-          <circle cx="15%" cy="80%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
-          <circle cx="85%" cy="80%" r="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+          {/* Main Circuit Tracks - Cyan/Blue Theme */}
+          <path d="M 100,0 L 100,400 L 300,400 L 300,800 L 500,800 L 500,1200" 
+                stroke="url(#cyanGrad)" strokeWidth="6" fill="none" opacity="0.6" />
+          <path d="M 300,0 L 300,300 L 600,300 L 600,700 L 900,700 L 900,1200" 
+                stroke="url(#cyanGrad)" strokeWidth="5" fill="none" opacity="0.5" />
+          <path d="M 1200,0 L 1200,500 L 900,500 L 900,900 L 600,900 L 600,1200" 
+                stroke="url(#cyanGrad)" strokeWidth="6" fill="none" opacity="0.6" />
 
-          {/* Animated Glowing Traces - Data Flow */}
-          <motion.line 
-            x1="15%" y1="0" x2="15%" y2="100%" 
-            stroke="#60A5FA" 
-            strokeWidth="3" 
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
+          {/* Orange/Amber Tracks */}
+          <path d="M 800,0 L 800,350 L 1100,350 L 1100,650 L 1400,650 L 1400,1200" 
+                stroke="url(#orangeGrad)" strokeWidth="5" fill="none" opacity="0.5" />
+          <path d="M 1600,0 L 1600,400 L 1300,400 L 1300,800 L 1000,800 L 1000,1200" 
+                stroke="url(#orangeGrad)" strokeWidth="6" fill="none" opacity="0.6" />
+
+          {/* Horizontal Connectors */}
+          <path d="M 0,200 L 400,200 L 400,250 L 800,250" 
+                stroke="#06b6d4" strokeWidth="4" fill="none" opacity="0.4" />
+          <path d="M 0,600 L 500,600 L 500,650 L 1000,650" 
+                stroke="#f97316" strokeWidth="4" fill="none" opacity="0.4" />
+          <path d="M 800,900 L 1200,900 L 1200,950 L 1920,950" 
+                stroke="#06b6d4" strokeWidth="4" fill="none" opacity="0.4" />
+
+          {/* Connection Nodes with 3D effect */}
+          <circle cx="300" cy="400" r="12" fill="#0891b2" opacity="0.7" filter="url(#strongGlow)" />
+          <circle cx="300" cy="400" r="6" fill="#06b6d4" opacity="0.9" />
+          
+          <circle cx="900" cy="700" r="12" fill="#0891b2" opacity="0.7" filter="url(#strongGlow)" />
+          <circle cx="900" cy="700" r="6" fill="#06b6d4" opacity="0.9" />
+
+          <circle cx="1100" cy="350" r="12" fill="#ea580c" opacity="0.7" filter="url(#strongGlow)" />
+          <circle cx="1100" cy="350" r="6" fill="#f97316" opacity="0.9" />
+
+          <circle cx="600" cy="900" r="12" fill="#0891b2" opacity="0.7" filter="url(#strongGlow)" />
+          <circle cx="600" cy="900" r="6" fill="#06b6d4" opacity="0.9" />
+        </svg>
+      </div>
+
+      {/* Animated Traveling Lights - Like Cars on Highway */}
+      <div className="fixed inset-0 pointer-events-none z-[6]">
+        {/* Vertical paths */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`v-light-${i}`}
+            className="absolute w-3 h-3 rounded-full"
+            style={{
+              left: i % 2 === 0 ? '100px' : '300px',
+              background: i % 2 === 0 ? 'radial-gradient(circle, #06b6d4 0%, transparent 70%)' : 'radial-gradient(circle, #f97316 0%, transparent 70%)',
+              boxShadow: i % 2 === 0 ? '0 0 20px #06b6d4' : '0 0 20px #f97316'
+            }}
+            initial={{ y: -20, opacity: 0 }}
             animate={{ 
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 0.8, 0.8, 0]
+              y: ['0vh', '100vh'],
+              opacity: [0, 1, 1, 0]
             }}
             transition={{ 
-              duration: 4,
+              duration: 3 + Math.random() * 2,
               repeat: Infinity,
-              repeatDelay: 2,
-              ease: "easeInOut"
+              delay: i * 0.5,
+              ease: "linear"
             }}
           />
-          
-          <motion.line 
-            x1="50%" y1="0" x2="50%" y2="100%" 
-            stroke="#F59E0B" 
-            strokeWidth="4" 
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
+        ))}
+
+        {/* Horizontal paths */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`h-light-${i}`}
+            className="absolute w-3 h-3 rounded-full"
+            style={{
+              top: `${20 + i * 15}%`,
+              background: i % 2 === 0 ? 'radial-gradient(circle, #06b6d4 0%, transparent 70%)' : 'radial-gradient(circle, #f97316 0%, transparent 70%)',
+              boxShadow: i % 2 === 0 ? '0 0 20px #06b6d4' : '0 0 20px #f97316'
+            }}
+            initial={{ x: '-5%', opacity: 0 }}
             animate={{ 
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 0.9, 0.9, 0]
+              x: ['-5%', '105%'],
+              opacity: [0, 1, 1, 0]
+            }}
+            transition={{ 
+              duration: 4 + Math.random() * 2,
+              repeat: Infinity,
+              delay: i * 0.7,
+              ease: "linear"
+            }}
+          />
+        ))}
+
+        {/* Diagonal traveling lights */}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={`d-light-${i}`}
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)',
+              boxShadow: '0 0 15px #f59e0b'
+            }}
+            initial={{ 
+              x: i % 2 === 0 ? '10%' : '80%',
+              y: '0%',
+              opacity: 0 
+            }}
+            animate={{ 
+              x: i % 2 === 0 ? '60%' : '30%',
+              y: '100%',
+              opacity: [0, 1, 1, 0]
             }}
             transition={{ 
               duration: 5,
               repeat: Infinity,
-              repeatDelay: 1,
-              delay: 1,
-              ease: "easeInOut"
+              delay: i * 1.2,
+              ease: "linear"
             }}
           />
-
-          <motion.line 
-            x1="85%" y1="0" x2="85%" y2="100%" 
-            stroke="#A78BFA" 
-            strokeWidth="3" 
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ 
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 0.7, 0.7, 0]
-            }}
-            transition={{ 
-              duration: 4.5,
-              repeat: Infinity,
-              repeatDelay: 1.5,
-              delay: 2,
-              ease: "easeInOut"
-            }}
-          />
-
-          {/* Horizontal Animated Traces */}
-          <motion.line 
-            x1="0" y1="40%" x2="100%" y2="40%" 
-            stroke="#10B981" 
-            strokeWidth="3" 
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ 
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 0.8, 0.8, 0]
-            }}
-            transition={{ 
-              duration: 3.5,
-              repeat: Infinity,
-              repeatDelay: 2.5,
-              delay: 0.5,
-              ease: "easeInOut"
-            }}
-          />
-
-          <motion.line 
-            x1="0" y1="80%" x2="100%" y2="80%" 
-            stroke="#EC4899" 
-            strokeWidth="3" 
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ 
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 0.7, 0.7, 0]
-            }}
-            transition={{ 
-              duration: 4,
-              repeat: Infinity,
-              repeatDelay: 2,
-              delay: 1.5,
-              ease: "easeInOut"
-            }}
-          />
-
-          {/* Animated Connection Nodes */}
-          <motion.circle 
-            cx="50%" cy="60%" r="8" 
-            fill="#60A5FA" 
-            filter="url(#glow)"
-            animate={{ 
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.3, 1]
-            }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </svg>
-
-        {/* Additional subtle grid pattern */}
-        <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px)',
-        }} />
+        ))}
       </div>
       
       <div className="relative z-10">
@@ -451,108 +431,6 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </motion.div>
-      </section>
-
-      {/* Dynamic Flowing Transition with Circuit Aesthetic */}
-      <section 
-        ref={transitionRef}
-        className="h-screen relative overflow-hidden bg-gradient-to-b from-[#F5F2EB] via-[#1A1A2E] to-[#0A0A0A]"
-        aria-hidden="true"
-      >
-        {/* Animated Circuit Lines */}
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <motion.path
-            d="M 0,200 Q 400,100 800,200 T 1600,200"
-            stroke="rgba(255,255,255,0.2)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-          />
-          <motion.path
-            d="M 0,400 Q 400,300 800,400 T 1600,400"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2.5, ease: "easeInOut", delay: 0.2 }}
-          />
-          <motion.path
-            d="M 0,600 Q 400,500 800,600 T 1600,600"
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 3, ease: "easeInOut", delay: 0.4 }}
-          />
-        </svg>
-
-        {/* Flowing Particles */}
-        <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={`particle-${i}`}
-              className="absolute w-2 h-2 bg-white rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${20 + i * 5}%`,
-              }}
-              initial={{ x: -100, opacity: 0 }}
-              whileInView={{ 
-                x: window.innerWidth + 100, 
-                opacity: [0, 1, 1, 0]
-              }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 3 + Math.random() * 2,
-                delay: i * 0.2,
-                ease: "linear"
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Central Morphing Content */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1 }}
-            className="text-center"
-          >
-            <motion.div
-              className="text-xl md:text-3xl font-light text-white/60 mb-8"
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              ELEKTRISCHE PRÄZISION
-            </motion.div>
-            <motion.div
-              className="text-6xl md:text-9xl font-bold text-white mb-8"
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-            >
-              →
-            </motion.div>
-            <motion.div
-              className="text-xl md:text-3xl font-light text-white/60"
-              initial={{ y: -50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-            >
-              INNOVATIVE LÖSUNGEN
-            </motion.div>
-          </motion.div>
-        </div>
       </section>
 
       {/* Puzzle Transition 2 */}
