@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import CircuitBoardBg from '../components/CircuitBoardBg';
 import SectionTransition from '../components/home/SectionTransition';
 import HeroBackground from '../components/home/HeroBackground';
+import HandwerkCard from '../components/home/HandwerkCard';
+import EngineeringTile from '../components/home/EngineeringTile';
 
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
@@ -211,43 +213,7 @@ export default function Home() {
                 { icon: Cable, title: 'Wallbox', subtitle: 'E-Mobility Solutions', img: 'photo-1593941707882-a5bba14938c7', delay: 0.2 },
                 { icon: Wrench, title: 'Service', subtitle: 'Wartung & Reparatur', img: 'photo-1581092160562-40aa08e78837', delay: 0.3 }
               ].map((service, index) => (
-                <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, y: 80, rotateX: 15 }}
-                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ 
-                    duration: 1, 
-                    delay: service.delay,
-                    type: "spring",
-                    stiffness: 60
-                  }}
-                  whileHover={{ y: -15, scale: 1.02 }}
-                  className="group relative h-[500px] overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-[#0A0A0A] focus-within:ring-offset-4 focus-within:ring-offset-[#F5F2EB]"
-                  style={{ transformStyle: 'preserve-3d' }}
-                  tabIndex={0}
-                  role="article"
-                  aria-label={`${service.title}: ${service.subtitle}`}
-                >
-                  <motion.img 
-                    src={`https://images.unsplash.com/${service.img}?w=800`}
-                    alt={service.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.8 }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                  <motion.div 
-                    className="absolute bottom-0 left-0 right-0 p-8 text-white"
-                    initial={{ y: 20, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ delay: service.delay + 0.3 }}
-                  >
-                    <service.icon className="w-10 h-10 mb-4 text-white" />
-                    <h3 className="text-3xl font-bold mb-2">{service.title}</h3>
-                    <p className="text-white/70">{service.subtitle}</p>
-                  </motion.div>
-                </motion.div>
+                <HandwerkCard key={service.title} service={service} index={index} />
               ))}
             </div>
 
@@ -341,39 +307,7 @@ export default function Home() {
                 { icon: Cpu, title: 'Testing', delay: 0.3 },
                 { icon: Sparkles, title: '3D Design', delay: 0.35 }
               ].map((service, index) => (
-                <motion.div
-                  key={service.title + index}
-                  initial={{ 
-                    opacity: 0, 
-                    scale: 0,
-                    rotate: index % 2 === 0 ? -30 : 30
-                  }}
-                  whileInView={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    rotate: 0
-                  }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ 
-                    duration: 0.8, 
-                    delay: service.delay,
-                    type: "spring",
-                    stiffness: 150,
-                    damping: 12
-                  }}
-                  whileHover={{ 
-                    scale: 1.15, 
-                    rotate: index % 2 === 0 ? 8 : -8,
-                    y: -12
-                  }}
-                  className="relative aspect-square bg-white/5 border border-white/20 p-4 md:p-6 flex flex-col justify-end transition-all cursor-pointer backdrop-blur-sm hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0A0A0A]"
-                  tabIndex={0}
-                  role="article"
-                  aria-label={service.title}
-                >
-                  <service.icon className="w-8 h-8 md:w-10 md:h-10 mb-2 text-white" />
-                  <div className="text-sm md:text-base font-bold text-white">{service.title}</div>
-                </motion.div>
+                <EngineeringTile key={service.title + index} service={service} index={index} />
               ))}
             </div>
 
