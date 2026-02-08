@@ -270,7 +270,7 @@ export default function Kontakt() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               <motion.div 
                 className="bg-gradient-to-br from-[#C8A850]/10 to-[#3B5BDB]/10 border border-[#F5F2EB]/10 p-8"
