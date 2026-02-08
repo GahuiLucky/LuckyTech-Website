@@ -111,50 +111,20 @@ export default function Handwerk() {
       </section>
 
       {/* ===== PROCESS — Interactive steps ===== */}
-      <section className="py-24 md:py-36 px-6 md:px-16 bg-[#F5F2EB]">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="mb-16"
+      <section className="py-20 md:py-28 px-6 md:px-16 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
-              So arbeiten wir<span className="text-[#C8A850]">.</span>
-            </h2>
-            <p className="text-lg text-[#0A0A0A]/40 mt-4 max-w-md">
-              Vier Schritte von der Idee zur fertigen Installation.
-            </p>
-          </motion.div>
-        </div>
-        <div className="max-w-7xl mx-auto rounded-2xl overflow-hidden border border-[#0A0A0A]/8 bg-white">
-          <ProcessSteps />
-        </div>
-      </section>
-
-      {/* ===== IMMERSIVE IMAGE + QUOTE ===== */}
-      <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[#0A0A0A]/55" />
-        <div className="absolute inset-0 flex items-center justify-center px-6">
-          <motion.blockquote
-            className="text-center max-w-5xl"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="w-12 h-px bg-[#C8A850] mx-auto mb-10" />
-            <p className="text-3xl md:text-5xl lg:text-7xl font-bold text-white tracking-tighter leading-[1.02]">
-              „Qualität ist kein Zufall —
-              <span className="text-[#C8A850]"> sie ist Haltung.</span>"
-            </p>
-          </motion.blockquote>
+            So arbeiten wir<span className="text-[#C8A850]">.</span>
+          </motion.h2>
+          <div className="rounded-2xl overflow-hidden border border-[#0A0A0A]/8">
+            <ProcessSteps />
+          </div>
         </div>
       </section>
 
