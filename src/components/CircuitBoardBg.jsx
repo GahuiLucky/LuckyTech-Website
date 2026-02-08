@@ -1,99 +1,109 @@
 import React from 'react';
 
-// ── Realistic PCB trace layout ──
-// Main vertical bus lines (clean, parallel, evenly spaced like a real PCB)
-const busTraces = [
-  // Left bus group
-  "M 120,0 L 120,400 L 120,1000",
-  "M 160,0 L 160,320 L 280,320 L 280,1000",
-  "M 200,0 L 200,240 L 380,240 L 380,600 L 380,1000",
-  // Center-left bus
-  "M 480,0 L 480,180 L 580,180 L 580,520 L 580,1000",
-  "M 540,0 L 540,180 L 640,180 L 640,440 L 760,440 L 760,1000",
-  // Center bus
-  "M 860,0 L 860,300 L 860,1000",
-  "M 920,0 L 920,300 L 1020,300 L 1020,700 L 1020,1000",
-  // Center-right bus
-  "M 1140,0 L 1140,220 L 1240,220 L 1240,560 L 1240,1000",
-  "M 1200,0 L 1200,220 L 1340,220 L 1340,480 L 1440,480 L 1440,1000",
-  // Right bus group
-  "M 1560,0 L 1560,350 L 1560,1000",
-  "M 1620,0 L 1620,260 L 1720,260 L 1720,1000",
-  "M 1800,0 L 1800,400 L 1800,1000",
+// Realistic PCB traces — organic routing across the full viewport
+// Mix of vertical runs, angled bends, and horizontal bridges
+const traces = [
+  // Left region
+  "M 60,0 L 60,180 L 140,260 L 140,520 L 80,600 L 80,1000",
+  "M 180,0 L 180,140 L 260,140 L 260,380 L 200,460 L 200,720 L 260,800 L 260,1000",
+  "M 320,0 L 320,100 L 420,200 L 420,440 L 340,520 L 340,780 L 400,860 L 400,1000",
+  "M 50,300 L 180,300 L 260,380",
+  "M 80,600 L 200,600 L 200,720",
+  "M 0,150 L 140,150 L 140,260",
+  "M 260,800 L 400,800 L 400,860",
+  
+  // Center-left region
+  "M 500,0 L 500,220 L 580,300 L 580,500 L 520,580 L 520,840 L 580,920 L 580,1000",
+  "M 620,0 L 620,160 L 720,260 L 720,420 L 660,500 L 660,680 L 740,760 L 740,1000",
+  "M 420,200 L 500,220",
+  "M 520,580 L 660,580 L 660,680",
+  "M 580,300 L 720,300 L 720,260",
+  "M 0,460 L 120,460 L 200,460",
+  "M 340,520 L 520,520 L 520,580",
+  "M 580,920 L 740,920 L 740,1000",
+  
+  // Center region
+  "M 840,0 L 840,200 L 920,280 L 920,500 L 860,580 L 860,760 L 940,840 L 940,1000",
+  "M 980,0 L 980,120 L 1060,200 L 1060,440 L 1000,520 L 1000,700 L 1080,780 L 1080,1000",
+  "M 1120,0 L 1120,180 L 1040,260 L 1040,340 L 1120,420 L 1120,620 L 1060,700 L 1060,1000",
+  "M 720,420 L 840,420 L 920,500",
+  "M 860,580 L 1000,580 L 1000,520",
+  "M 940,840 L 1080,840 L 1080,780",
+  "M 860,760 L 1000,760 L 1000,700",
+  
+  // Center-right region
+  "M 1240,0 L 1240,160 L 1320,240 L 1320,480 L 1260,560 L 1260,740 L 1340,820 L 1340,1000",
+  "M 1380,0 L 1380,200 L 1460,280 L 1460,500 L 1400,580 L 1400,800 L 1460,880 L 1460,1000",
+  "M 1120,420 L 1240,420 L 1320,480",
+  "M 1260,560 L 1400,560 L 1400,580",
+  "M 1120,620 L 1260,620 L 1260,740",
+  
+  // Right region
+  "M 1560,0 L 1560,180 L 1640,260 L 1640,520 L 1580,600 L 1580,800 L 1660,880 L 1660,1000",
+  "M 1700,0 L 1700,140 L 1780,220 L 1780,460 L 1720,540 L 1720,720 L 1800,800 L 1800,1000",
+  "M 1840,0 L 1840,300 L 1880,360 L 1880,640 L 1840,700 L 1840,1000",
+  "M 1460,280 L 1560,280 L 1640,260",
+  "M 1580,600 L 1720,600 L 1720,540",
+  "M 1460,880 L 1660,880",
+  "M 1640,520 L 1780,520 L 1780,460",
+  "M 1800,800 L 1920,800",
+  "M 1880,360 L 1920,360",
+  "M 1840,700 L 1920,700",
+  "M 0,820 L 80,820 L 80,1000",
+  "M 0,680 L 60,680 L 140,760 L 200,760 L 200,720",
 ];
 
-// Horizontal interconnects (short, purposeful connections between buses)
-const interconnects = [
-  "M 120,400 L 280,400",
-  "M 280,520 L 380,520",
-  "M 580,340 L 760,340",
-  "M 640,600 L 760,600",
-  "M 860,460 L 1020,460",
-  "M 1020,580 L 1240,580",
-  "M 1240,380 L 1440,380",
-  "M 1560,350 L 1720,350",
-  "M 1620,500 L 1800,500",
-  "M 380,760 L 580,760",
-  "M 760,820 L 1020,820",
-  "M 1240,720 L 1440,720",
-  "M 120,680 L 280,680",
-  "M 1560,640 L 1800,640",
-];
-
-// Via / pad locations at intersections
+// Via locations at bends/intersections
 const vias = [
-  // Left group
-  { x: 120, y: 400 }, { x: 280, y: 320 }, { x: 280, y: 400 },
-  { x: 380, y: 240 }, { x: 380, y: 520 }, { x: 380, y: 600 },
-  // Center-left
-  { x: 580, y: 180 }, { x: 580, y: 340 }, { x: 580, y: 520 },
-  { x: 640, y: 440 }, { x: 760, y: 340 }, { x: 760, y: 440 },
-  { x: 760, y: 600 },
-  // Center
-  { x: 860, y: 300 }, { x: 860, y: 460 },
-  { x: 1020, y: 300 }, { x: 1020, y: 460 }, { x: 1020, y: 580 }, { x: 1020, y: 700 },
-  // Center-right
-  { x: 1240, y: 220 }, { x: 1240, y: 380 }, { x: 1240, y: 560 },
-  { x: 1340, y: 220 }, { x: 1340, y: 480 },
-  { x: 1440, y: 380 }, { x: 1440, y: 480 },
-  // Right group
-  { x: 1560, y: 350 }, { x: 1620, y: 260 },
-  { x: 1720, y: 260 }, { x: 1720, y: 350 },
-  { x: 1800, y: 400 }, { x: 1800, y: 500 },
-  // Extra horizontal endpoints
-  { x: 580, y: 760 }, { x: 380, y: 760 },
-  { x: 1020, y: 820 }, { x: 760, y: 820 },
-  { x: 1440, y: 720 }, { x: 1240, y: 720 },
-  { x: 120, y: 680 }, { x: 280, y: 680 },
-  { x: 1560, y: 640 }, { x: 1800, y: 640 },
+  { x: 60, y: 180 }, { x: 140, y: 260 }, { x: 140, y: 520 }, { x: 80, y: 600 },
+  { x: 260, y: 140 }, { x: 260, y: 380 }, { x: 200, y: 460 }, { x: 200, y: 720 }, { x: 260, y: 800 },
+  { x: 420, y: 200 }, { x: 420, y: 440 }, { x: 340, y: 520 }, { x: 340, y: 780 }, { x: 400, y: 860 },
+  { x: 500, y: 220 }, { x: 580, y: 300 }, { x: 580, y: 500 }, { x: 520, y: 580 }, { x: 520, y: 840 },
+  { x: 720, y: 260 }, { x: 720, y: 420 }, { x: 660, y: 500 }, { x: 660, y: 680 }, { x: 740, y: 760 },
+  { x: 920, y: 280 }, { x: 920, y: 500 }, { x: 860, y: 580 }, { x: 860, y: 760 }, { x: 940, y: 840 },
+  { x: 1060, y: 200 }, { x: 1060, y: 440 }, { x: 1000, y: 520 }, { x: 1000, y: 700 }, { x: 1080, y: 780 },
+  { x: 1120, y: 420 }, { x: 1120, y: 620 },
+  { x: 1320, y: 240 }, { x: 1320, y: 480 }, { x: 1260, y: 560 }, { x: 1260, y: 740 }, { x: 1340, y: 820 },
+  { x: 1460, y: 280 }, { x: 1460, y: 500 }, { x: 1400, y: 580 }, { x: 1400, y: 800 }, { x: 1460, y: 880 },
+  { x: 1640, y: 260 }, { x: 1640, y: 520 }, { x: 1580, y: 600 }, { x: 1580, y: 800 }, { x: 1660, y: 880 },
+  { x: 1780, y: 220 }, { x: 1780, y: 460 }, { x: 1720, y: 540 }, { x: 1720, y: 720 }, { x: 1800, y: 800 },
+  { x: 1880, y: 360 }, { x: 1880, y: 640 }, { x: 1840, y: 700 },
 ];
 
-// Data packet with comet trail
+// Longer paths for animated data packets (only use the long bus traces)
+const animPaths = [
+  "M 60,0 L 60,180 L 140,260 L 140,520 L 80,600 L 80,1000",
+  "M 320,0 L 320,100 L 420,200 L 420,440 L 340,520 L 340,780 L 400,860 L 400,1000",
+  "M 620,0 L 620,160 L 720,260 L 720,420 L 660,500 L 660,680 L 740,760 L 740,1000",
+  "M 840,0 L 840,200 L 920,280 L 920,500 L 860,580 L 860,760 L 940,840 L 940,1000",
+  "M 1120,0 L 1120,180 L 1040,260 L 1040,340 L 1120,420 L 1120,620 L 1060,700 L 1060,1000",
+  "M 1380,0 L 1380,200 L 1460,280 L 1460,500 L 1400,580 L 1400,800 L 1460,880 L 1460,1000",
+  "M 1560,0 L 1560,180 L 1640,260 L 1640,520 L 1580,600 L 1580,800 L 1660,880 L 1660,1000",
+  "M 1840,0 L 1840,300 L 1880,360 L 1880,640 L 1840,700 L 1840,1000",
+  "M 180,0 L 180,140 L 260,140 L 260,380 L 200,460 L 200,720 L 260,800 L 260,1000",
+  "M 980,0 L 980,120 L 1060,200 L 1060,440 L 1000,520 L 1000,700 L 1080,780 L 1080,1000",
+  "M 1700,0 L 1700,140 L 1780,220 L 1780,460 L 1720,540 L 1720,720 L 1800,800 L 1800,1000",
+];
+
 function DataPacket({ path, color, duration, delay }) {
   const glow = color === 'cyan' ? '#06b6d4' : '#f97316';
-  const trailId = `trail-${color}-${duration}-${delay}`;
   return (
     <g>
-      {/* Trail / fade behind the dot */}
-      <circle r="2" fill="none">
-        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
+      {/* Trailing glow (delayed copies create comet effect) */}
+      <circle r="14" fill={glow} opacity="0.06" filter="url(#trailBlur)">
+        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay + 0.15}s`} path={path} />
       </circle>
-      {/* Outer soft trail glow */}
-      <rect width="1" height="1" fill={`url(#${color}TrailGrad)`} opacity="0">
-        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
-      </rect>
-      {/* Trail effect: a blurred elongated shape following the path slightly behind */}
-      <circle r="12" fill={glow} opacity="0.12" filter="url(#trailBlur)">
+      <circle r="10" fill={glow} opacity="0.12" filter="url(#trailBlur)">
         <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay + 0.08}s`} path={path} />
       </circle>
-      <circle r="8" fill={glow} opacity="0.2" filter="url(#trailBlur)">
-        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay + 0.04}s`} path={path} />
+      <circle r="6" fill={glow} opacity="0.25" filter="url(#trailMed)">
+        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay + 0.03}s`} path={path} />
       </circle>
-      {/* Main bright dot */}
+      {/* Core bright dot */}
       <circle r="2.5" fill="#fff" opacity="0.95">
         <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
       </circle>
-      <circle r="5" fill={glow} opacity="0.7" filter="url(#pcbGlowSmall)">
+      <circle r="5" fill={glow} opacity="0.7" filter="url(#pcbGlow)">
         <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
       </circle>
     </g>
@@ -102,7 +112,7 @@ function DataPacket({ path, color, duration, delay }) {
 
 export default function CircuitBoardBg() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-[5]" style={{ opacity: 0.55 }}>
+    <div className="fixed inset-0 pointer-events-none z-[5]" style={{ opacity: 0.6 }}>
       <svg
         className="w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -110,101 +120,92 @@ export default function CircuitBoardBg() {
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          <filter id="pcbGlowSmall">
+          <filter id="pcbGlow">
             <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
           <filter id="trailBlur">
-            <feGaussianBlur stdDeviation="6" />
+            <feGaussianBlur stdDeviation="8" />
           </filter>
-
-          {/* Muted copper/green trace colors — like a real dark PCB */}
-          <linearGradient id="traceGradV" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3ecf8e" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#2a9d6e" stopOpacity="0.12" />
-          </linearGradient>
-          <linearGradient id="traceGradH" x1="0" y1="0" x2="1" y2="0">
+          <filter id="trailMed">
+            <feGaussianBlur stdDeviation="4" />
+          </filter>
+          <linearGradient id="traceGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#3ecf8e" stopOpacity="0.22" />
             <stop offset="100%" stopColor="#2a9d6e" stopOpacity="0.10" />
           </linearGradient>
         </defs>
 
-        {/* ── PCB substrate texture ── */}
-        {/* Very subtle grid to simulate FR4 weave */}
-        <pattern id="fr4" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-          <rect width="40" height="40" fill="none" />
-          <line x1="0" y1="0" x2="40" y2="0" stroke="#1a2e1a" strokeWidth="0.3" opacity="0.3" />
-          <line x1="0" y1="0" x2="0" y2="40" stroke="#1a2e1a" strokeWidth="0.3" opacity="0.3" />
+        {/* FR4 substrate weave */}
+        <pattern id="fr4" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="48" y2="0" stroke="#142014" strokeWidth="0.3" opacity="0.25" />
+          <line x1="0" y1="0" x2="0" y2="48" stroke="#142014" strokeWidth="0.3" opacity="0.25" />
         </pattern>
-        <rect width="1920" height="1000" fill="url(#fr4)" opacity="0.4" />
+        <rect width="1920" height="1000" fill="url(#fr4)" opacity="0.5" />
 
-        {/* ── TRACES ── */}
-        {/* Shadow / copper depth */}
-        {busTraces.map((d, i) => (
-          <path key={`bs-${i}`} d={d} stroke="#1a3a2a" strokeWidth="6" fill="none" opacity="0.15" strokeLinejoin="round" />
-        ))}
-        {interconnects.map((d, i) => (
-          <path key={`is-${i}`} d={d} stroke="#1a3a2a" strokeWidth="5" fill="none" opacity="0.12" strokeLinejoin="round" />
+        {/* Trace shadows */}
+        {traces.map((d, i) => (
+          <path key={`ts-${i}`} d={d} stroke="#12301a" strokeWidth="5" fill="none" opacity="0.18" strokeLinejoin="round" strokeLinecap="round" />
         ))}
 
         {/* Main traces */}
-        {busTraces.map((d, i) => (
-          <path key={`bt-${i}`} d={d} stroke="url(#traceGradV)" strokeWidth="2" fill="none" strokeLinejoin="round" />
-        ))}
-        {interconnects.map((d, i) => (
-          <path key={`it-${i}`} d={d} stroke="url(#traceGradH)" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
+        {traces.map((d, i) => (
+          <path key={`t-${i}`} d={d} stroke="url(#traceGrad)" strokeWidth="1.8" fill="none" strokeLinejoin="round" strokeLinecap="round" />
         ))}
 
         {/* Highlight edge */}
-        {busTraces.map((d, i) => (
-          <path key={`bh-${i}`} d={d} stroke="#5eead4" strokeWidth="0.5" fill="none" opacity="0.08" strokeLinejoin="round" />
+        {traces.map((d, i) => (
+          <path key={`th-${i}`} d={d} stroke="#5eead4" strokeWidth="0.4" fill="none" opacity="0.06" strokeLinejoin="round" strokeLinecap="round" />
         ))}
 
-        {/* ── VIAS (solder pads) ── */}
+        {/* Vias */}
         {vias.map((v, i) => (
-          <g key={`via-${i}`}>
-            <circle cx={v.x} cy={v.y} r="6" fill="#0d2818" opacity="0.6" />
-            <circle cx={v.x} cy={v.y} r="5" fill="none" stroke="#3ecf8e" strokeWidth="1" opacity="0.25" />
-            <circle cx={v.x} cy={v.y} r="2" fill="#080e0b" opacity="0.9" />
-            {/* Subtle blink */}
+          <g key={`v-${i}`}>
+            <circle cx={v.x} cy={v.y} r="5" fill="#0d2818" opacity="0.5" />
+            <circle cx={v.x} cy={v.y} r="4.5" fill="none" stroke="#3ecf8e" strokeWidth="0.8" opacity="0.2" />
+            <circle cx={v.x} cy={v.y} r="1.8" fill="#080e0b" opacity="0.85" />
+            {/* Blink */}
             <circle cx={v.x} cy={v.y} r="3" fill="#5eead4" opacity="0">
               <animate
                 attributeName="opacity"
-                values="0;0;0.6;0.6;0;0"
-                keyTimes="0;0.42;0.46;0.54;0.58;1"
-                dur={`${4 + (i % 7) * 0.8}s`}
-                begin={`${(i * 0.7) % 5}s`}
+                values="0;0;0.55;0.55;0;0"
+                keyTimes="0;0.43;0.47;0.53;0.57;1"
+                dur={`${3.5 + (i % 9) * 0.6}s`}
+                begin={`${(i * 0.53) % 6}s`}
                 repeatCount="indefinite"
               />
             </circle>
           </g>
         ))}
 
-        {/* ── DATA PACKETS with trails ── */}
-        {/* One packet per bus trace, staggered */}
-        {busTraces.map((path, i) => (
-          <React.Fragment key={`dp-${i}`}>
-            <DataPacket path={path} color="cyan" duration={5 + i * 0.5} delay={i * 0.8} />
-            {i % 3 === 0 && (
-              <DataPacket path={path} color="cyan" duration={6 + i * 0.3} delay={i * 0.8 + 3} />
-            )}
-          </React.Fragment>
+        {/* Data packets with comet trails */}
+        {animPaths.map((path, i) => (
+          <DataPacket
+            key={`dp-${i}`}
+            path={path}
+            color={i % 4 === 0 ? 'orange' : 'cyan'}
+            duration={6 + (i % 5) * 0.7}
+            delay={i * 0.9}
+          />
         ))}
-        {/* Interconnect packets — fewer, orange accent */}
-        {interconnects.filter((_, i) => i % 3 === 0).map((path, i) => (
-          <DataPacket key={`idp-${i}`} path={path} color="orange" duration={2 + i * 0.3} delay={i * 1.2 + 0.5} />
+        {/* Second wave — sparser */}
+        {animPaths.filter((_, i) => i % 3 === 0).map((path, i) => (
+          <DataPacket
+            key={`dp2-${i}`}
+            path={path}
+            color="cyan"
+            duration={7 + i * 0.5}
+            delay={i * 1.4 + 3.5}
+          />
         ))}
 
-        {/* ── SUBTLE TRACE PULSE ── */}
-        {busTraces.filter((_, i) => i % 4 === 0).map((d, i) => (
-          <path key={`tp-${i}`} d={d} stroke="#5eead4" strokeWidth="2" fill="none" opacity="0" strokeLinejoin="round">
+        {/* Ambient trace pulse */}
+        {animPaths.filter((_, i) => i % 3 === 0).map((d, i) => (
+          <path key={`ap-${i}`} d={d} stroke="#5eead4" strokeWidth="2" fill="none" opacity="0" strokeLinejoin="round">
             <animate
               attributeName="opacity"
-              values="0;0.08;0"
-              dur={`${8 + i * 2}s`}
+              values="0;0.06;0"
+              dur={`${9 + i * 2}s`}
               begin={`${i * 3}s`}
               repeatCount="indefinite"
             />
