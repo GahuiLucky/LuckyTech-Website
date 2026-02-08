@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { motion } from 'framer-motion';
-import { Send, Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Mail, Phone, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import LocationMap from '../components/kontakt/LocationMap';
+import SuccessOverlay from '../components/kontakt/SuccessOverlay';
 
 export default function Kontakt() {
   const [formData, setFormData] = useState({
@@ -18,22 +20,70 @@ export default function Kontakt() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [touched, setTouched] = useState({});
+  const [errors, setErrors] = useState({});
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'name':
+        if (!value.trim()) return 'Name ist erforderlich';
+        if (value.trim().length < 2) return 'Name muss mindestens 2 Zeichen lang sein';
+        return '';
+      case 'email':
+        if (!value.trim()) return 'E-Mail ist erforderlich';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
+        return '';
+      case 'phone':
+        if (value && !/^[+]?[\d\s()-]{6,}$/.test(value)) return 'Bitte geben Sie eine gültige Telefonnummer ein';
+        return '';
+      case 'service_type':
+        if (!value) return 'Bitte wählen Sie ein Interessengebiet';
+        return '';
+      case 'message':
+        if (!value.trim()) return 'Nachricht ist erforderlich';
+        if (value.trim().length < 10) return 'Nachricht muss mindestens 10 Zeichen lang sein';
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const handleFieldChange = (name, value) => {
+    setFormData({ ...formData, [name]: value });
+    if (touched[name]) {
+      setErrors({ ...errors, [name]: validateField(name, value) });
+    }
+  };
+
+  const handleBlur = (name) => {
+    setTouched({ ...touched, [name]: true });
+    setErrors({ ...errors, [name]: validateField(name, formData[name]) });
+  };
+
+  const validateAll = () => {
+    const newErrors = {};
+    Object.keys(formData).forEach(key => {
+      const error = validateField(key, formData[key]);
+      if (error) newErrors[key] = error;
+    });
+    setErrors(newErrors);
+    setTouched({ name: true, email: true, phone: true, service_type: true, message: true });
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateAll()) return;
     setIsSubmitting(true);
 
     try {
       await base44.entities.ContactInquiry.create(formData);
       setIsSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service_type: '',
-        message: ''
-      });
-      
+      setShowOverlay(true);
+      setFormData({ name: '', email: '', phone: '', service_type: '', message: '' });
+      setTouched({});
+      setErrors({});
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -42,8 +92,31 @@ export default function Kontakt() {
     }
   };
 
+  const FieldError = ({ name }) => (
+    <AnimatePresence>
+      {touched[name] && errors[name] && (
+        <motion.div
+          className="flex items-center gap-1.5 mt-1.5 text-red-400 text-xs"
+          initial={{ opacity: 0, y: -5, height: 0 }}
+          animate={{ opacity: 1, y: 0, height: 'auto' }}
+          exit={{ opacity: 0, y: -5, height: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <AlertCircle className="w-3 h-3 flex-shrink-0" />
+          <span>{errors[name]}</span>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
+  const fieldClass = (name) =>
+    `bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850] transition-colors ${
+      touched[name] && errors[name] ? 'border-red-400/60' : ''
+    } ${touched[name] && !errors[name] && formData[name] ? 'border-green-500/40' : ''}`;
+
   return (
     <div className="bg-[#0A0A0A] min-h-screen">
+      <SuccessOverlay show={showOverlay} onClose={() => setShowOverlay(false)} />
       {/* Hero Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
@@ -116,12 +189,13 @@ export default function Kontakt() {
                   </Label>
                   <Input
                     id="name"
-                    required
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]"
+                    onChange={(e) => handleFieldChange('name', e.target.value)}
+                    onBlur={() => handleBlur('name')}
+                    className={fieldClass('name')}
                     placeholder="Ihr Name"
                   />
+                  <FieldError name="name" />
                 </div>
 
                 <div>
@@ -131,12 +205,13 @@ export default function Kontakt() {
                   <Input
                     id="email"
                     type="email"
-                    required
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]"
+                    onChange={(e) => handleFieldChange('email', e.target.value)}
+                    onBlur={() => handleBlur('email')}
+                    className={fieldClass('email')}
                     placeholder="ihre@email.de"
                   />
+                  <FieldError name="email" />
                 </div>
 
                 <div>
@@ -147,10 +222,12 @@ export default function Kontakt() {
                     id="phone"
                     type="tel"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]"
+                    onChange={(e) => handleFieldChange('phone', e.target.value)}
+                    onBlur={() => handleBlur('phone')}
+                    className={fieldClass('phone')}
                     placeholder="+49 123 456789"
                   />
+                  <FieldError name="phone" />
                 </div>
 
                 <div>
@@ -159,10 +236,12 @@ export default function Kontakt() {
                   </Label>
                   <Select
                     value={formData.service_type}
-                    onValueChange={(value) => setFormData({ ...formData, service_type: value })}
-                    required
+                    onValueChange={(value) => {
+                      handleFieldChange('service_type', value);
+                      setTouched({ ...touched, service_type: true });
+                    }}
                   >
-                    <SelectTrigger className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]">
+                    <SelectTrigger className={fieldClass('service_type')}>
                       <SelectValue placeholder="Bitte wählen" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#0A0A0A] border-[#F5F2EB]/20">
@@ -171,6 +250,7 @@ export default function Kontakt() {
                       <SelectItem value="beide">Beide Bereiche</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FieldError name="service_type" />
                 </div>
 
                 <div>
@@ -179,12 +259,13 @@ export default function Kontakt() {
                   </Label>
                   <Textarea
                     id="message"
-                    required
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850] min-h-[150px]"
+                    onChange={(e) => handleFieldChange('message', e.target.value)}
+                    onBlur={() => handleBlur('message')}
+                    className={`${fieldClass('message')} min-h-[150px]`}
                     placeholder="Beschreiben Sie Ihr Projekt..."
                   />
+                  <FieldError name="message" />
                 </div>
 
                 <Button
@@ -271,6 +352,9 @@ export default function Kontakt() {
                   </div>
                 </div>
               </motion.div>
+
+              {/* Map */}
+              <LocationMap />
 
               <motion.div 
                 className="bg-gradient-to-br from-[#C8A850]/10 to-[#3B5BDB]/10 border border-[#F5F2EB]/10 p-8"
