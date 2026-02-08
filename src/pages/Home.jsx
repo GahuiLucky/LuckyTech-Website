@@ -9,7 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import CircuitBoardBg from '../components/CircuitBoardBg';
 import SectionTransition from '../components/home/SectionTransition';
 import HeroBackground from '../components/home/HeroBackground';
 import HandwerkCard from '../components/home/HandwerkCard';
@@ -73,15 +72,14 @@ export default function Home() {
 
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
-      <CircuitBoardBg />
-      {/* Animated electrotechnical canvas — full page fixed background */}
-      <div className="fixed inset-0 z-[6] pointer-events-none">
+      {/* Animated electrotechnical canvas — full page background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <HeroBackground />
       </div>
       
       <div className="relative z-10">
       {/* Hero Section — isolated text with animated background */}
-      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-transparent" aria-label="Hero section">
+      <section className="h-screen flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
         {/* Text layer — isolated, bold, no images behind */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
