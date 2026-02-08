@@ -155,11 +155,11 @@ export default function Home() {
       </section>
 
       {/* Puzzle Transition 1 */}
-      <div className="h-32 relative overflow-hidden bg-[#0A0A0A]">
+      <div className="h-32 relative overflow-hidden bg-[#0A0A0A]/90">
         {[...Array(12)].map((_, i) => (
           <motion.div
             key={`puzzle1-${i}`}
-            className="absolute bg-[#F5F2EB]"
+            className="absolute bg-[#F5F2EB]/95"
             style={{
               width: '25%',
               height: '100%',
@@ -182,7 +182,7 @@ export default function Home() {
       {/* Handwerk Section - Light & Warm */}
       <section 
         ref={handwerkRef}
-        className="min-h-screen relative py-20 md:py-32 px-6 bg-[#F5F2EB]"
+        className="min-h-screen relative py-20 md:py-32 px-6 bg-[#F5F2EB]/95"
         aria-labelledby="handwerk-heading"
       >
         <motion.div 
@@ -295,11 +295,11 @@ export default function Home() {
       </section>
 
       {/* Puzzle Transition 2 */}
-      <div className="h-32 relative overflow-hidden bg-[#F5F2EB]">
+      <div className="h-32 relative overflow-hidden bg-[#F5F2EB]/95">
         {[...Array(16)].map((_, i) => (
           <motion.div
             key={`puzzle2-${i}`}
-            className="absolute bg-[#0A0A0A]"
+            className="absolute bg-[#0A0A0A]/95"
             style={{
               width: '25%',
               height: '50%',
@@ -322,7 +322,7 @@ export default function Home() {
       {/* Engineering Section - Dark & Tech */}
       <section 
         ref={engineeringRef}
-        className="min-h-screen relative py-20 md:py-32 px-6 bg-[#0A0A0A]"
+        className="min-h-screen relative py-20 md:py-32 px-6 bg-[#0A0A0A]/90"
         aria-labelledby="engineering-heading"
       >
         <motion.div 
@@ -479,7 +479,7 @@ export default function Home() {
       {/* Contact Section - Integrated */}
       <section 
         ref={contactRef}
-        className="min-h-screen relative py-20 md:py-32 px-6 bg-gradient-to-b from-[#0A0A0A] to-[#1A1A2E]"
+        className="min-h-screen relative py-20 md:py-32 px-6 bg-gradient-to-b from-[#0A0A0A]/90 to-[#1A1A2E]/90"
         aria-labelledby="contact-heading"
       >
         <motion.div
