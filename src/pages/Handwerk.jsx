@@ -150,22 +150,25 @@ export default function Handwerk() {
         </div>
       </section>
 
-      {/* Services — List style like UNStudio */}
-      <section className="px-6 md:px-16 pb-24 md:pb-40">
-        <div className="max-w-7xl mx-auto">
+      {/* Services — Extravagant mixed layouts */}
+      <section className="pb-24 md:pb-40">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-16">
           <motion.div
-            className="mb-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            className="mb-20 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="text-sm tracking-[0.3em] text-[#0A0A0A]/30 uppercase">Leistungen</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mt-4">
-              Was wir für Sie tun
+            <span className="text-xs tracking-[0.4em] text-[#C8A850] uppercase">Was wir tun</span>
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mt-6">
+              Unsere Leistungen
             </h2>
+            <div className="w-24 h-px bg-[#C8A850]/40 mx-auto mt-8" />
           </motion.div>
+        </div>
 
+        <div className="max-w-[1600px] mx-auto">
           <ServiceShowcase services={services} />
         </div>
       </section>
