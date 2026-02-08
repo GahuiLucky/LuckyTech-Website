@@ -1,7 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
-// Define circuit paths - these form the PCB traces
+// Circuit paths - PCB traces with right-angle bends
 const cyanPaths = [
   "M 80,0 L 80,300 L 250,300 L 250,600 L 450,600 L 450,1000",
   "M 250,0 L 250,200 L 500,200 L 500,500 L 750,500 L 750,1000",
@@ -23,50 +22,48 @@ const horizontalPaths = [
   "M 900,150 L 1300,150 L 1300,190 L 1920,190",
 ];
 
-// Node positions (intersections)
+// Nodes at path intersections/bends — simple solder pads, no glow
 const nodes = [
   { x: 250, y: 300, color: 'cyan' },
   { x: 500, y: 200, color: 'cyan' },
   { x: 500, y: 500, color: 'cyan' },
   { x: 850, y: 400, color: 'cyan' },
+  { x: 450, y: 600, color: 'cyan' },
+  { x: 750, y: 500, color: 'cyan' },
+  { x: 1100, y: 400, color: 'cyan' },
+  { x: 1150, y: 250, color: 'cyan' },
+  { x: 850, y: 700, color: 'cyan' },
+  { x: 950, y: 550, color: 'cyan' },
   { x: 900, y: 280, color: 'orange' },
+  { x: 900, y: 580, color: 'orange' },
   { x: 1200, y: 580, color: 'orange' },
   { x: 700, y: 150, color: 'orange' },
+  { x: 700, y: 450, color: 'orange' },
   { x: 1350, y: 350, color: 'orange' },
+  { x: 1350, y: 650, color: 'orange' },
+  { x: 1050, y: 650, color: 'orange' },
   { x: 350, y: 180, color: 'cyan' },
-  { x: 1100, y: 750, color: 'cyan' },
   { x: 400, y: 500, color: 'orange' },
   { x: 200, y: 350, color: 'cyan' },
+  { x: 1100, y: 750, color: 'cyan' },
+  { x: 1300, y: 150, color: 'orange' },
 ];
 
-function TravelingLight({ path, color, duration, delay, id }) {
+function TravelingLight({ path, color, duration, delay }) {
   const glowColor = color === 'cyan' ? '#06b6d4' : '#f97316';
-  
   return (
     <>
-      <circle r="5" fill={glowColor} opacity="0.9">
-        <animateMotion
-          dur={`${duration}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-          path={path}
-        />
+      {/* Bright core */}
+      <circle r="4" fill="#fff" opacity="0.95">
+        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
       </circle>
-      <circle r="12" fill={glowColor} opacity="0.4" filter="url(#pcbGlow)">
-        <animateMotion
-          dur={`${duration}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-          path={path}
-        />
+      {/* Colored halo */}
+      <circle r="8" fill={glowColor} opacity="0.7" filter="url(#pcbGlow)">
+        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
       </circle>
-      <circle r="25" fill={glowColor} opacity="0.15" filter="url(#pcbGlow)">
-        <animateMotion
-          dur={`${duration}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-          path={path}
-        />
+      {/* Wide soft glow */}
+      <circle r="20" fill={glowColor} opacity="0.2" filter="url(#pcbGlow)">
+        <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`} path={path} />
       </circle>
     </>
   );
@@ -74,7 +71,7 @@ function TravelingLight({ path, color, duration, delay, id }) {
 
 export default function CircuitBoardBg() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-[5]" style={{ opacity: 0.55 }}>
+    <div className="fixed inset-0 pointer-events-none z-[5]" style={{ opacity: 0.7 }}>
       <svg
         className="w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -83,18 +80,8 @@ export default function CircuitBoardBg() {
       >
         <defs>
           <filter id="pcbGlow">
-            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feGaussianBlur stdDeviation="5" result="blur" />
             <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-
-          <filter id="nodeGlow">
-            <feGaussianBlur stdDeviation="10" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
               <feMergeNode in="blur" />
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -104,69 +91,71 @@ export default function CircuitBoardBg() {
 
         {/* === STATIC TRACES === */}
 
-        {/* Cyan Traces */}
+        {/* Thicker shadow traces for depth */}
         {cyanPaths.map((d, i) => (
-          <path key={`ct-${i}`} d={d} stroke="#06b6d4" strokeWidth="4" fill="none" opacity="0.35" strokeLinecap="round" strokeLinejoin="round" />
+          <path key={`ct-shadow-${i}`} d={d} stroke="#06b6d4" strokeWidth="8" fill="none" opacity="0.08" strokeLinecap="round" strokeLinejoin="round" />
+        ))}
+        {orangePaths.map((d, i) => (
+          <path key={`ot-shadow-${i}`} d={d} stroke="#f97316" strokeWidth="8" fill="none" opacity="0.08" strokeLinecap="round" strokeLinejoin="round" />
         ))}
 
-        {/* Orange Traces */}
+        {/* Main cyan traces */}
+        {cyanPaths.map((d, i) => (
+          <path key={`ct-${i}`} d={d} stroke="#06b6d4" strokeWidth="3" fill="none" opacity="0.4" strokeLinecap="round" strokeLinejoin="round" />
+        ))}
+
+        {/* Main orange traces */}
         {orangePaths.map((d, i) => (
-          <path key={`ot-${i}`} d={d} stroke="#f97316" strokeWidth="4" fill="none" opacity="0.35" strokeLinecap="round" strokeLinejoin="round" />
+          <path key={`ot-${i}`} d={d} stroke="#f97316" strokeWidth="3" fill="none" opacity="0.4" strokeLinecap="round" strokeLinejoin="round" />
         ))}
 
         {/* Horizontal connectors */}
         {horizontalPaths.map((d, i) => (
-          <path key={`hp-${i}`} d={d} stroke={i % 2 === 0 ? '#06b6d4' : '#f97316'} strokeWidth="3" fill="none" opacity="0.25" strokeLinecap="round" strokeLinejoin="round" />
+          <React.Fragment key={`hp-${i}`}>
+            <path d={d} stroke={i % 2 === 0 ? '#06b6d4' : '#f97316'} strokeWidth="6" fill="none" opacity="0.06" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={d} stroke={i % 2 === 0 ? '#06b6d4' : '#f97316'} strokeWidth="2.5" fill="none" opacity="0.3" strokeLinecap="round" strokeLinejoin="round" />
+          </React.Fragment>
         ))}
 
-        {/* === CONNECTION NODES (solder pads) === */}
+        {/* === SOLDER PAD NODES - realistic, not glowing === */}
         {nodes.map((node, i) => {
           const baseColor = node.color === 'cyan' ? '#06b6d4' : '#f97316';
-          const darkColor = node.color === 'cyan' ? '#0891b2' : '#ea580c';
+          const darkColor = node.color === 'cyan' ? '#064e5e' : '#6b2f0a';
           return (
             <g key={`node-${i}`}>
-              {/* Outer glow ring */}
-              <circle cx={node.x} cy={node.y} r="14" fill={darkColor} opacity="0.4" filter="url(#nodeGlow)" />
+              {/* Copper pad base */}
+              <circle cx={node.x} cy={node.y} r="8" fill={darkColor} opacity="0.5" />
               {/* Pad ring */}
-              <circle cx={node.x} cy={node.y} r="9" fill="none" stroke={baseColor} strokeWidth="2" opacity="0.6" />
-              {/* Inner dot */}
-              <circle cx={node.x} cy={node.y} r="4" fill={baseColor} opacity="0.9" />
-              {/* Pulsing animation */}
-              <circle cx={node.x} cy={node.y} r="9" fill="none" stroke={baseColor} strokeWidth="1.5" opacity="0.6">
-                <animate attributeName="r" values="9;18;9" dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.6;0;0.6" dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
-              </circle>
+              <circle cx={node.x} cy={node.y} r="7" fill="none" stroke={baseColor} strokeWidth="1.5" opacity="0.4" />
+              {/* Drill hole */}
+              <circle cx={node.x} cy={node.y} r="2.5" fill="#0A0A0A" opacity="0.8" />
             </g>
           );
         })}
 
-        {/* === TRAVELING LIGHTS ON TRACES (like cars on highway) === */}
+        {/* === TRAVELING LIGHTS (like cars on highway) === */}
         
-        {/* Cyan path travelers */}
         {cyanPaths.map((path, i) => (
-          <React.Fragment key={`cyan-travelers-${i}`}>
-            <TravelingLight path={path} color="cyan" duration={4 + i * 0.5} delay={i * 0.8} id={`ct-travel-${i}`} />
-            <TravelingLight path={path} color="cyan" duration={4 + i * 0.5} delay={i * 0.8 + 2} id={`ct-travel2-${i}`} />
+          <React.Fragment key={`cyan-t-${i}`}>
+            <TravelingLight path={path} color="cyan" duration={5 + i * 0.7} delay={i * 1.2} />
+            <TravelingLight path={path} color="cyan" duration={5 + i * 0.7} delay={i * 1.2 + 2.5} />
           </React.Fragment>
         ))}
 
-        {/* Orange path travelers */}
         {orangePaths.map((path, i) => (
-          <React.Fragment key={`orange-travelers-${i}`}>
-            <TravelingLight path={path} color="orange" duration={3.5 + i * 0.6} delay={i * 1.0 + 0.5} id={`ot-travel-${i}`} />
-            <TravelingLight path={path} color="orange" duration={3.5 + i * 0.6} delay={i * 1.0 + 2.5} id={`ot-travel2-${i}`} />
+          <React.Fragment key={`orange-t-${i}`}>
+            <TravelingLight path={path} color="orange" duration={4.5 + i * 0.8} delay={i * 1.1 + 0.5} />
+            <TravelingLight path={path} color="orange" duration={4.5 + i * 0.8} delay={i * 1.1 + 3} />
           </React.Fragment>
         ))}
 
-        {/* Horizontal path travelers */}
         {horizontalPaths.map((path, i) => (
           <TravelingLight
-            key={`hp-travel-${i}`}
+            key={`hp-t-${i}`}
             path={path}
             color={i % 2 === 0 ? 'cyan' : 'orange'}
-            duration={3 + i * 0.4}
-            delay={i * 0.6 + 1}
-            id={`hp-travel-${i}`}
+            duration={3.5 + i * 0.5}
+            delay={i * 0.8 + 1}
           />
         ))}
       </svg>
