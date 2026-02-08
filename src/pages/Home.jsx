@@ -75,7 +75,32 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#0A0A0A] overflow-x-hidden">
+    <div className="bg-[#0A0A0A] overflow-x-hidden relative">
+      {/* Circuit Board Background - Persistent */}
+      <div className="fixed inset-0 pointer-events-none opacity-10 z-0">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          {/* Vertical Lines */}
+          <line x1="20%" y1="0" x2="20%" y2="100%" stroke="white" strokeWidth="1" opacity="0.3" />
+          <line x1="40%" y1="0" x2="40%" y2="100%" stroke="white" strokeWidth="1" opacity="0.2" />
+          <line x1="60%" y1="0" x2="60%" y2="100%" stroke="white" strokeWidth="1" opacity="0.3" />
+          <line x1="80%" y1="0" x2="80%" y2="100%" stroke="white" strokeWidth="1" opacity="0.2" />
+          
+          {/* Horizontal Lines */}
+          <line x1="0" y1="25%" x2="100%" y2="25%" stroke="white" strokeWidth="1" opacity="0.2" />
+          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="white" strokeWidth="1" opacity="0.3" />
+          <line x1="0" y1="75%" x2="100%" y2="75%" stroke="white" strokeWidth="1" opacity="0.2" />
+          
+          {/* Connection Nodes */}
+          <circle cx="20%" cy="25%" r="4" fill="white" opacity="0.4" />
+          <circle cx="40%" cy="50%" r="4" fill="white" opacity="0.4" />
+          <circle cx="60%" cy="25%" r="4" fill="white" opacity="0.4" />
+          <circle cx="80%" cy="75%" r="4" fill="white" opacity="0.4" />
+          <circle cx="20%" cy="75%" r="4" fill="white" opacity="0.4" />
+          <circle cx="80%" cy="50%" r="4" fill="white" opacity="0.4" />
+        </svg>
+      </div>
+      
+      <div className="relative z-10">
       {/* Hero Section */}
       <section className="h-screen flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
         {heroImages.map((img, index) => (
@@ -290,96 +315,106 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Dynamic Transition Section - Puzzle Assembly */}
+      {/* Dynamic Flowing Transition with Circuit Aesthetic */}
       <section 
         ref={transitionRef}
         className="h-screen relative overflow-hidden bg-gradient-to-b from-[#F5F2EB] via-[#1A1A2E] to-[#0A0A0A]"
         aria-hidden="true"
       >
-        {/* Puzzle Pieces Building Effect */}
+        {/* Animated Circuit Lines */}
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <motion.path
+            d="M 0,200 Q 400,100 800,200 T 1600,200"
+            stroke="rgba(255,255,255,0.2)"
+            strokeWidth="2"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M 0,400 Q 400,300 800,400 T 1600,400"
+            stroke="rgba(255,255,255,0.15)"
+            strokeWidth="2"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2.5, ease: "easeInOut", delay: 0.2 }}
+          />
+          <motion.path
+            d="M 0,600 Q 400,500 800,600 T 1600,600"
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="2"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 3, ease: "easeInOut", delay: 0.4 }}
+          />
+        </svg>
+
+        {/* Flowing Particles */}
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(15)].map((_, i) => (
             <motion.div
-              key={`puzzle-piece-${i}`}
-              className="absolute bg-white/5 backdrop-blur-sm border border-white/10"
+              key={`particle-${i}`}
+              className="absolute w-2 h-2 bg-white rounded-full"
               style={{
-                width: `${Math.random() * 15 + 10}%`,
-                height: `${Math.random() * 15 + 10}%`,
-                left: `${(i % 5) * 20}%`,
-                top: `${Math.floor(i / 5) * 25}%`,
+                left: `${Math.random() * 100}%`,
+                top: `${20 + i * 5}%`,
               }}
-              initial={{ 
-                scale: 0, 
-                rotate: Math.random() * 360,
-                x: Math.random() * 200 - 100,
-                y: Math.random() * 200 - 100,
-                opacity: 0
-              }}
+              initial={{ x: -100, opacity: 0 }}
               whileInView={{ 
-                scale: 1, 
-                rotate: 0,
-                x: 0,
-                y: 0,
-                opacity: 1
+                x: window.innerWidth + 100, 
+                opacity: [0, 1, 1, 0]
               }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ 
-                duration: 1, 
-                delay: i * 0.05,
-                type: "spring",
-                stiffness: 80
+                duration: 3 + Math.random() * 2,
+                delay: i * 0.2,
+                ease: "linear"
               }}
             />
           ))}
         </div>
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            opacity: useTransform(transitionProgress, [0, 0.5, 1], [0, 1, 0]),
-            scale: useTransform(transitionProgress, [0, 0.5, 1], [0.8, 1, 1.2])
-          }}
-        >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              style={{
-                rotate: useTransform(transitionProgress, [0, 1], [0, 180]),
-                scale: useTransform(transitionProgress, [0, 0.5, 1], [0, 1.5, 0])
-              }}
-              className="w-[300px] h-[300px] md:w-[600px] md:h-[600px]"
-            >
-              <div className="absolute inset-0 border-4 border-[#C8A850] rounded-full opacity-30" />
-              <div className="absolute inset-12 border-4 border-[#00EAFF] rounded-full opacity-30" />
-              <div className="absolute inset-24 border-4 border-[#CDFF00] rounded-full opacity-30" />
-            </motion.div>
-          </div>
-        </motion.div>
 
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{
-            opacity: useTransform(transitionProgress, [0.3, 0.5, 0.7], [0, 1, 0])
-          }}
-        >
+        {/* Central Morphing Content */}
+        <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
-            className="text-center px-6"
-            style={{
-              y: useTransform(transitionProgress, [0, 1], [100, -100])
-            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1 }}
+            className="text-center"
           >
-            <div className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-              INNOVATION<br/>TRIFFT<br/>PRÄZISION
-            </div>
+            <motion.div
+              className="text-xl md:text-3xl font-light text-white/60 mb-8"
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              ELEKTRISCHE PRÄZISION
+            </motion.div>
+            <motion.div
+              className="text-6xl md:text-9xl font-bold text-white mb-8"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+            >
+              →
+            </motion.div>
+            <motion.div
+              className="text-xl md:text-3xl font-light text-white/60"
+              initial={{ y: -50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
+              INNOVATIVE LÖSUNGEN
+            </motion.div>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.03) 49%, rgba(255, 255, 255, 0.03) 51%, transparent 52%)',
-            backgroundSize: '20px 20px',
-            opacity: useTransform(transitionProgress, [0, 0.5, 1], [0, 0.5, 0])
-          }}
-        />
+        </div>
       </section>
 
       {/* Puzzle Transition 2 */}
@@ -780,8 +815,9 @@ export default function Home() {
               </motion.div>
             </div>
           </motion.div>
-        </div>
-      </section>
-    </div>
-  );
-}
+          </div>
+          </section>
+          </div>
+          </div>
+          );
+          }
