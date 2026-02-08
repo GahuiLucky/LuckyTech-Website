@@ -74,18 +74,14 @@ export default function Home() {
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
       <CircuitBoardBg />
+      {/* Animated electrotechnical canvas — full page fixed background */}
+      <div className="fixed inset-0 z-[6] pointer-events-none">
+        <HeroBackground />
+      </div>
       
       <div className="relative z-10">
       {/* Hero Section — isolated text with animated background */}
-      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-[#0A0A0A]" aria-label="Hero section">
-        {/* Animated electrotechnical canvas background */}
-        <HeroBackground />
-
-        {/* Subtle vignette overlay */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(10,10,10,0.6) 100%)'
-        }} />
-        
+      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-transparent" aria-label="Hero section">
         {/* Text layer — isolated, bold, no images behind */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
