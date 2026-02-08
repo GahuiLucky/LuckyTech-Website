@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowDown } from 'lucide-react';
-import HorizontalShowcase from '../components/handwerk/HorizontalShowcase';
-import BentoGrid from '../components/handwerk/BentoGrid';
-import NumbersTicker from '../components/handwerk/NumbersTicker';
+import ServiceTilesWithDialog from '../components/handwerk/ServiceTilesWithDialog';
 import ProcessSteps from '../components/handwerk/ProcessSteps';
 
 export default function Handwerk() {
