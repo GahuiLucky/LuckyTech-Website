@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Cpu, Lightbulb, Boxes, Sparkles, ArrowRight, ArrowDown, Search, PenTool, Cog, Rocket } from 'lucide-react';
-import HeroBackground from '../components/home/HeroBackground';
 import ServiceRow from '../components/engineering/ServiceRow';
 import ProcessRow from '../components/engineering/ProcessRow';
 import PhilosophyMarquee from '../components/engineering/PhilosophyMarquee';
@@ -63,27 +62,34 @@ export default function Engineering() {
   const lineHeight = useTransform(processProgress, [0, 1], ['0%', '100%']);
 
   return (
-    <div className="bg-[#0A0A0A] text-[#F5F2EB] overflow-x-hidden relative">
-      {/* Animated background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <HeroBackground />
-      </div>
+    <div className="bg-[#0B1A1F] text-[#E0F0F0] overflow-x-hidden relative">
+      {/* Subtle grid pattern — OXI-inspired */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03]" style={{
+        backgroundImage: 'linear-gradient(rgba(0,234,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0,234,255,0.4) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
 
       <div className="relative z-10">
         {/* ===== HERO ===== */}
         <section ref={heroRef} className="h-screen relative overflow-hidden flex flex-col justify-between">
+          {/* Ambient glow */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00EAFF] rounded-full blur-[180px] opacity-[0.06]" />
+            <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-[#3B5BDB] rounded-full blur-[150px] opacity-[0.05]" />
+          </div>
+
           <motion.div
-            className="flex-1 flex flex-col justify-between px-6 md:px-16 pt-32 pb-12"
+            className="flex-1 flex flex-col justify-between px-6 md:px-16 pt-32 pb-12 relative z-10"
             style={{ opacity: heroOpacity, y: textY }}
           >
             <div className="max-w-7xl mx-auto w-full">
               <motion.div
-                className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-8 font-mono"
+                className="text-xs tracking-[0.4em] text-[#00EAFF]/60 uppercase mb-8 font-mono"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                Innovation & Entwicklung
+                WITH INNOVATION, IDEAS BECOME REALITY
               </motion.div>
               <motion.h1
                 className="font-bold tracking-tighter leading-[0.85] mb-4"
@@ -93,32 +99,34 @@ export default function Engineering() {
               >
                 <span
                   className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-transparent"
-                  style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
+                  style={{ WebkitTextStroke: '1.5px rgba(0,234,255,0.7)' }}
                 >
                   ENGI
                 </span>
-                <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#F5F2EB]">
+                <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#E0F0F0]">
                   NEERING
                 </span>
               </motion.h1>
             </div>
 
             <div className="max-w-7xl mx-auto w-full flex items-end justify-between">
-              <motion.p
-                className="text-[#F5F2EB]/40 max-w-md text-base md:text-lg leading-relaxed hidden md:block"
+              <motion.div
+                className="hidden md:flex gap-5 font-mono text-[11px] tracking-[0.15em] text-[#E0F0F0]/30 uppercase"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                Wir denken jenseits des Gewöhnlichen. Prototypen, Produkte
-                und Lösungen — von der Vision zur Realität.
-              </motion.p>
+                <span>[Prototyping]</span>
+                <span>[Development]</span>
+                <span>[Innovation]</span>
+                <span>[Consulting]</span>
+              </motion.div>
               <motion.div
-                className="flex items-center gap-3 text-white/40"
+                className="flex items-center gap-3 text-[#00EAFF]/40"
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <span className="text-xs tracking-widest uppercase hidden md:block">Scrollen</span>
+                <span className="text-xs tracking-widest uppercase hidden md:block font-mono">Scrollen</span>
                 <ArrowDown className="w-4 h-4" />
               </motion.div>
             </div>
@@ -126,19 +134,19 @@ export default function Engineering() {
         </section>
 
         {/* ===== INTRO ===== */}
-        <section className="py-24 md:py-36 px-6 md:px-16">
+        <section className="py-24 md:py-36 px-6 md:px-16 border-t border-[#00EAFF]/[0.06]">
           <div className="max-w-4xl mx-auto">
             <motion.p
-              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.1] text-[#F5F2EB]"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.1] text-[#E0F0F0]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8 }}
             >
               Wir kombinieren technisches{' '}
-              <span className="text-[#3B5BDB]">Know-how</span> mit kreativen
+              <span className="text-[#00EAFF]">Know-how</span> mit kreativen
               Denkansätzen für Lösungen, die{' '}
-              <span className="text-[#F5F2EB]/20">begeistern.</span>
+              <span className="text-[#E0F0F0]/20">begeistern.</span>
             </motion.p>
           </div>
         </section>
@@ -149,8 +157,8 @@ export default function Engineering() {
         {/* ===== SERVICES — brutalist list ===== */}
         <section className="px-6 md:px-16 py-24 md:py-36 relative overflow-hidden">
           {/* Scanline overlay */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.012]" style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.3) 2px, rgba(59,91,219,0.3) 4px)'
+          <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,234,255,0.08) 3px, rgba(0,234,255,0.08) 4px)'
           }} />
 
           <div className="max-w-6xl mx-auto relative z-10">
@@ -162,28 +170,28 @@ export default function Engineering() {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#00EAFF]/40">
                   / CAPABILITIES
                 </span>
-                <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+                <div className="h-px flex-1 bg-[#00EAFF]/10" />
               </div>
 
               {/* Brutalist double-text heading */}
               <div className="relative">
                 <motion.h2
-                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#F5F2EB]"
+                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#E0F0F0]"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7 }}
                 >
-                  WAS WIR<br/>BAUEN<span className="text-[#3B5BDB]">.</span>
+                  WAS WIR<br/>BAUEN<span className="text-[#00EAFF]">.</span>
                 </motion.h2>
                 <motion.h2
                   className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
                   style={{
                     color: 'transparent',
-                    WebkitTextStroke: '1px rgba(59,91,219,0.1)',
+                    WebkitTextStroke: '1px rgba(0,234,255,0.08)',
                   }}
                   initial={{ opacity: 0, x: 6, y: -4 }}
                   whileInView={{ opacity: 1, x: 6, y: -4 }}
@@ -204,16 +212,16 @@ export default function Engineering() {
         </section>
 
         {/* ===== PROCESS — scroll-reveal timeline ===== */}
-        <section ref={processRef} className="relative bg-[#0A0A0A] py-32 md:py-48 px-6 md:px-16 overflow-hidden">
+        <section ref={processRef} className="relative bg-[#081518] py-32 md:py-48 px-6 md:px-16 overflow-hidden border-y border-[#00EAFF]/[0.06]">
           {/* Scanline overlay */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.012]" style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.15) 2px, rgba(59,91,219,0.15) 4px)'
+          <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,234,255,0.08) 3px, rgba(0,234,255,0.08) 4px)'
           }} />
 
           {/* Animated progress line */}
-          <div className="absolute left-6 md:left-16 top-0 bottom-0 w-px bg-white/[0.03]">
+          <div className="absolute left-6 md:left-16 top-0 bottom-0 w-px bg-[#00EAFF]/[0.04]">
             <motion.div
-              className="w-full bg-gradient-to-b from-[#3B5BDB]/30 via-[#3B5BDB]/10 to-transparent"
+              className="w-full bg-gradient-to-b from-[#00EAFF]/30 via-[#00EAFF]/10 to-transparent"
               style={{ height: lineHeight }}
             />
           </div>
@@ -228,27 +236,27 @@ export default function Engineering() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#00EAFF]/40">
                   / PROZESS
                 </span>
-                <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+                <div className="h-px flex-1 bg-[#00EAFF]/10" />
               </motion.div>
 
               <div className="relative">
                 <motion.h2
-                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-white"
+                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#E0F0F0]"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7 }}
                 >
-                  SYSTEMATIC<br/>INNOVATION<span className="text-[#3B5BDB]">.</span>
+                  SYSTEMATIC<br/>INNOVATION<span className="text-[#00EAFF]">.</span>
                 </motion.h2>
                 <motion.h2
                   className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
                   style={{
                     color: 'transparent',
-                    WebkitTextStroke: '1px rgba(59,91,219,0.1)',
+                    WebkitTextStroke: '1px rgba(0,234,255,0.08)',
                   }}
                   initial={{ opacity: 0, x: 6, y: -4 }}
                   whileInView={{ opacity: 1, x: 6, y: -4 }}
@@ -269,7 +277,7 @@ export default function Engineering() {
           </div>
         </section>
 
-        {/* ===== PHILOSOPHY ===== */}
+        {/* ===== PHILOSOPHY — OXI numbered features style ===== */}
         <section className="py-32 md:py-44 px-6 md:px-16">
           <div className="max-w-5xl mx-auto">
             <motion.div
@@ -278,24 +286,24 @@ export default function Engineering() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
             >
-              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#00EAFF]/40">
                 / PHILOSOPHIE
               </span>
-              <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+              <div className="h-px flex-1 bg-[#00EAFF]/10" />
             </motion.div>
 
             <motion.h2
-              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white mb-10"
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-[#E0F0F0] mb-10"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              DENKEN JENSEITS<br/>DES GEWÖHNLICHEN<span className="text-[#3B5BDB]">.</span>
+              DENKEN JENSEITS<br/>DES GEWÖHNLICHEN<span className="text-[#00EAFF]">.</span>
             </motion.h2>
 
             <motion.p
-              className="text-base md:text-lg text-white/30 max-w-2xl leading-relaxed font-light mb-16"
+              className="text-base md:text-lg text-[#E0F0F0]/30 max-w-2xl leading-relaxed font-light mb-16"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -306,7 +314,8 @@ export default function Engineering() {
               zu entwickeln, die nicht nur funktionieren, sondern begeistern.
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
+            {/* OXI-style numbered feature list */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
               {[
                 { title: 'Interdisziplinär', text: 'Wir verbinden verschiedene Fachbereiche für ganzheitliche Lösungen' },
                 { title: 'Agil', text: 'Schnelle Iterationen und flexible Anpassung an neue Erkenntnisse' },
@@ -314,19 +323,23 @@ export default function Engineering() {
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
-                  className="border-t border-white/[0.06] py-8 md:pr-8"
+                  className="border-t border-[#00EAFF]/[0.08] py-8 md:pr-8 group"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + i * 0.1 }}
                 >
-                  <span className="text-[10px] font-mono tracking-wider text-[#3B5BDB]/40 mb-3 block">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-white/30 font-light leading-relaxed">{item.text}</p>
+                  <div className="flex items-start gap-4">
+                    <span className="text-2xl md:text-3xl font-black text-[#00EAFF]/20 font-mono leading-none flex-shrink-0">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#E0F0F0] mb-3">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-[#E0F0F0]/30 font-light leading-relaxed">{item.text}</p>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -343,14 +356,14 @@ export default function Engineering() {
               transition={{ duration: 0.8 }}
             >
               <div className="relative mb-8">
-                <h2 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white">
-                  BEREIT FÜR<br/>IHR PROJEKT<span className="text-[#3B5BDB]">?</span>
+                <h2 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-[#E0F0F0]">
+                  BEREIT FÜR<br/>IHR PROJEKT<span className="text-[#00EAFF]">?</span>
                 </h2>
                 <h2
                   className="absolute top-0 left-0 text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] pointer-events-none select-none"
                   style={{
                     color: 'transparent',
-                    WebkitTextStroke: '1px rgba(59,91,219,0.08)',
+                    WebkitTextStroke: '1px rgba(0,234,255,0.06)',
                     transform: 'translate(5px, -3px)',
                   }}
                 >
@@ -359,7 +372,7 @@ export default function Engineering() {
               </div>
               <Link
                 to={createPageUrl('Kontakt')}
-                className="inline-flex items-center gap-3 text-lg font-medium text-[#3B5BDB] border-b-2 border-[#3B5BDB] pb-2 hover:text-white hover:border-white transition-all group"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-[#00EAFF] text-[#0B1A1F] font-bold uppercase tracking-wider hover:bg-[#E0F0F0] transition-all group"
               >
                 Projekt starten
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
