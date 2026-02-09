@@ -25,7 +25,7 @@ export default function ProcessRow({ step, index }) {
     >
       {/* Hover flash */}
       <motion.div
-        className="absolute inset-0 bg-[#00EAFF]/[0.02]"
+        className="absolute inset-0 bg-[#3B5BDB]/[0.02]"
         animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.15 }}
       />
@@ -39,7 +39,7 @@ export default function ProcessRow({ step, index }) {
               className="text-5xl md:text-7xl lg:text-8xl font-black leading-none tracking-[-0.06em] select-none transition-all duration-300 flex-shrink-0"
               style={{
                 color: 'transparent',
-                WebkitTextStroke: hovered || expanded ? '2px rgba(0,234,255,0.7)' : '1.5px rgba(255,255,255,0.06)',
+                WebkitTextStroke: hovered || expanded ? '2px rgba(59,91,219,0.7)' : '1.5px rgba(255,255,255,0.06)',
               }}
               animate={{ x: hovered ? 4 : 0 }}
               transition={{ duration: 0.3 }}
@@ -51,7 +51,7 @@ export default function ProcessRow({ step, index }) {
             <div className="relative flex-1 min-w-0">
               <h3
                 className="text-2xl md:text-5xl lg:text-6xl font-black tracking-[-0.04em] uppercase leading-none transition-colors duration-300"
-                style={{ color: hovered || expanded ? '#00EAFF' : '#F5F2EB' }}
+                style={{ color: hovered || expanded ? '#3B5BDB' : '#F5F2EB' }}
               >
                 {step.title}
               </h3>
@@ -59,7 +59,7 @@ export default function ProcessRow({ step, index }) {
                 className="absolute top-0 left-0 text-2xl md:text-5xl lg:text-6xl font-black tracking-[-0.04em] uppercase leading-none pointer-events-none select-none"
                 style={{
                   color: 'transparent',
-                  WebkitTextStroke: '1px rgba(0,234,255,0.12)',
+                  WebkitTextStroke: '1px rgba(59,91,219,0.12)',
                 }}
                 animate={{
                   x: hovered || expanded ? 5 : 0,
@@ -81,15 +81,15 @@ export default function ProcessRow({ step, index }) {
             <motion.div
               className="w-10 h-10 border flex items-center justify-center transition-all duration-300"
               style={{
-                borderColor: hovered || expanded ? 'rgba(0,234,255,0.5)' : 'rgba(255,255,255,0.06)',
-                backgroundColor: hovered || expanded ? 'rgba(0,234,255,0.05)' : 'transparent',
+                borderColor: hovered || expanded ? 'rgba(59,91,219,0.5)' : 'rgba(255,255,255,0.06)',
+                backgroundColor: hovered || expanded ? 'rgba(59,91,219,0.05)' : 'transparent',
               }}
               animate={{ rotate: hovered ? 90 : 0 }}
               transition={{ duration: 0.3 }}
             >
               <Icon
                 className="w-4 h-4 transition-colors duration-300"
-                style={{ color: hovered || expanded ? '#00EAFF' : 'rgba(255,255,255,0.12)' }}
+                style={{ color: hovered || expanded ? '#3B5BDB' : 'rgba(255,255,255,0.12)' }}
               />
             </motion.div>
           </div>
@@ -106,9 +106,9 @@ export default function ProcessRow({ step, index }) {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex items-start gap-4 pb-2">
-                <div className="w-px h-16 bg-[#00EAFF]/20 flex-shrink-0 hidden md:block" />
+                <div className="w-px h-16 bg-[#3B5BDB]/20 flex-shrink-0 hidden md:block" />
                 <div>
-                  <span className="text-[10px] font-mono tracking-[0.3em] text-[#00EAFF]/40 uppercase block mb-2">
+                  <span className="text-[10px] font-mono tracking-[0.3em] text-[#3B5BDB]/40 uppercase block mb-2">
                     {step.cmd}
                   </span>
                   <p className="text-sm md:text-base text-white/30 leading-relaxed max-w-xl font-light">
