@@ -34,10 +34,10 @@ const services = [
     title: 'Reparatur & Service',
     tagline: 'Da, wenn es zählt',
     icon: Wrench,
-    image: 'https://images.unsplash.com/photo-1581092918484-8313e1f7e8c6?w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1200&q=80',
     accent: '#3B5BDB',
-    description: 'Schnelle Hilfe bei elektrischen Problemen — von der defekten Steckdose bis zum Komplettausfall. Unser 24/7-Notdienst ist immer für Sie da.',
-    features: ['24/7 Notdienst', 'Fehlerdiagnose', 'Reparatur & Austausch', 'Sicherungswechsel', 'Geräte-Instandsetzung', 'Wartungsverträge'],
+    description: 'Schnelle Hilfe bei elektrischen Problemen — von der defekten Steckdose bis zum Komplettausfall. Zuverlässig, kompetent und fair.',
+    features: ['Fehlerdiagnose', 'Reparatur & Austausch', 'Sicherungswechsel', 'Geräte-Instandsetzung', 'Wartungsverträge', 'Störungsbehebung'],
   },
 ];
 
