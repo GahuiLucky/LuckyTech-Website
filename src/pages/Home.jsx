@@ -175,7 +175,7 @@ export default function Home() {
               {[
                 { icon: Zap, title: 'Smarthome', subtitle: 'Installation & Automatisierung', img: 'photo-1558002038-1055907df827', delay: 0.1 },
                 { icon: Cable, title: 'Wallbox', subtitle: 'E-Mobility Solutions', img: 'photo-1593941707882-a5bba14938c7', delay: 0.2 },
-                { icon: Wrench, title: 'Service', subtitle: 'Wartung & Reparatur', img: 'photo-1581092160562-40aa08e78837', delay: 0.3 }
+                { icon: Wrench, title: 'Elektroinstallation', subtitle: 'Planung & Installation', img: 'photo-1581092160562-40aa08e78837', delay: 0.3 }
               ].map((service, index) => (
                 <HandwerkCard key={service.title} service={service} index={index} />
               ))}
