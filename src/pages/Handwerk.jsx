@@ -4,7 +4,7 @@ import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import ServiceTilesWithDialog from '../components/handwerk/ServiceTilesWithDialog';
-import ProcessSteps from '../components/handwerk/ProcessSteps';
+import ScrollProcessSection from '../components/handwerk/ScrollProcessSection';
 
 export default function Handwerk() {
   const heroRef = useRef(null);
@@ -110,45 +110,8 @@ export default function Handwerk() {
         </div>
       </section>
 
-      {/* ===== PROCESS — Immersive dark section ===== */}
-      <section className="relative py-28 md:py-40 px-6 md:px-16 bg-[#0A0A0A] overflow-hidden">
-        {/* Decorative grid lines */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: 'linear-gradient(#F5F2EB 1px, transparent 1px), linear-gradient(90deg, #F5F2EB 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-        {/* Accent glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C8A850]/[0.04] rounded-full blur-[150px] pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="text-xs tracking-[0.4em] text-[#C8A850]/60 uppercase mb-4 block">Prozess</span>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-[0.9]">
-                So arbeiten<br />wir<span className="text-[#C8A850]">.</span>
-              </h2>
-            </motion.div>
-            <motion.p
-              className="text-white/30 max-w-sm text-sm md:text-base leading-relaxed"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Vier Schritte von der Idee zur fertigen Installation — transparent, termingerecht, auf den Punkt.
-            </motion.p>
-          </div>
-          <ProcessSteps />
-        </div>
-      </section>
+      {/* ===== PROCESS — Scroll-reveal timeline ===== */}
+      <ScrollProcessSection />
 
       {/* ===== CTA ===== */}
       <section className="py-28 md:py-44 px-6 md:px-16 bg-[#0A0A0A]">
