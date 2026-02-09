@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from './utils';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CustomCursor from './components/CustomCursor';
 
 export default function Layout({ children, currentPageName }) {
   const [menuOpen, setMenuOpen] = useState(false);
