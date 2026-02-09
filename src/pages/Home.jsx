@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Zap, Lightbulb, Wrench, Cpu, ArrowRight, Cable, Sparkles } from 'lucide-react';
 import SectionTransition from '../components/home/SectionTransition';
 import HeroBackground from '../components/home/HeroBackground';
-import HandwerkCard from '../components/home/HandwerkCard';
+import HandwerkListItem from '../components/home/HandwerkListItem';
 import EngineeringTile from '../components/home/EngineeringTile';
 import HomeContactSection from '../components/home/HomeContactSection';
 
