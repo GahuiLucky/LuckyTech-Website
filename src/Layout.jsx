@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from './utils';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CustomCursor from './components/CustomCursor';
 
 export default function Layout({ children, currentPageName }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +22,6 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F2EB]">
-      <CustomCursor />
       <style>{`
         :root {
           --color-dark: #0A0A0A;
