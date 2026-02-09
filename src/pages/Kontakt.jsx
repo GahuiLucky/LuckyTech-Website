@@ -1,85 +1,39 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Mail, Phone, MapPin, CheckCircle, AlertCircle, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Send, Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import SuccessOverlay from '../components/kontakt/SuccessOverlay';
-import HeroBackground from '../components/home/HeroBackground';
 
 export default function Kontakt() {
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', service_type: '', message: ''
+    name: '',
+    email: '',
+    phone: '',
+    service_type: '',
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(false);
-  const [touched, setTouched] = useState({});
-  const [errors, setErrors] = useState({});
-
-  const validateField = (name, value) => {
-    switch (name) {
-      case 'name':
-        if (!value.trim()) return 'Name ist erforderlich';
-        if (value.trim().length < 2) return 'Mind. 2 Zeichen';
-        return '';
-      case 'email':
-        if (!value.trim()) return 'E-Mail ist erforderlich';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Ungültige E-Mail';
-        return '';
-      case 'phone':
-        if (value && !/^[+]?[\d\s()-]{6,}$/.test(value)) return 'Ungültige Nummer';
-        return '';
-      case 'service_type':
-        if (!value) return 'Bitte wählen';
-        return '';
-      case 'message':
-        if (!value.trim()) return 'Nachricht ist erforderlich';
-        if (value.trim().length < 10) return 'Mind. 10 Zeichen';
-        return '';
-      default:
-        return '';
-    }
-  };
-
-  const handleFieldChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-    if (touched[name]) {
-      setErrors({ ...errors, [name]: validateField(name, value) });
-    }
-  };
-
-  const handleBlur = (name) => {
-    setTouched({ ...touched, [name]: true });
-    setErrors({ ...errors, [name]: validateField(name, formData[name]) });
-  };
-
-  const validateAll = () => {
-    const newErrors = {};
-    Object.keys(formData).forEach(key => {
-      const error = validateField(key, formData[key]);
-      if (error) newErrors[key] = error;
-    });
-    setErrors(newErrors);
-    setTouched({ name: true, email: true, phone: true, service_type: true, message: true });
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateAll()) return;
     setIsSubmitting(true);
 
     try {
       await base44.entities.ContactInquiry.create(formData);
       setIsSuccess(true);
-      setShowOverlay(true);
-      setFormData({ name: '', email: '', phone: '', service_type: '', message: '' });
-      setTouched({});
-      setErrors({});
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service_type: '',
+        message: ''
+      });
+      
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -88,241 +42,235 @@ export default function Kontakt() {
     }
   };
 
-  const FieldError = ({ name }) => (
-    <AnimatePresence>
-      {touched[name] && errors[name] && (
-        <motion.div
-          className="flex items-center gap-1 mt-1 text-red-400 text-xs"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <AlertCircle className="w-3 h-3 flex-shrink-0" />
-          <span>{errors[name]}</span>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-
-  const fc = (name) =>
-    `bg-white/5 border-white/10 text-[#F5F2EB] focus:border-[#C8A850] transition-colors backdrop-blur-sm h-9 text-sm ${
-      touched[name] && errors[name] ? 'border-red-400/60' : ''
-    } ${touched[name] && !errors[name] && formData[name] ? 'border-green-500/40' : ''}`;
-
   return (
-    <div className="bg-[#0A0A0A] h-[calc(100vh-80px)] overflow-hidden relative">
-      <SuccessOverlay show={showOverlay} onClose={() => setShowOverlay(false)} />
-      
-      {/* Animated background like homepage */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <HeroBackground />
-      </div>
-
-      <div className="relative z-10 h-full flex flex-col justify-center px-4 md:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto w-full">
-          {/* Header */}
+    <div className="bg-[#0A0A0A] min-h-screen">
+      {/* Hero Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            className="text-center mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="text-center mb-20"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-none mb-2">
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-8">
+              LASSEN SIE UNS<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#3B5BDB]">
-                LET'S TALK
+                SPRECHEN
               </span>
             </h1>
-            <p className="text-sm md:text-base text-[#F5F2EB]/50">
+            <p className="text-xl md:text-2xl text-[#F5F2EB]/60 max-w-3xl mx-auto">
               Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            {/* Form — takes 3 cols */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-3 bg-white/[0.03] border border-white/10 backdrop-blur-md p-5 md:p-6 rounded-xl"
+              className="bg-[#F5F2EB]/5 border border-[#F5F2EB]/10 p-10"
             >
+              <h2 className="text-3xl font-bold mb-8">Anfrage senden</h2>
+              
               {isSuccess && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-3 p-2.5 bg-green-500/10 border border-green-500/20 flex items-center gap-2 rounded text-sm"
+                  className="mb-6 p-4 bg-green-500/10 border border-green-500/20 flex items-center gap-3"
                 >
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <p className="text-green-500">Vielen Dank! Wir melden uns in Kürze.</p>
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <p className="text-green-500">Vielen Dank! Wir melden uns in Kürze bei Ihnen.</p>
                 </motion.div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <Label className="text-[#F5F2EB]/70 mb-1 block text-xs">Name *</Label>
-                    <Input
-                      value={formData.name}
-                      onChange={(e) => handleFieldChange('name', e.target.value)}
-                      onBlur={() => handleBlur('name')}
-                      className={fc('name')}
-                      placeholder="Ihr Name"
-                    />
-                    <FieldError name="name" />
-                  </div>
-                  <div>
-                    <Label className="text-[#F5F2EB]/70 mb-1 block text-xs">E-Mail *</Label>
-                    <Input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleFieldChange('email', e.target.value)}
-                      onBlur={() => handleBlur('email')}
-                      className={fc('email')}
-                      placeholder="ihre@email.de"
-                    />
-                    <FieldError name="email" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <Label className="text-[#F5F2EB]/70 mb-1 block text-xs">Telefon</Label>
-                    <Input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleFieldChange('phone', e.target.value)}
-                      onBlur={() => handleBlur('phone')}
-                      className={fc('phone')}
-                      placeholder="+49 123 456789"
-                    />
-                    <FieldError name="phone" />
-                  </div>
-                  <div>
-                    <Label className="text-[#F5F2EB]/70 mb-1 block text-xs">Interessengebiet *</Label>
-                    <Select
-                      value={formData.service_type}
-                      onValueChange={(value) => {
-                        handleFieldChange('service_type', value);
-                        setTouched({ ...touched, service_type: true });
-                      }}
-                    >
-                      <SelectTrigger className={fc('service_type')}>
-                        <SelectValue placeholder="Bitte wählen" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-[#0A0A0A] border-white/20">
-                        <SelectItem value="handwerk">Handwerk</SelectItem>
-                        <SelectItem value="engineering">Engineering</SelectItem>
-                        <SelectItem value="beide">Beide Bereiche</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FieldError name="service_type" />
-                  </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <Label htmlFor="name" className="text-[#F5F2EB] mb-2 block">
+                    Name *
+                  </Label>
+                  <Input
+                    id="name"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]"
+                    placeholder="Ihr Name"
+                  />
                 </div>
 
                 <div>
-                  <Label className="text-[#F5F2EB]/70 mb-1 block text-xs">Nachricht *</Label>
+                  <Label htmlFor="email" className="text-[#F5F2EB] mb-2 block">
+                    E-Mail *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]"
+                    placeholder="ihre@email.de"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone" className="text-[#F5F2EB] mb-2 block">
+                    Telefon
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]"
+                    placeholder="+49 123 456789"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="service_type" className="text-[#F5F2EB] mb-2 block">
+                    Interessengebiet *
+                  </Label>
+                  <Select
+                    value={formData.service_type}
+                    onValueChange={(value) => setFormData({ ...formData, service_type: value })}
+                    required
+                  >
+                    <SelectTrigger className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850]">
+                      <SelectValue placeholder="Bitte wählen" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#0A0A0A] border-[#F5F2EB]/20">
+                      <SelectItem value="handwerk">Handwerk (Elektrotechnik)</SelectItem>
+                      <SelectItem value="engineering">Engineering (Innovation)</SelectItem>
+                      <SelectItem value="beide">Beide Bereiche</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="message" className="text-[#F5F2EB] mb-2 block">
+                    Nachricht *
+                  </Label>
                   <Textarea
+                    id="message"
+                    required
                     value={formData.message}
-                    onChange={(e) => handleFieldChange('message', e.target.value)}
-                    onBlur={() => handleBlur('message')}
-                    className={`${fc('message')} min-h-[80px] md:min-h-[100px]`}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="bg-[#0A0A0A] border-[#F5F2EB]/20 text-[#F5F2EB] focus:border-[#C8A850] min-h-[150px]"
                     placeholder="Beschreiben Sie Ihr Projekt..."
                   />
-                  <FieldError name="message" />
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[#C8A850] to-[#3B5BDB] hover:opacity-90 text-white font-bold uppercase tracking-wider py-5 text-sm"
+                  className="w-full bg-gradient-to-r from-[#C8A850] to-[#3B5BDB] hover:opacity-90 text-white font-bold uppercase tracking-wider py-6 text-lg"
                 >
                   {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
-                  <Send className="w-4 h-4 ml-2" />
+                  <Send className="w-5 h-5 ml-2" />
                 </Button>
               </form>
             </motion.div>
 
-            {/* Right side — Contact info */}
+            {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="lg:col-span-2 flex flex-col gap-4"
+              className="space-y-12"
             >
-              {/* Contact cards */}
-              {[
-                { icon: Mail, title: 'E-Mail', value: 'info@luckytech.de', href: 'mailto:info@luckytech.de', accent: '#C8A850' },
-                { icon: Phone, title: 'Telefon', value: '+49 123 456 7890', href: 'tel:+491234567890', accent: '#3B5BDB' },
-                { icon: MapPin, title: 'Standort', value: 'Musterstraße 123, 12345 Musterstadt', accent: '#F5F2EB' },
-              ].map((c, i) => (
-                <motion.div
-                  key={c.title}
-                  className="flex items-center gap-4 p-4 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + i * 0.1 }}
-                >
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: c.accent + '15', border: `1px solid ${c.accent}30` }}>
-                    <c.icon className="w-4 h-4" style={{ color: c.accent }} />
+              <div>
+                <h2 className="text-3xl font-bold mb-8">Direkter Kontakt</h2>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-[#C8A850]/10 border border-[#C8A850]/20">
+                      <Mail className="w-6 h-6 text-[#C8A850]" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-1">E-Mail</h3>
+                      <a href="mailto:info@luckytech.de" className="text-[#F5F2EB]/70 hover:text-[#C8A850] transition-colors">
+                        info@luckytech.de
+                      </a>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <div className="text-xs text-white/40">{c.title}</div>
-                    {c.href ? (
-                      <a href={c.href} className="text-sm text-white/80 hover:text-white transition-colors truncate block">{c.value}</a>
-                    ) : (
-                      <p className="text-sm text-white/80 truncate">{c.value}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
 
-              {/* Opening hours */}
-              <motion.div
-                className="p-4 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <Clock className="w-4 h-4 text-[#C8A850]" />
-                  <h3 className="font-bold text-sm">Öffnungszeiten</h3>
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-[#3B5BDB]/10 border border-[#3B5BDB]/20">
+                      <Phone className="w-6 h-6 text-[#3B5BDB]" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-1">Telefon</h3>
+                      <a href="tel:+491234567890" className="text-[#F5F2EB]/70 hover:text-[#3B5BDB] transition-colors">
+                        +49 123 456 7890
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-[#F5F2EB]/10 border border-[#F5F2EB]/20">
+                      <MapPin className="w-6 h-6 text-[#F5F2EB]" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-1">Standort</h3>
+                      <p className="text-[#F5F2EB]/70">
+                        Musterstraße 123<br />
+                        12345 Musterstadt<br />
+                        Deutschland
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-1.5 text-xs text-[#F5F2EB]/60">
+              </div>
+
+              <div className="bg-[#F5F2EB]/5 border border-[#F5F2EB]/10 p-8">
+                <h3 className="text-2xl font-bold mb-4">Öffnungszeiten</h3>
+                <div className="space-y-3 text-[#F5F2EB]/70">
                   <div className="flex justify-between">
-                    <span>Mo – Fr</span>
-                    <span className="font-bold text-[#F5F2EB]/80">08:00 – 18:00</span>
+                    <span>Montag - Freitag</span>
+                    <span className="font-bold text-[#F5F2EB]">08:00 - 18:00</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Samstag</span>
-                    <span className="font-bold text-[#F5F2EB]/80">09:00 – 14:00</span>
+                    <span className="font-bold text-[#F5F2EB]">09:00 - 14:00</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sonntag</span>
-                    <span className="font-bold text-[#F5F2EB]/80">Geschlossen</span>
+                    <span className="font-bold text-[#F5F2EB]">Geschlossen</span>
+                  </div>
+                  <div className="pt-3 border-t border-[#F5F2EB]/10">
+                    <p className="text-sm">
+                      <span className="text-[#C8A850] font-bold">24/7 Notdienst</span> verfügbar
+                    </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
-              {/* Quick info */}
-              <motion.div
-                className="p-4 bg-gradient-to-br from-[#C8A850]/5 to-[#3B5BDB]/5 border border-white/10 backdrop-blur-md rounded-xl"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-              >
-                <div className="space-y-2">
-                  {['Kostenlose Erstberatung', 'Antwort in 24h', 'Persönliche Betreuung'].map((text) => (
-                    <div key={text} className="flex items-center gap-2">
-                      <CheckCircle className="w-3.5 h-3.5 text-[#C8A850] flex-shrink-0" />
-                      <span className="text-xs text-[#F5F2EB]/60">{text}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+              <div className="bg-gradient-to-br from-[#C8A850]/10 to-[#3B5BDB]/10 border border-[#F5F2EB]/10 p-8">
+                <h3 className="text-2xl font-bold mb-4">Schnelle Antwort</h3>
+                <p className="text-[#F5F2EB]/70 mb-4">
+                  Wir melden uns innerhalb von 24 Stunden bei Ihnen zurück.
+                </p>
+                <ul className="space-y-2 text-sm text-[#F5F2EB]/60">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-[#C8A850]" />
+                    Kostenlose Erstberatung
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-[#C8A850]" />
+                    Unverbindliches Angebot
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-[#C8A850]" />
+                    Persönliche Betreuung
+                  </li>
+                </ul>
+              </div>
             </motion.div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
