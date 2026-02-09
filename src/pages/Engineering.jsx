@@ -2,10 +2,13 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Cpu, Lightbulb, Boxes, Sparkles, ArrowRight, ArrowDown, Search, PenTool, Cog, Rocket } from 'lucide-react';
-import HeroBackground from '../components/home/HeroBackground';
+import { Boxes, Cpu, Lightbulb, Sparkles, ArrowRight, ArrowDown, Search, PenTool, Cog, Rocket } from 'lucide-react';
+import HeroImage from '../components/engineering/HeroImage';
 import ServiceRow from '../components/engineering/ServiceRow';
 import ProcessRow from '../components/engineering/ProcessRow';
+import FeatureCard from '../components/engineering/FeatureCard';
+import SplitSection from '../components/engineering/SplitSection';
+import SpecList from '../components/engineering/SpecList';
 import PhilosophyMarquee from '../components/engineering/PhilosophyMarquee';
 
 const services = [
@@ -46,6 +49,15 @@ const processSteps = [
   { num: '04', icon: Rocket, title: 'REALISIERUNG', subtitle: 'Produzieren & Liefern', cmd: 'deploy.production()', detail: 'Serienreife Umsetzung mit Qualitätssicherung und Produktionsbegleitung. Vom Prototyp zur Perfektion.' },
 ];
 
+const featureCards = [
+  { num: '01', title: 'Schneller Bauen, Smarter Testen', description: 'Vom Konzept zum funktionalen Prototypen in Rekordzeit. Hands-on-Kontrolle über jeden Entwicklungsschritt.' },
+  { num: '02', title: 'Qualität & Material', description: 'Höchste Fertigungsstandards mit Premium-Materialien. Jedes Detail wird auf Langlebigkeit und Performance optimiert.' },
+  { num: '03', title: 'Konnektivität & Integration', description: 'Nahtlose Verbindung zwischen Hardware, Software und bestehenden Systemen — alles aus einer Hand.' },
+  { num: '04', title: 'Skalierbar & Zukunftssicher', description: 'Von Einzelstücken bis zur Serienproduktion. Lösungen, die wachsen und sich anpassen.' },
+  { num: '05', title: 'Direkter Zugriff', description: 'Transparente Prozesse, kein Rätselraten. Sie sehen und verstehen jeden Schritt der Entwicklung.' },
+  { num: '06', title: 'Kreative Werkzeuge', description: 'Modernste Tools und Methoden für Innovation: 3D-Druck, CAD, Rapid Prototyping und mehr.' },
+];
+
 export default function Engineering() {
   const heroRef = useRef(null);
   const { scrollYProgress: heroProgress } = useScroll({
@@ -53,7 +65,8 @@ export default function Engineering() {
     offset: ['start start', 'end start'],
   });
   const heroOpacity = useTransform(heroProgress, [0, 0.6], [1, 0]);
-  const textY = useTransform(heroProgress, [0, 1], [0, 150]);
+  const heroScale = useTransform(heroProgress, [0, 1], [1, 1.1]);
+  const textY = useTransform(heroProgress, [0, 1], [0, 120]);
 
   const processRef = useRef(null);
   const { scrollYProgress: processProgress } = useScroll({
@@ -64,111 +77,190 @@ export default function Engineering() {
 
   return (
     <div className="bg-[#0A0A0A] text-[#F5F2EB] overflow-x-hidden relative">
-      {/* Animated background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <HeroBackground />
-      </div>
-
       <div className="relative z-10">
-        {/* ===== HERO ===== */}
-        <section ref={heroRef} className="h-screen relative overflow-hidden flex flex-col justify-between">
+
+        {/* ===== HERO — OXI-style full-bleed image with overlay text ===== */}
+        <section ref={heroRef} className="h-screen relative overflow-hidden">
+          <motion.div style={{ scale: heroScale }} className="absolute inset-0">
+            <HeroImage />
+          </motion.div>
+
           <motion.div
-            className="flex-1 flex flex-col justify-between px-6 md:px-16 pt-32 pb-12"
+            className="relative z-10 h-full flex flex-col justify-between px-6 md:px-16 pt-32 pb-12"
             style={{ opacity: heroOpacity, y: textY }}
           >
-            <div className="max-w-7xl mx-auto w-full">
-              <motion.div
-                className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-8 font-mono"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                Innovation & Entwicklung
-              </motion.div>
+            <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-end pb-16 md:pb-24">
               <motion.h1
-                className="font-bold tracking-tighter leading-[0.85] mb-4"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 1, type: 'spring', stiffness: 40 }}
+                className="font-black tracking-tighter leading-[0.85] mb-6"
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3, type: 'spring', stiffness: 40 }}
               >
-                <span
-                  className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-transparent"
-                  style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
-                >
+                <span className="block text-6xl md:text-[8rem] lg:text-[11rem] text-white">
                   ENGI
                 </span>
-                <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#F5F2EB]">
+                <span className="block text-6xl md:text-[8rem] lg:text-[11rem] text-white">
                   NEERING
                 </span>
               </motion.h1>
-            </div>
 
-            <div className="max-w-7xl mx-auto w-full flex items-end justify-between">
-              <motion.p
-                className="text-[#F5F2EB]/40 max-w-md text-base md:text-lg leading-relaxed hidden md:block"
+              <motion.div
+                className="flex items-end justify-between"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
+                transition={{ delay: 1, duration: 0.8 }}
               >
-                Wir denken jenseits des Gewöhnlichen. Prototypen, Produkte
-                und Lösungen — von der Vision zur Realität.
-              </motion.p>
-              <motion.div
-                className="flex items-center gap-3 text-white/40"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <span className="text-xs tracking-widest uppercase hidden md:block">Scrollen</span>
-                <ArrowDown className="w-4 h-4" />
+                <div className="hidden md:block" />
+                <p className="text-xs md:text-sm font-mono tracking-[0.2em] uppercase text-white/50 max-w-xs text-right">
+                  Innovation trifft Kreativität —<br />in der Geschwindigkeit der Inspiration
+                </p>
               </motion.div>
             </div>
+
+            {/* Scroll indicator */}
+            <motion.div
+              className="flex items-center gap-3 text-white/30"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            >
+              <span className="text-[10px] tracking-[0.3em] uppercase font-mono">Scrollen</span>
+              <ArrowDown className="w-4 h-4" />
+            </motion.div>
           </motion.div>
         </section>
 
-        {/* ===== INTRO ===== */}
-        <section className="py-24 md:py-36 px-6 md:px-16">
-          <div className="max-w-4xl mx-auto">
-            <motion.p
-              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.1] text-[#F5F2EB]"
+        {/* ===== OVERVIEW — OXI-style centered statement ===== */}
+        <section className="py-28 md:py-44 px-6 md:px-16">
+          <div className="max-w-5xl mx-auto text-center">
+            <motion.div
+              className="flex items-center justify-center gap-4 mb-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="h-px w-12 bg-[#3B5BDB]/20" />
+              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/50">
+                Overview
+              </span>
+              <div className="h-px w-12 bg-[#3B5BDB]/20" />
+            </motion.div>
+            <motion.h2
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] leading-[0.9] uppercase text-white mb-8"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
             >
-              Wir kombinieren technisches{' '}
-              <span className="text-[#3B5BDB]">Know-how</span> mit kreativen
-              Denkansätzen für Lösungen, die{' '}
-              <span className="text-[#F5F2EB]/20">begeistern.</span>
+              Ein neuer Standard<br />in kreativer <span className="text-[#3B5BDB]">Freiheit</span>
+            </motion.h2>
+            <motion.p
+              className="text-base md:text-lg text-white/30 font-light leading-relaxed max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              Wir kombinieren technisches Know-how mit innovativen Denkansätzen, um Lösungen
+              zu entwickeln, die nicht nur funktionieren, sondern begeistern.
             </motion.p>
+          </div>
+        </section>
+
+        {/* ===== SPLIT IMAGE SECTIONS — OXI-style alternating ===== */}
+        <SplitSection
+          imgSrc="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80&auto=format"
+          imgAlt="Prototyping workspace"
+          accent="/ Prototyping"
+          title={<>Schneller bauen,<br/>smarter testen</>}
+          text="Von der ersten Skizze zum funktionalen Prototypen. Rapid Prototyping, 3D-Druck und iteratives Testing — alles unter einem Dach."
+        />
+        <SplitSection
+          imgSrc="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=80&auto=format"
+          imgAlt="Product development"
+          accent="/ Entwicklung"
+          title={<>Qualität in<br/>jedem Detail</>}
+          text="Höchste Fertigungsstandards mit Premium-Materialien. Vom Konzept bis zur Serienreife — durchdacht, getestet, perfektioniert."
+          reverse
+        />
+
+        {/* ===== FEATURE CARDS — OXI-style numbered grid ===== */}
+        <section className="py-28 md:py-40 px-6 md:px-16">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="flex items-center gap-4 mb-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                / Key Capabilities
+              </span>
+              <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+            </motion.div>
+
+            <div className="relative mb-16">
+              <motion.h2
+                className="text-4xl md:text-6xl lg:text-[6rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-white"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
+                Was uns<br/>auszeichnet<span className="text-[#3B5BDB]">.</span>
+              </motion.h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+              {featureCards.map((card, i) => (
+                <FeatureCard key={card.num} {...card} index={i} />
+              ))}
+            </div>
           </div>
         </section>
 
         {/* ===== MARQUEE ===== */}
         <PhilosophyMarquee />
 
+        {/* ===== FULL WIDTH IMAGE BREAK ===== */}
+        <section className="relative h-[50vh] md:h-[70vh] overflow-hidden">
+          <motion.img
+            src="https://images.unsplash.com/photo-1563770660941-20978e870e26?w=1920&q=80&auto=format"
+            alt="Engineering detail"
+            className="w-full h-full object-cover"
+            initial={{ scale: 1.05 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2 }}
+          />
+          <div className="absolute inset-0 bg-[#0A0A0A]/50" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.h2
+              className="text-4xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase text-white/90 text-center leading-[0.85]"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              GRENZENLOSE<br/>KREATIVITÄT
+            </motion.h2>
+          </div>
+        </section>
+
         {/* ===== SERVICES — brutalist list ===== */}
-        <section className="px-6 md:px-16 py-24 md:py-36 relative overflow-hidden">
-          {/* Scanline overlay */}
+        <section className="px-6 md:px-16 py-28 md:py-40 relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none opacity-[0.012]" style={{
             backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.3) 2px, rgba(59,91,219,0.3) 4px)'
           }} />
 
           <div className="max-w-6xl mx-auto relative z-10">
-            <motion.div
-              className="mb-16 md:mb-20"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <motion.div className="mb-16 md:mb-20">
               <div className="flex items-center gap-4 mb-6">
                 <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
-                  / CAPABILITIES
+                  / Leistungen
                 </span>
                 <div className="h-px flex-1 bg-[#3B5BDB]/10" />
               </div>
-
-              {/* Brutalist double-text heading */}
               <div className="relative">
                 <motion.h2
                   className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#F5F2EB]"
@@ -181,10 +273,7 @@ export default function Engineering() {
                 </motion.h2>
                 <motion.h2
                   className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
-                  style={{
-                    color: 'transparent',
-                    WebkitTextStroke: '1px rgba(59,91,219,0.1)',
-                  }}
+                  style={{ color: 'transparent', WebkitTextStroke: '1px rgba(59,91,219,0.1)' }}
                   initial={{ opacity: 0, x: 6, y: -4 }}
                   whileInView={{ opacity: 1, x: 6, y: -4 }}
                   viewport={{ once: true }}
@@ -203,14 +292,39 @@ export default function Engineering() {
           </div>
         </section>
 
-        {/* ===== PROCESS — scroll-reveal timeline ===== */}
+        {/* ===== SPLIT: Connectivity ===== */}
+        <SplitSection
+          imgSrc="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format"
+          imgAlt="Circuit board detail"
+          accent="/ Integration"
+          title={<>Nahtlose<br/>Konnektivität</>}
+          text="Hardware, Software, Cloud — wir verbinden alle Systeme zu einem durchdachten Ganzen. Modular aufgebaut, zukunftssicher designt."
+          reverse
+        />
+
+        {/* ===== SPEC LIST ===== */}
+        <section className="py-20 md:py-32 px-6 md:px-16">
+          <div className="max-w-6xl mx-auto">
+            <motion.div className="flex items-center gap-4 mb-12"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                / Specifications
+              </span>
+              <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+            </motion.div>
+            <SpecList />
+          </div>
+        </section>
+
+        {/* ===== PROCESS — scroll-reveal ===== */}
         <section ref={processRef} className="relative bg-[#0A0A0A] py-32 md:py-48 px-6 md:px-16 overflow-hidden">
-          {/* Scanline overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.012]" style={{
             backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.15) 2px, rgba(59,91,219,0.15) 4px)'
           }} />
 
-          {/* Animated progress line */}
           <div className="absolute left-6 md:left-16 top-0 bottom-0 w-px bg-white/[0.03]">
             <motion.div
               className="w-full bg-gradient-to-b from-[#3B5BDB]/30 via-[#3B5BDB]/10 to-transparent"
@@ -219,17 +333,14 @@ export default function Engineering() {
           </div>
 
           <div className="max-w-6xl mx-auto relative z-10">
-            {/* Header */}
             <div className="mb-20 md:mb-28">
-              <motion.div
-                className="flex items-center gap-4 mb-6"
+              <motion.div className="flex items-center gap-4 mb-6"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
               >
                 <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
-                  / PROZESS
+                  / Prozess
                 </span>
                 <div className="h-px flex-1 bg-[#3B5BDB]/10" />
               </motion.div>
@@ -246,10 +357,7 @@ export default function Engineering() {
                 </motion.h2>
                 <motion.h2
                   className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
-                  style={{
-                    color: 'transparent',
-                    WebkitTextStroke: '1px rgba(59,91,219,0.1)',
-                  }}
+                  style={{ color: 'transparent', WebkitTextStroke: '1px rgba(59,91,219,0.1)' }}
                   initial={{ opacity: 0, x: 6, y: -4 }}
                   whileInView={{ opacity: 1, x: 6, y: -4 }}
                   viewport={{ once: true }}
@@ -260,7 +368,6 @@ export default function Engineering() {
               </div>
             </div>
 
-            {/* Steps */}
             <div>
               {processSteps.map((step, i) => (
                 <ProcessRow key={step.num} step={step} index={i} />
@@ -269,97 +376,21 @@ export default function Engineering() {
           </div>
         </section>
 
-        {/* ===== PHILOSOPHY ===== */}
-        <section className="py-32 md:py-44 px-6 md:px-16">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              className="flex items-center gap-4 mb-12"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
-                / PHILOSOPHIE
-              </span>
-              <div className="h-px flex-1 bg-[#3B5BDB]/10" />
-            </motion.div>
-
-            <motion.h2
-              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white mb-10"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              DENKEN JENSEITS<br/>DES GEWÖHNLICHEN<span className="text-[#3B5BDB]">.</span>
-            </motion.h2>
-
-            <motion.p
-              className="text-base md:text-lg text-white/30 max-w-2xl leading-relaxed font-light mb-16"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              Bei LuckyTech Engineering glauben wir an die Kraft kreativer Problemlösung.
-              Wir kombinieren technisches Know-how mit innovativen Denkansätzen, um Lösungen
-              zu entwickeln, die nicht nur funktionieren, sondern begeistern.
-            </motion.p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
-              {[
-                { title: 'Interdisziplinär', text: 'Wir verbinden verschiedene Fachbereiche für ganzheitliche Lösungen' },
-                { title: 'Agil', text: 'Schnelle Iterationen und flexible Anpassung an neue Erkenntnisse' },
-                { title: 'Zukunftsorientiert', text: 'Wir entwickeln Lösungen, die auch morgen noch relevant sind' },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  className="border-t border-white/[0.06] py-8 md:pr-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + i * 0.1 }}
-                >
-                  <span className="text-[10px] font-mono tracking-wider text-[#3B5BDB]/40 mb-3 block">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-white/30 font-light leading-relaxed">{item.text}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ===== CTA ===== */}
-        <section className="py-28 md:py-44 px-6 md:px-16">
-          <div className="max-w-5xl mx-auto">
+        <section className="py-32 md:py-48 px-6 md:px-16">
+          <div className="max-w-5xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative mb-8">
-                <h2 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white">
-                  BEREIT FÜR<br/>IHR PROJEKT<span className="text-[#3B5BDB]">?</span>
-                </h2>
-                <h2
-                  className="absolute top-0 left-0 text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] pointer-events-none select-none"
-                  style={{
-                    color: 'transparent',
-                    WebkitTextStroke: '1px rgba(59,91,219,0.08)',
-                    transform: 'translate(5px, -3px)',
-                  }}
-                >
-                  BEREIT FÜR<br/>IHR PROJEKT?
-                </h2>
-              </div>
+              <h2 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white mb-10">
+                BEREIT FÜR<br/>IHR PROJEKT<span className="text-[#3B5BDB]">?</span>
+              </h2>
               <Link
                 to={createPageUrl('Kontakt')}
-                className="inline-flex items-center gap-3 text-lg font-medium text-[#3B5BDB] border-b-2 border-[#3B5BDB] pb-2 hover:text-white hover:border-white transition-all group"
+                className="inline-flex items-center gap-3 px-12 py-5 bg-[#3B5BDB] text-white font-bold uppercase tracking-wider hover:bg-[#4C6BEB] transition-all group text-base"
               >
                 Projekt starten
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
@@ -367,6 +398,7 @@ export default function Engineering() {
             </motion.div>
           </div>
         </section>
+
       </div>
     </div>
   );
