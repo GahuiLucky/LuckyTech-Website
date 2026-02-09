@@ -220,93 +220,101 @@ export default function Home() {
       {/* Transition: Handwerk → Engineering */}
       <SectionTransition fromColor="rgba(245,242,235,0.95)" toColor="rgba(10,10,10,0.9)" variant="diagonal" />
 
-      {/* Engineering Section - Dark & Tech */}
+      {/* Engineering Section — eloyb brutalist style */}
       <section 
         ref={engineeringRef}
-        className="min-h-screen relative py-20 md:py-32 px-6 bg-[#0A0A0A]/90"
+        className="relative py-24 md:py-40 px-6 md:px-16 bg-[#0A0A0A]/90 overflow-hidden"
         aria-labelledby="engineering-heading"
       >
-        <motion.div 
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)',
-            backgroundSize: '80px 80px',
-            y: useTransform(engineeringProgress, [0, 1], [0, -150])
-          }}
-        />
+        {/* Scanline overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.2) 2px, rgba(59,91,219,0.2) 4px)'
+        }} />
 
         <motion.div 
-          className="max-w-7xl mx-auto relative z-10"
+          className="max-w-6xl mx-auto relative z-10"
           style={{ 
-            y: useTransform(engineeringProgress, [0, 1], [150, -150]),
-            opacity: useTransform(engineeringProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.3])
+            y: useTransform(engineeringProgress, [0, 1], [80, -80]),
+            opacity: useTransform(engineeringProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3])
           }}
         >
+          {/* Section label */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1, type: "spring", stiffness: 50 }}
+            className="flex items-center gap-4 mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="mb-20">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-sm font-bold tracking-[0.4em] text-white/30 mb-4 font-mono"
-              >
-                / ENGINEERING
-              </motion.div>
-              <motion.h2 
-                id="engineering-heading"
-                className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-6"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 1 }}
-              >
-                INGENIEURS—<br/>KUNST
-              </motion.h2>
-              <motion.p 
-                className="text-xl md:text-2xl text-white/50 max-w-2xl font-light font-mono"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                Innovation und kreative Lösungen für komplexe Herausforderungen
-              </motion.p>
-            </div>
+            <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+              / ENGINEERING
+            </span>
+            <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+          </motion.div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
-              {[
-                { icon: Cpu, title: 'Prototyping', delay: 0.1 },
-                { icon: Lightbulb, title: 'Development', delay: 0.15 },
-                { icon: Sparkles, title: 'Innovation', delay: 0.2 },
-                { icon: Wrench, title: 'Consulting', delay: 0.25 },
-                { icon: Cpu, title: 'Testing', delay: 0.3 },
-                { icon: Sparkles, title: '3D Design', delay: 0.35 }
-              ].map((service, index) => (
-                <EngineeringTile key={service.title + index} service={service} index={index} />
-              ))}
-            </div>
-
-            <motion.div
+          {/* Brutalist double-text heading */}
+          <div className="relative mb-16 md:mb-24">
+            <motion.h2
+              id="engineering-heading"
+              className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-white"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              INGENIEURS—<br/>KUNST<span className="text-[#3B5BDB]">.</span>
+            </motion.h2>
+            <motion.h2
+              className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
+              style={{
+                color: 'transparent',
+                WebkitTextStroke: '1px rgba(59,91,219,0.12)',
+              }}
+              initial={{ opacity: 0, x: 6, y: -4 }}
+              whileInView={{ opacity: 1, x: 6, y: -4 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+            >
+              INGENIEURS—<br/>KUNST.
+            </motion.h2>
+            <motion.p
+              className="mt-6 text-base md:text-lg text-white/30 max-w-lg font-light"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="text-center"
+              transition={{ delay: 0.4 }}
             >
-              <Link 
-                to={createPageUrl('Engineering')} 
-                className="inline-flex items-center gap-3 text-white font-bold text-lg hover:gap-5 transition-all group border-b-2 border-white pb-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-4 focus:ring-offset-[#0A0A0A]"
-                aria-label="Mehr über Engineering erfahren"
-              >
-                Mehr erfahren <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" aria-hidden="true" />
-              </Link>
-            </motion.div>
+              Innovation und kreative Lösungen für komplexe Herausforderungen
+            </motion.p>
+          </div>
+
+          {/* Tile grid — kept */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-16">
+            {[
+              { icon: Cpu, title: 'Prototyping' },
+              { icon: Lightbulb, title: 'Development' },
+              { icon: Sparkles, title: 'Innovation' },
+              { icon: Wrench, title: 'Consulting' },
+              { icon: Cpu, title: 'Testing' },
+              { icon: Sparkles, title: '3D Design' }
+            ].map((service, index) => (
+              <EngineeringTile key={service.title + index} service={service} index={index} />
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
+            <Link 
+              to={createPageUrl('Engineering')} 
+              className="inline-flex items-center gap-3 text-white font-bold text-base md:text-lg hover:gap-5 transition-all group border-b-2 border-white pb-1"
+              aria-label="Mehr über Engineering erfahren"
+            >
+              Projekte entdecken <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" aria-hidden="true" />
+            </Link>
           </motion.div>
         </motion.div>
       </section>
