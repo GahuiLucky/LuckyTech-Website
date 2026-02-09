@@ -1,442 +1,373 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { motion } from 'framer-motion';
-import { Cpu, Lightbulb, Boxes, Sparkles, ArrowRight, CheckCircle, Terminal } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Cpu, Lightbulb, Boxes, Sparkles, ArrowRight, ArrowDown, Search, PenTool, Cog, Rocket } from 'lucide-react';
+import HeroBackground from '../components/home/HeroBackground';
+import ServiceRow from '../components/engineering/ServiceRow';
+import ProcessRow from '../components/engineering/ProcessRow';
+import PhilosophyMarquee from '../components/engineering/PhilosophyMarquee';
+
+const services = [
+  {
+    title: 'PROTOTYPENBAU',
+    tagline: 'Von Idee zu Realität',
+    icon: Boxes,
+    description: 'Von der Idee zum funktionsfähigen Prototypen. Wir entwickeln und bauen Ihre Vision mit modernsten Fertigungsmethoden.',
+    features: ['Rapid Prototyping', '3D-Druck & CNC-Fertigung', 'Elektronik-Integration', 'Iterative Optimierung'],
+  },
+  {
+    title: 'PRODUKTENTWICKLUNG',
+    tagline: 'Konzeption bis Serie',
+    icon: Cpu,
+    description: 'Komplette Entwicklung von der Konzeption bis zur Serienreife. Hardware, Software, Design — alles aus einer Hand.',
+    features: ['Marktanalyse & Konzeption', 'Hardware & Software Design', 'Prototypenentwicklung', 'Produktionsbegleitung'],
+  },
+  {
+    title: 'CREATIVE THINKING',
+    tagline: 'Innovation als Methode',
+    icon: Lightbulb,
+    description: 'Innovative Lösungsansätze für komplexe Herausforderungen durch kreative Denkprozesse und strukturierte Workshops.',
+    features: ['Design Thinking Workshops', 'Innovations-Beratung', 'Machbarkeitsstudien', 'Problemlösungs-Strategien'],
+  },
+  {
+    title: 'BERATUNG & KONZEPTION',
+    tagline: 'Strategie trifft Technik',
+    icon: Sparkles,
+    description: 'Strategische Beratung für technische Projekte und Produktinnovationen. Wir denken mit, bevor wir bauen.',
+    features: ['Technologie-Beratung', 'Konzeptentwicklung', 'Feasibility Studies', 'Projektplanung'],
+  },
+];
+
+const processSteps = [
+  { num: '01', icon: Search, title: 'ANALYSE', subtitle: 'Verstehen & Erforschen', cmd: 'analyze.requirements()', detail: 'Deep-dive in Ihre Vision. Wir verstehen nicht nur was Sie wollen, sondern auch warum — und finden die besten Wege dorthin.' },
+  { num: '02', icon: PenTool, title: 'KONZEPTION', subtitle: 'Entwerfen & Planen', cmd: 'design.solution()', detail: 'Kreative Lösungsentwicklung mit iterativem Design Thinking und Rapid Ideation. Jede Idee wird geprüft und verfeinert.' },
+  { num: '03', icon: Cog, title: 'PROTOTYPING', subtitle: 'Bauen & Testen', cmd: 'build.prototype()', detail: 'Von digital zu physisch — schnelle Iteration, kontinuierliches Testing, echtes Feedback. Wir lernen durch Machen.' },
+  { num: '04', icon: Rocket, title: 'REALISIERUNG', subtitle: 'Produzieren & Liefern', cmd: 'deploy.production()', detail: 'Serienreife Umsetzung mit Qualitätssicherung und Produktionsbegleitung. Vom Prototyp zur Perfektion.' },
+];
 
 export default function Engineering() {
-  const [glitchActive, setGlitchActive] = useState(false);
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 200);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-  const services = [
-    {
-      icon: Boxes,
-      title: 'Prototypenbau',
-      description: 'Von der Idee zum funktionsfähigen Prototypen. Wir entwickeln und bauen Ihre Vision.',
-      features: [
-        'Rapid Prototyping',
-        '3D-Druck & CNC-Fertigung',
-        'Elektronik-Integration',
-        'Iterative Optimierung'
-      ]
-    },
-    {
-      icon: Cpu,
-      title: 'Produktentwicklung',
-      description: 'Komplette Entwicklung von der Konzeption bis zur Serienreife.',
-      features: [
-        'Marktanalyse & Konzeption',
-        'Hardware & Software Design',
-        'Prototypenentwicklung',
-        'Produktionsbegleitung'
-      ]
-    },
-    {
-      icon: Lightbulb,
-      title: 'Creative Thinking',
-      description: 'Innovative Lösungsansätze für komplexe Herausforderungen durch kreative Denkprozesse.',
-      features: [
-        'Design Thinking Workshops',
-        'Innovations-Beratung',
-        'Machbarkeitsstudien',
-        'Problemlösungs-Strategien'
-      ]
-    },
-    {
-      icon: Sparkles,
-      title: 'Beratung & Konzeption',
-      description: 'Strategische Beratung für technische Projekte und Produktinnovationen.',
-      features: [
-        'Technologie-Beratung',
-        'Konzeptentwicklung',
-        'Feasibility Studies',
-        'Projektplanung'
-      ]
-    }
-  ];
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const heroOpacity = useTransform(heroProgress, [0, 0.6], [1, 0]);
+  const textY = useTransform(heroProgress, [0, 1], [0, 150]);
+
+  const processRef = useRef(null);
+  const { scrollYProgress: processProgress } = useScroll({
+    target: processRef,
+    offset: ['start end', 'end start'],
+  });
+  const lineHeight = useTransform(processProgress, [0, 1], ['0%', '100%']);
 
   return (
-    <div className="bg-[#0A1820] relative text-[#F5F2EB]">
-      {/* Subtle Grid Pattern */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(#3B5BDB 1px, transparent 1px), linear-gradient(90deg, #3B5BDB 1px, transparent 1px)',
-        backgroundSize: '40px 40px'
-      }} />
+    <div className="bg-[#0A0A0A] text-[#F5F2EB] overflow-x-hidden relative">
+      {/* Animated background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <HeroBackground />
+      </div>
 
-      {/* Hero Section - OXI Instruments Style */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-6">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[#00EAFF] rounded-full blur-[150px] opacity-10" />
-          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-[#CDFF00] rounded-full blur-[180px] opacity-10" />
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div>
-            <div className="mb-20">
-              <motion.div 
-                className="text-sm font-mono tracking-widest text-[#00EAFF] mb-8 uppercase"
-                initial={{ opacity: 0, x: -40 }}
+      <div className="relative z-10">
+        {/* ===== HERO ===== */}
+        <section ref={heroRef} className="h-screen relative overflow-hidden flex flex-col justify-between">
+          <motion.div
+            className="flex-1 flex flex-col justify-between px-6 md:px-16 pt-32 pb-12"
+            style={{ opacity: heroOpacity, y: textY }}
+          >
+            <div className="max-w-7xl mx-auto w-full">
+              <motion.div
+                className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-8 font-mono"
+                initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
+                transition={{ delay: 0.4 }}
               >
-                WITH INNOVATION, CREATIVITY MOVES AT THE SPEED OF INSPIRATION
+                Innovation & Entwicklung
               </motion.div>
-              
-              <h1 className={`text-7xl md:text-[10rem] lg:text-[12rem] font-bold tracking-tighter leading-[0.85] mb-12 ${glitchActive ? 'animate-glitch' : ''}`}>
-                <motion.span 
-                  className="block"
-                  initial={{ opacity: 0, x: -80 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.9, delay: 0.3, type: "spring", stiffness: 40 }}
+              <motion.h1
+                className="font-bold tracking-tighter leading-[0.85] mb-4"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 1, type: 'spring', stiffness: 40 }}
+              >
+                <span
+                  className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-transparent"
+                  style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
                 >
-                  OXI
-                </motion.span>
-                <motion.span 
-                  className="block relative"
-                  initial={{ opacity: 0, x: -80 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.9, delay: 0.5, type: "spring", stiffness: 40 }}
-                >
-                  <span className="text-[#00EAFF]">ENGINEERING</span>
-                  {glitchActive && (
-                    <>
-                      <span className="absolute inset-0 text-[#CDFF00] opacity-50" style={{transform: 'translate(-2px, -2px)'}}>ENGINEERING</span>
-                      <span className="absolute inset-0 text-[#00EAFF] opacity-50" style={{transform: 'translate(2px, 2px)'}}>ENGINEERING</span>
-                    </>
-                  )}
-                </motion.span>
-              </h1>
+                  ENGI
+                </span>
+                <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#F5F2EB]">
+                  NEERING
+                </span>
+              </motion.h1>
             </div>
 
-            <motion.div 
-              className="flex flex-wrap gap-6 items-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.8 }}
-            >
-              <Link
-                to={createPageUrl('Kontakt')}
-                className="px-12 py-5 bg-[#00EAFF] text-[#0A1820] font-bold uppercase tracking-wider hover:bg-[#CDFF00] transition-all"
-              >
-                Start Your Project
-              </Link>
-              <motion.div 
-                className="flex gap-4 font-mono text-sm text-[#F5F2EB]/60"
+            <div className="max-w-7xl mx-auto w-full flex items-end justify-between">
+              <motion.p
+                className="text-[#F5F2EB]/40 max-w-md text-base md:text-lg leading-relaxed hidden md:block"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.1 }}
+                transition={{ delay: 1 }}
               >
-                <span>[Prototyping]</span>
-                <span>[Development]</span>
-                <span>[Innovation]</span>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-
-        <style jsx>{`
-          @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(2px, 2px); }
-          }
-          .animate-glitch {
-            animation: glitch 0.3s ease-in-out;
-          }
-          @keyframes scroll-slow {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-          }
-          .animate-scroll-slow {
-            animation: scroll-slow 60s linear infinite;
-          }
-        `}</style>
-      </section>
-
-      {/* Services Grid - Tech Style */}
-      <section className="py-32 px-6 relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-20 font-mono">
-            <motion.div 
-              className="text-[#3B5BDB] text-sm mb-4"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6 }}
-            >
-              {'>'} services.list()
-            </motion.div>
-            <motion.h2 
-              className="text-5xl md:text-7xl font-bold tracking-tighter"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.1, type: "spring", stiffness: 50 }}
-            >
-              <span className="text-[#F5F2EB]/30">{'{'}</span> CAPABILITIES <span className="text-[#F5F2EB]/30">{'}'}</span>
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {services.map((service, index) => (
+                Wir denken jenseits des Gewöhnlichen. Prototypen, Produkte
+                und Lösungen — von der Vision zur Realität.
+              </motion.p>
               <motion.div
-                key={service.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50, scale: 0.95 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, delay: index * 0.12, type: "spring", stiffness: 60 }}
-                whileHover={{ scale: 1.02 }}
-                className="group relative bg-[#0A0A0A] border border-[#3B5BDB]/20 p-10 hover:border-[#3B5BDB] hover:bg-[#3B5BDB]/5 transition-all overflow-hidden"
+                className="flex items-center gap-3 text-white/40"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#3B5BDB]/5 transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between mb-6">
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.2 + index * 0.12, type: "spring", stiffness: 150 }}
-                    >
-                      <service.icon className="w-12 h-12 text-[#3B5BDB]" />
-                    </motion.div>
-                    <div className="font-mono text-xs text-[#3B5BDB]/50">
-                      {'['}0{index + 1}{']'}
-                    </div>
-                  </div>
-                  
-                  <motion.h3 
-                    className="text-3xl font-bold mb-4 tracking-tight group-hover:text-[#3B5BDB] transition-colors"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.25 + index * 0.12 }}
-                  >
-                    {service.title}
-                  </motion.h3>
-                  
-                  <motion.p 
-                    className="text-[#F5F2EB]/60 mb-8 text-lg leading-relaxed font-light"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.35 + index * 0.12 }}
-                  >
-                    {service.description}
-                  </motion.p>
-                  
-                  <div className="space-y-2 font-mono text-sm">
-                    {service.features.map((feature, i) => (
-                      <motion.div 
-                        key={feature} 
-                        className="flex items-start gap-3 text-[#F5F2EB]/70"
-                        initial={{ opacity: 0, x: -15 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.4 + i * 0.08 + index * 0.12 }}
-                      >
-                        <span className="text-[#3B5BDB] mt-0.5">{'>'}</span>
-                        <span>{feature}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
+                <span className="text-xs tracking-widest uppercase hidden md:block">Scrollen</span>
+                <ArrowDown className="w-4 h-4" />
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </motion.div>
+        </section>
 
-      {/* Approach Section - Terminal Style */}
-      <section className="py-32 px-6 bg-[#0A0A0A] border-y border-[#3B5BDB]/20">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-20">
-            <motion.div 
-              className="font-mono text-sm text-[#3B5BDB] mb-6"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6 }}
-            >
-              {'>'} process.workflow() <span className="animate-pulse">_</span>
-            </motion.div>
-            <motion.h2 
-              className="text-5xl md:text-7xl font-bold tracking-tighter"
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.1, type: "spring", stiffness: 45 }}
-            >
-              SYSTEMATIC<br/>INNOVATION
-            </motion.h2>
-          </div>
-
-          <div className="space-y-6">
-            {[
-              { step: '01', title: 'ANALYSE', cmd: 'analyze.requirements()', description: 'Deep-dive in Ihre Vision. Wir verstehen nicht nur was Sie wollen, sondern auch warum.' },
-              { step: '02', title: 'KONZEPTION', cmd: 'design.solution()', description: 'Kreative Lösungsentwicklung mit iterativem Design Thinking und Rapid Ideation.' },
-              { step: '03', title: 'PROTOTYPING', cmd: 'build.prototype()', description: 'Von digital zu physisch — schnelle Iteration, kontinuierliches Testing, echtes Feedback.' },
-              { step: '04', title: 'REALISIERUNG', cmd: 'deploy.production()', description: 'Serienreife Umsetzung mit Qualitätssicherung und Produktionsbegleitung.' }
-            ].map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, x: -50, rotateY: 10 }}
-                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, delay: index * 0.15, type: "spring", stiffness: 60 }}
-                whileHover={{ x: 10, borderColor: "rgba(59,91,219,1)" }}
-                className="group border border-[#3B5BDB]/20 hover:border-[#3B5BDB] p-8 bg-[#0A0A0A] hover:bg-[#3B5BDB]/5 transition-all"
-              >
-                <div className="flex items-start gap-6">
-                  <motion.div 
-                    className="font-mono text-4xl font-bold text-[#3B5BDB]/30 group-hover:text-[#3B5BDB] transition-colors min-w-[80px]"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.1 + index * 0.15, type: "spring", stiffness: 120 }}
-                  >
-                    {item.step}
-                  </motion.div>
-                  <div className="flex-1">
-                    <motion.div 
-                      className="font-mono text-xs text-[#3B5BDB]/60 mb-2"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: 0.2 + index * 0.15 }}
-                    >
-                      {'// '}{item.cmd}
-                    </motion.div>
-                    <h3 className="text-3xl font-bold mb-3 group-hover:text-[#3B5BDB] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-[#F5F2EB]/60 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Philosophy Section */}
-      <section className="py-32 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center">
-            <motion.h2 
-              className="text-4xl md:text-6xl font-bold tracking-tighter mb-8"
+        {/* ===== INTRO ===== */}
+        <section className="py-24 md:py-36 px-6 md:px-16">
+          <div className="max-w-4xl mx-auto">
+            <motion.p
+              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.1] text-[#F5F2EB]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
+              transition={{ duration: 0.8 }}
             >
-              DENKEN JENSEITS<br />DES GEWÖHNLICHEN
-            </motion.h2>
-            <motion.p 
-              className="text-xl md:text-2xl text-[#F5F2EB]/70 leading-relaxed mb-12"
+              Wir kombinieren technisches{' '}
+              <span className="text-[#3B5BDB]">Know-how</span> mit kreativen
+              Denkansätzen für Lösungen, die{' '}
+              <span className="text-[#F5F2EB]/20">begeistern.</span>
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ===== MARQUEE ===== */}
+        <PhilosophyMarquee />
+
+        {/* ===== SERVICES — brutalist list ===== */}
+        <section className="px-6 md:px-16 py-24 md:py-36 relative overflow-hidden">
+          {/* Scanline overlay */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.012]" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.3) 2px, rgba(59,91,219,0.3) 4px)'
+          }} />
+
+          <div className="max-w-6xl mx-auto relative z-10">
+            <motion.div
+              className="mb-16 md:mb-20"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.6 }}
             >
-              Bei LuckyTech Engineering glauben wir an die Kraft kreativer Problemlösung. 
-              Wir kombinieren technisches Know-how mit innovativen Denkansätzen, um Lösungen 
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                  / CAPABILITIES
+                </span>
+                <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+              </div>
+
+              {/* Brutalist double-text heading */}
+              <div className="relative">
+                <motion.h2
+                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#F5F2EB]"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7 }}
+                >
+                  WAS WIR<br/>BAUEN<span className="text-[#3B5BDB]">.</span>
+                </motion.h2>
+                <motion.h2
+                  className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
+                  style={{
+                    color: 'transparent',
+                    WebkitTextStroke: '1px rgba(59,91,219,0.1)',
+                  }}
+                  initial={{ opacity: 0, x: 6, y: -4 }}
+                  whileInView={{ opacity: 1, x: 6, y: -4 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.15 }}
+                >
+                  WAS WIR<br/>BAUEN.
+                </motion.h2>
+              </div>
+            </motion.div>
+
+            <div>
+              {services.map((s, i) => (
+                <ServiceRow key={s.title} service={s} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== PROCESS — scroll-reveal timeline ===== */}
+        <section ref={processRef} className="relative bg-[#0A0A0A] py-32 md:py-48 px-6 md:px-16 overflow-hidden">
+          {/* Scanline overlay */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.012]" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.15) 2px, rgba(59,91,219,0.15) 4px)'
+          }} />
+
+          {/* Animated progress line */}
+          <div className="absolute left-6 md:left-16 top-0 bottom-0 w-px bg-white/[0.03]">
+            <motion.div
+              className="w-full bg-gradient-to-b from-[#3B5BDB]/30 via-[#3B5BDB]/10 to-transparent"
+              style={{ height: lineHeight }}
+            />
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10">
+            {/* Header */}
+            <div className="mb-20 md:mb-28">
+              <motion.div
+                className="flex items-center gap-4 mb-6"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                  / PROZESS
+                </span>
+                <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+              </motion.div>
+
+              <div className="relative">
+                <motion.h2
+                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-white"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7 }}
+                >
+                  SYSTEMATIC<br/>INNOVATION<span className="text-[#3B5BDB]">.</span>
+                </motion.h2>
+                <motion.h2
+                  className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
+                  style={{
+                    color: 'transparent',
+                    WebkitTextStroke: '1px rgba(59,91,219,0.1)',
+                  }}
+                  initial={{ opacity: 0, x: 6, y: -4 }}
+                  whileInView={{ opacity: 1, x: 6, y: -4 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.15 }}
+                >
+                  SYSTEMATIC<br/>INNOVATION.
+                </motion.h2>
+              </div>
+            </div>
+
+            {/* Steps */}
+            <div>
+              {processSteps.map((step, i) => (
+                <ProcessRow key={step.num} step={step} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== PHILOSOPHY ===== */}
+        <section className="py-32 md:py-44 px-6 md:px-16">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="flex items-center gap-4 mb-12"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">
+                / PHILOSOPHIE
+              </span>
+              <div className="h-px flex-1 bg-[#3B5BDB]/10" />
+            </motion.div>
+
+            <motion.h2
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white mb-10"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              DENKEN JENSEITS<br/>DES GEWÖHNLICHEN<span className="text-[#3B5BDB]">.</span>
+            </motion.h2>
+
+            <motion.p
+              className="text-base md:text-lg text-white/30 max-w-2xl leading-relaxed font-light mb-16"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              Bei LuckyTech Engineering glauben wir an die Kraft kreativer Problemlösung.
+              Wir kombinieren technisches Know-how mit innovativen Denkansätzen, um Lösungen
               zu entwickeln, die nicht nur funktionieren, sondern begeistern.
             </motion.p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
               {[
                 { title: 'Interdisziplinär', text: 'Wir verbinden verschiedene Fachbereiche für ganzheitliche Lösungen' },
                 { title: 'Agil', text: 'Schnelle Iterationen und flexible Anpassung an neue Erkenntnisse' },
-                { title: 'Zukunftsorientiert', text: 'Wir entwickeln Lösungen, die auch morgen noch relevant sind' }
+                { title: 'Zukunftsorientiert', text: 'Wir entwickeln Lösungen, die auch morgen noch relevant sind' },
               ].map((item, i) => (
-                <motion.div 
+                <motion.div
                   key={item.title}
-                  className="border-l-4 border-[#3B5BDB] pl-6"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.3 + i * 0.15, type: "spring", stiffness: 70 }}
+                  className="border-t border-white/[0.06] py-8 md:pr-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.1 }}
                 >
-                  <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-[#F5F2EB]/60">{item.text}</p>
+                  <span className="text-[10px] font-mono tracking-wider text-[#3B5BDB]/40 mb-3 block">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/30 font-light leading-relaxed">{item.text}</p>
                 </motion.div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section - Terminal */}
-      <section className="py-32 px-6">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
-            className="border-2 border-[#3B5BDB] p-12 md:p-20 relative overflow-hidden group"
-          >
-            <div className="absolute inset-0 bg-[#3B5BDB]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-            
-            <div className="relative z-10">
-              <motion.div 
-                className="font-mono text-xs text-[#3B5BDB] mb-6"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                {'>'} ready_to_start = true <span className="animate-pulse">_</span>
-              </motion.div>
-              
-              <motion.h2 
-                className="text-4xl md:text-6xl font-bold tracking-tighter mb-6"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-              >
-                EXECUTE(<span className="text-[#3B5BDB]">YOUR_VISION</span>)
-              </motion.h2>
-              
-              <motion.p 
-                className="text-xl text-[#F5F2EB]/70 mb-12 max-w-2xl mx-auto font-mono"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                {'// '} Lassen Sie uns gemeinsam Ihre Vision in Code, Hardware und Realität übersetzen.
-              </motion.p>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <Link
-                  to={createPageUrl('Kontakt')}
-                  className="inline-flex items-center gap-3 px-10 py-5 bg-[#3B5BDB] text-white font-bold font-mono hover:bg-[#4C6BEB] transition-all group/btn border-2 border-[#3B5BDB]"
+        {/* ===== CTA ===== */}
+        <section className="py-28 md:py-44 px-6 md:px-16">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="relative mb-8">
+                <h2 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] text-white">
+                  BEREIT FÜR<br/>IHR PROJEKT<span className="text-[#3B5BDB]">?</span>
+                </h2>
+                <h2
+                  className="absolute top-0 left-0 text-4xl md:text-6xl lg:text-8xl font-black tracking-[-0.04em] uppercase leading-[0.9] pointer-events-none select-none"
+                  style={{
+                    color: 'transparent',
+                    WebkitTextStroke: '1px rgba(59,91,219,0.08)',
+                    transform: 'translate(5px, -3px)',
+                  }}
                 >
-                  {'>'} START_PROJECT()
-                  <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+                  BEREIT FÜR<br/>IHR PROJEKT?
+                </h2>
+              </div>
+              <Link
+                to={createPageUrl('Kontakt')}
+                className="inline-flex items-center gap-3 text-lg font-medium text-[#3B5BDB] border-b-2 border-[#3B5BDB] pb-2 hover:text-white hover:border-white transition-all group"
+              >
+                Projekt starten
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
