@@ -23,6 +23,7 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F2EB]">
+      <CustomCursor />
       <style>{`
         :root {
           --color-dark: #0A0A0A;
