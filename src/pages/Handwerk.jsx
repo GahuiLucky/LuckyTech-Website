@@ -99,41 +99,55 @@ export default function Handwerk() {
           </div>
         </section>
 
-        {/* ===== SERVICE TILES ===== */}
-        <section className="px-6 md:px-16 pb-24 md:pb-36">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-center gap-4 mb-4">
-              <motion.div
-                className="text-sm font-bold tracking-[0.4em] text-white/30 font-mono"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                / LEISTUNGEN
-              </motion.div>
-              <motion.div
-                className="h-px flex-1 bg-white/[0.06]"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ transformOrigin: 'left' }}
-              />
-            </div>
-            <motion.h2
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+        {/* ===== SERVICE TILES — eloyb brutalist style ===== */}
+        <section className="px-6 md:px-16 pb-24 md:pb-36 relative overflow-hidden">
+          {/* Scanline overlay */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(191,255,0,0.3) 2px, rgba(191,255,0,0.3) 4px)'
+          }} />
+
+          <div className="max-w-6xl mx-auto relative z-10">
+            <motion.div
+              className="mb-16 md:mb-20"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Was wir<br />
-              <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(245,242,235,0.5)' }}>
-                können
-              </span>
-              <span className="text-[#C8A850]">.</span>
-            </motion.h2>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#BFFF00]/40">
+                  / LEISTUNGEN
+                </span>
+                <div className="h-px flex-1 bg-[#BFFF00]/10" />
+              </div>
+
+              {/* Brutalist double-text heading */}
+              <div className="relative">
+                <motion.h2
+                  className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#F5F2EB]"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7 }}
+                >
+                  WAS WIR<br/>KÖNNEN<span className="text-[#BFFF00]">.</span>
+                </motion.h2>
+                <motion.h2
+                  className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
+                  style={{
+                    color: 'transparent',
+                    WebkitTextStroke: '1px rgba(191,255,0,0.12)',
+                  }}
+                  initial={{ opacity: 0, x: 6, y: -4 }}
+                  whileInView={{ opacity: 1, x: 6, y: -4 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.15 }}
+                >
+                  WAS WIR<br/>KÖNNEN.
+                </motion.h2>
+              </div>
+            </motion.div>
+
             <ServiceTilesWithDialog />
           </div>
         </section>
