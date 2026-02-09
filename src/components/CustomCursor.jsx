@@ -5,10 +5,10 @@ export default function CustomCursor() {
   const [visible, setVisible] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [clicking, setClicking] = useState(false);
-  const cursorX = useSpring(0, { stiffness: 300, damping: 28, mass: 0.5 });
-  const cursorY = useSpring(0, { stiffness: 300, damping: 28, mass: 0.5 });
-  const ringX = useSpring(0, { stiffness: 150, damping: 22, mass: 0.8 });
-  const ringY = useSpring(0, { stiffness: 150, damping: 22, mass: 0.8 });
+  const cursorX = useSpring(0, { stiffness: 800, damping: 40, mass: 0.2 });
+  const cursorY = useSpring(0, { stiffness: 800, damping: 40, mass: 0.2 });
+  const ringX = useSpring(0, { stiffness: 500, damping: 35, mass: 0.3 });
+  const ringY = useSpring(0, { stiffness: 500, damping: 35, mass: 0.3 });
   const isTouchDevice = useRef(false);
 
   useEffect(() => {
