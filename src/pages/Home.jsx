@@ -121,81 +121,98 @@ export default function Home() {
       {/* Transition: Hero → Handwerk */}
       <SectionTransition fromColor="#0A0A0A" toColor="rgba(245,242,235,0.95)" variant="wave" />
 
-      {/* Handwerk Section - Light & Warm */}
+      {/* Handwerk Section — eloyb brutalist style, warm color kept */}
       <section 
         ref={handwerkRef}
-        className="min-h-screen relative py-20 md:py-32 px-6 bg-[#F5F2EB]/95"
+        className="relative py-24 md:py-40 px-6 md:px-16 bg-[#F5F2EB]/95 overflow-hidden"
         aria-labelledby="handwerk-heading"
       >
+        {/* Subtle scanline overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)'
+        }} />
+
         <motion.div 
-          className="max-w-7xl mx-auto"
+          className="max-w-6xl mx-auto relative z-10"
           style={{ 
-            y: useTransform(handwerkProgress, [0, 1], [150, -150]),
-            opacity: useTransform(handwerkProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.3])
+            y: useTransform(handwerkProgress, [0, 1], [80, -80]),
+            opacity: useTransform(handwerkProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3])
           }}
         >
+          {/* Section label */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1, type: "spring", stiffness: 50 }}
+            className="flex items-center gap-4 mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="mb-20">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-sm font-bold tracking-[0.4em] text-[#0A0A0A]/30 mb-4"
-              >
-                / HANDWERK
-              </motion.div>
-              <motion.h2 
-                id="handwerk-heading"
-                className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-[#0A0A0A] mb-6"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 1 }}
-              >
-                ELEKTRO—<br/>TECHNIK
-              </motion.h2>
-              <motion.p 
-                className="text-xl md:text-2xl text-[#0A0A0A]/50 max-w-2xl font-light"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                Präzision und Erfahrung in der Installation, Wartung und Reparatur
-              </motion.p>
-            </div>
+            <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#0A0A0A]/30">
+              / HANDWERK
+            </span>
+            <div className="h-px flex-1 bg-[#0A0A0A]/10" />
+          </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-              {[
-                { icon: Zap, title: 'Smarthome', subtitle: 'Installation & Automatisierung', img: 'photo-1558002038-1055907df827', delay: 0.1 },
-                { icon: Cable, title: 'Wallbox', subtitle: 'E-Mobility Solutions', img: 'photo-1593941707882-a5bba14938c7', delay: 0.2 },
-                { icon: Wrench, title: 'Elektroinstallation', subtitle: 'Planung & Installation', img: 'photo-1581092160562-40aa08e78837', delay: 0.3 }
-              ].map((service, index) => (
-                <HandwerkCard key={service.title} service={service} index={index} />
-              ))}
-            </div>
-
-            <motion.div
+          {/* Brutalist double-text heading */}
+          <div className="relative mb-16 md:mb-24">
+            <motion.h2
+              id="handwerk-heading"
+              className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] text-[#0A0A0A]"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              ELEKTRO—<br/>TECHNIK<span className="text-[#C8A850]">.</span>
+            </motion.h2>
+            <motion.h2
+              className="absolute top-0 left-0 text-5xl md:text-7xl lg:text-[8rem] font-black tracking-[-0.05em] uppercase leading-[0.85] pointer-events-none select-none"
+              style={{
+                color: 'transparent',
+                WebkitTextStroke: '1px rgba(10,10,10,0.08)',
+              }}
+              initial={{ opacity: 0, x: 6, y: -4 }}
+              whileInView={{ opacity: 1, x: 6, y: -4 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+            >
+              ELEKTRO—<br/>TECHNIK.
+            </motion.h2>
+            <motion.p
+              className="mt-6 text-base md:text-lg text-[#0A0A0A]/40 max-w-lg font-light"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="text-center"
+              transition={{ delay: 0.4 }}
             >
-              <Link 
-                to={createPageUrl('Handwerk')} 
-                className="inline-flex items-center gap-3 text-[#0A0A0A] font-bold text-lg hover:gap-5 transition-all group border-b-2 border-[#0A0A0A] pb-1 focus:outline-none focus:ring-2 focus:ring-[#0A0A0A] focus:ring-offset-4 focus:ring-offset-[#F5F2EB]"
-                aria-label="Mehr über Handwerk erfahren"
-              >
-                Mehr erfahren <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" aria-hidden="true" />
-              </Link>
-            </motion.div>
+              Präzision und Erfahrung in der Installation, Wartung und Reparatur
+            </motion.p>
+          </div>
+
+          {/* Service list — brutalist rows */}
+          <div className="space-y-0 mb-16">
+            {[
+              { icon: Zap, title: 'SMARTHOME', subtitle: 'Installation & Automatisierung' },
+              { icon: Cable, title: 'WALLBOX', subtitle: 'E-Mobility Solutions' },
+              { icon: Wrench, title: 'ELEKTROINSTALLATION', subtitle: 'Planung & Installation' },
+            ].map((service, index) => (
+              <HandwerkListItem key={service.title} service={service} index={index} />
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
+            <Link 
+              to={createPageUrl('Handwerk')} 
+              className="inline-flex items-center gap-3 text-[#0A0A0A] font-bold text-base md:text-lg hover:gap-5 transition-all group border-b-2 border-[#0A0A0A] pb-1"
+              aria-label="Mehr über Handwerk erfahren"
+            >
+              Alle Leistungen <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" aria-hidden="true" />
+            </Link>
           </motion.div>
         </motion.div>
       </section>
