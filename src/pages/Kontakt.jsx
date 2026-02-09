@@ -345,11 +345,7 @@ export default function Kontakt() {
                     <span>Sonntag</span>
                     <span className="font-bold text-[#F5F2EB]">Geschlossen</span>
                   </div>
-                  <div className="pt-3 border-t border-[#F5F2EB]/10">
-                    <p className="text-sm">
-                      <span className="text-[#C8A850] font-bold">24/7 Notdienst</span> verfügbar
-                    </p>
-                  </div>
+
                 </div>
               </motion.div>
 

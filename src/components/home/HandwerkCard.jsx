@@ -5,6 +5,7 @@ const details = {
   Smarthome: ['Lichtsteuerung', 'Heizungsautomatik', 'Sprachassistenten', 'Sicherheitssysteme'],
   Wallbox: ['11kW & 22kW Lader', 'Lastmanagement', 'KfW-Förderung', 'Wartungsservice'],
   Elektroinstallation: ['Neuinstallationen', 'Altbausanierung', 'Zählerschränke', 'Prüf- & Messservice'],
+  Service: ['Fehlerdiagnose', 'Reparatur & Austausch', 'Transparente Preise', 'Schnelle Termine'],
 };
 
 export default function HandwerkCard({ service, index }) {
