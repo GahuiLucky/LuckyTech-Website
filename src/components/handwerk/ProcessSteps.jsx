@@ -42,87 +42,135 @@ export default function ProcessSteps() {
   const current = steps[active];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[600px]">
-      {/* Left: Steps */}
-      <div className="flex flex-col justify-center p-8 md:p-16">
-        <div className="space-y-0">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-0 min-h-[550px]">
+      {/* Left: Steps as vertical timeline */}
+      <div className="flex flex-col justify-center relative">
+        {/* Timeline line */}
+        <div className="absolute left-[22px] md:left-[26px] top-0 bottom-0 w-px bg-white/[0.06]" />
+        
+        <div className="space-y-1">
           {steps.map((step, i) => {
             const isActive = i === active;
+            const isPast = i < active;
             const Icon = step.icon;
             return (
               <motion.div
                 key={step.num}
-                className={`border-b border-[#0A0A0A]/8 cursor-pointer transition-colors ${
-                  isActive ? 'bg-[#0A0A0A]/[0.03]' : ''
-                }`}
+                className="cursor-pointer relative pl-14 md:pl-16 py-5 md:py-6 group"
                 onClick={() => setActive(i)}
-                whileHover={{ x: 4 }}
+                whileHover={{ x: 6 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="flex items-center gap-5 py-6 md:py-8 px-4">
-                  <span className={`text-xs tracking-[0.2em] transition-colors duration-300 ${
-                    isActive ? 'text-[#C8A850]' : 'text-[#0A0A0A]/20'
-                  }`}>
-                    {step.num}
-                  </span>
-                  <Icon className={`w-5 h-5 transition-colors duration-300 ${
-                    isActive ? 'text-[#C8A850]' : 'text-[#0A0A0A]/25'
+                {/* Timeline dot */}
+                <motion.div
+                  className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 rounded-full flex items-center justify-center"
+                  animate={{
+                    width: isActive ? 20 : 10,
+                    height: isActive ? 20 : 10,
+                    backgroundColor: isActive ? '#C8A850' : isPast ? 'rgba(200,168,80,0.3)' : 'rgba(255,255,255,0.1)',
+                    boxShadow: isActive ? '0 0 20px rgba(200,168,80,0.3)' : '0 0 0px transparent',
+                  }}
+                  transition={{ duration: 0.4 }}
+                />
+
+                <div className="flex items-center gap-4">
+                  <Icon className={`w-4 h-4 transition-colors duration-300 flex-shrink-0 ${
+                    isActive ? 'text-[#C8A850]' : 'text-white/15'
                   }`} />
-                  <div className="flex-1">
-                    <h4 className={`text-xl md:text-2xl font-bold tracking-tight transition-colors duration-300 ${
-                      isActive ? 'text-[#0A0A0A]' : 'text-[#0A0A0A]/30'
-                    }`}>
-                      {step.title}
-                    </h4>
-                    <p className={`text-sm transition-colors duration-300 ${
-                      isActive ? 'text-[#0A0A0A]/60' : 'text-[#0A0A0A]/20'
-                    }`}>
-                      {step.short}
-                    </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-3">
+                      <h4 className={`text-lg md:text-xl font-bold tracking-tight transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-white/25 group-hover:text-white/40'
+                      }`}>
+                        {step.title}
+                      </h4>
+                      <span className={`text-[10px] tracking-[0.2em] transition-colors duration-300 ${
+                        isActive ? 'text-[#C8A850]/60' : 'text-white/10'
+                      }`}>
+                        {step.num}
+                      </span>
+                    </div>
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.p
+                          className="text-sm text-white/40 mt-1"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {step.short}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <motion.div
-                    className="w-8 h-0.5 bg-[#C8A850]"
-                    animate={{ scaleX: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.4 }}
-                    style={{ originX: 0 }}
-                  />
                 </div>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Progress indicator */}
+        <div className="mt-8 pl-14 md:pl-16">
+          <div className="flex gap-1.5">
+            {steps.map((_, i) => (
+              <motion.div
+                key={i}
+                className="h-0.5 rounded-full"
+                animate={{
+                  width: i === active ? 32 : 12,
+                  backgroundColor: i === active ? '#C8A850' : i < active ? 'rgba(200,168,80,0.3)' : 'rgba(255,255,255,0.08)',
+                }}
+                transition={{ duration: 0.4 }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Right: Detail */}
-      <div className="relative overflow-hidden min-h-[400px] lg:min-h-0 bg-[#0A0A0A]">
+      {/* Right: Immersive detail card */}
+      <div className="relative overflow-hidden rounded-2xl min-h-[400px] lg:min-h-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
             className="absolute inset-0"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
           >
             <img
               src={current.image}
               alt={current.title}
-              className="w-full h-full object-cover opacity-40"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/70 to-[#0A0A0A]/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/50 to-transparent" />
+            
+            {/* Large background number */}
+            <div className="absolute top-6 right-8 text-[7rem] md:text-[10rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">
+              {current.num}
+            </div>
+
+            {/* Content */}
+            <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
+                transition={{ delay: 0.15, duration: 0.5 }}
               >
-                <div className="text-[5rem] md:text-[8rem] font-bold text-white/[0.06] leading-none tracking-tighter absolute top-8 right-8">
-                  {current.num}
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+                {/* Accent line */}
+                <motion.div
+                  className="w-10 h-0.5 bg-[#C8A850] mb-6"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  style={{ originX: 0 }}
+                />
+                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
                   {current.title}
                 </h3>
-                <p className="text-white/60 leading-relaxed max-w-md text-base">
+                <p className="text-white/50 leading-relaxed max-w-md text-sm md:text-base">
                   {current.detail}
                 </p>
               </motion.div>
