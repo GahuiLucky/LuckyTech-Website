@@ -225,7 +225,7 @@ export default function Kontakt() {
                     value={formData.message}
                     onChange={(e) => handleFieldChange('message', e.target.value)}
                     onBlur={() => handleBlur('message')}
-                    className={`${fc('message')} min-h-[80px] md:min-h-[100px]`}
+                    className={`${fc('message')} min-h-[140px] md:min-h-[180px]`}
                     placeholder="Beschreiben Sie Ihr Projekt..."
                   />
                   <FieldError name="message" />
