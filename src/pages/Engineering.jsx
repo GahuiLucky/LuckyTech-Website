@@ -302,8 +302,7 @@ export default function Engineering() {
         </motion.div>
       </section>
 
-        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
