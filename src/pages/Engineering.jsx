@@ -29,7 +29,7 @@ export default function Engineering() {
         >
           <div className="max-w-7xl mx-auto w-full">
             <motion.div
-              className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-3 font-mono"
+              className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-8 font-mono"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
@@ -302,7 +302,8 @@ export default function Engineering() {
         </motion.div>
       </section>
 
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
