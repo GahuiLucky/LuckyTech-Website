@@ -5,18 +5,18 @@ const words = ['INTERDISZIPLINÄR', 'AGIL', 'ZUKUNFTSORIENTIERT', 'KREATIV', 'SY
 
 export default function PhilosophyMarquee() {
   return (
-    <div className="overflow-hidden border-y border-white/[0.04] py-5">
+    <div className="overflow-hidden py-8 md:py-10">
       <motion.div
-        className="flex gap-12 whitespace-nowrap"
+        className="flex gap-16 whitespace-nowrap"
         animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
       >
         {[...words, ...words, ...words, ...words].map((w, i) => (
-          <span key={i} className="flex items-center gap-12">
-            <span className="text-sm md:text-base font-black tracking-[0.3em] uppercase text-white/[0.06]">
+          <span key={i} className="flex items-center gap-16">
+            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-white/[0.04]">
               {w}
             </span>
-            <span className="text-[#3B5BDB]/20 text-xs">◆</span>
+            <span className="text-white/[0.06] text-sm">•</span>
           </span>
         ))}
       </motion.div>
