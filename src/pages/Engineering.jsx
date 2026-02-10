@@ -224,18 +224,17 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* ─── BLOCK 6: FULL-WIDTH IMAGE + overlaid statement ─── */}
+      {/* ─── BLOCK 6: FULL-WIDTH VIDEO + overlaid statement ─── */}
       <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
-        <motion.img
-          src="https://images.unsplash.com/photo-1563770660941-20978e870e26?w=1920&q=80&auto=format"
-          alt="Workshop"
-          className="w-full h-full object-cover"
-          initial={{ scale: 1.06 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
         />
-        <div className="absolute inset-0 bg-[#0A0A0A]/50" />
+        <div className="absolute inset-0 bg-[#0A0A0A]/45" />
         <div className="absolute inset-0 flex items-end px-6 md:px-12 lg:px-16 pb-12 md:pb-20">
           <motion.h2
             className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[-0.03em] leading-[1] text-white max-w-4xl"
