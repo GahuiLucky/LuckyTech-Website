@@ -4,7 +4,6 @@ import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Boxes, Cpu, Lightbulb, Sparkles, ArrowRight, Search, PenTool, Cog, Rocket } from 'lucide-react';
 import HeroBackground from '../components/home/HeroBackground';
-import ServiceRow from '../components/engineering/ServiceRow';
 import EngServiceCard from '../components/engineering/EngServiceCard';
 import EngProcessStep from '../components/engineering/EngProcessStep';
 
