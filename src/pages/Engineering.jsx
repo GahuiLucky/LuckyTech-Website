@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
 import HeroBackground from '../components/home/HeroBackground';
 
 export default function Engineering() {
@@ -12,33 +12,66 @@ export default function Engineering() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
-    <div className="bg-[#0A0A0A] text-[#F5F2EB] overflow-x-hidden">
-      
-      {/* ─── BLOCK 1: HERO — fullscreen image bg + headline at bottom ─── */}
-      <section ref={heroRef} className="h-screen relative overflow-hidden">
-        {/* Background — animated particles */}
-        <div className="absolute inset-0 z-0">
-          <HeroBackground />
-        </div>
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#0A0A0A]/30 z-[1]" />
+    <div className="bg-[#0A0A0A] text-[#F5F2EB] overflow-x-hidden relative">
 
+      {/* Animated electrotechnical canvas — full page background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <HeroBackground />
+      </div>
+
+      <div className="relative z-10">
+
+      {/* ─── BLOCK 1: HERO — brutalist style like Handwerk ─── */}
+      <section ref={heroRef} className="h-screen relative overflow-hidden flex flex-col justify-between">
         <motion.div
-          className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-12 lg:px-16 pb-10 md:pb-14"
+          className="flex-1 flex flex-col justify-between px-6 md:px-16 pt-32 pb-12"
           style={{ opacity: heroOpacity, y: heroY }}
         >
-          <h1 className="text-[3rem] md:text-[5.5rem] lg:text-[8rem] xl:text-[9rem] font-light leading-[0.95] tracking-[-0.03em] text-white">
-            Engineering für{' '}
-            <em className="italic text-white/60">Prototypen</em>{' '}
-            und Produkt­entwicklung.
-          </h1>
-          <div className="mt-6 md:mt-8 flex items-center justify-end">
-            <Link
-              to={createPageUrl('Kontakt')}
-              className="text-xs tracking-[0.3em] uppercase text-white/40 hover:text-white transition-colors inline-flex items-center gap-2 group"
+          <div className="max-w-7xl mx-auto w-full">
+            <motion.div
+              className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-8 font-mono"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
             >
-              LET'S TALK <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+              Prototypen & Produktentwicklung
+            </motion.div>
+            <motion.h1
+              className="font-bold tracking-tighter leading-[0.85] mb-4"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 1, type: "spring", stiffness: 40 }}
+            >
+              <span
+                className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-transparent"
+                style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
+              >
+                ENGI
+              </span>
+              <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#F5F2EB]">
+                NEERING
+              </span>
+            </motion.h1>
+          </div>
+
+          <div className="max-w-7xl mx-auto w-full flex items-end justify-between">
+            <motion.p
+              className="text-[#F5F2EB]/40 max-w-md text-base md:text-lg leading-relaxed hidden md:block"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+            >
+              Von der Idee zum Prototyp — kreative Lösungen 
+              für komplexe technische Herausforderungen.
+            </motion.p>
+            <motion.div
+              className="flex items-center gap-3 text-white/40"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <span className="text-xs tracking-widest uppercase hidden md:block">Scrollen</span>
+              <ArrowDown className="w-4 h-4" />
+            </motion.div>
           </div>
         </motion.div>
       </section>
