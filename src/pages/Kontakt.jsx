@@ -59,7 +59,7 @@ export default function Kontakt() {
 
   const validateAll = () => {
     const newErrors = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       const error = validateField(key, formData[key]);
       if (error) newErrors[key] = error;
     });
@@ -88,27 +88,27 @@ export default function Kontakt() {
     }
   };
 
-  const FieldError = ({ name }) => (
-    <AnimatePresence>
-      {touched[name] && errors[name] && (
-        <motion.div
-          className="flex items-center gap-1 mt-1 text-red-400 text-xs"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-        >
+  const FieldError = ({ name }) =>
+  <AnimatePresence>
+      {touched[name] && errors[name] &&
+    <motion.div
+      className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 'auto' }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.2 }}>
+
           <AlertCircle className="w-3 h-3 flex-shrink-0" />
           <span>{errors[name]}</span>
         </motion.div>
-      )}
-    </AnimatePresence>
-  );
+    }
+    </AnimatePresence>;
+
 
   const fc = (name) =>
-    `bg-white/5 border-white/10 text-[#F5F2EB] focus:border-[#C8A850] transition-colors backdrop-blur-sm h-9 text-sm ${
-      touched[name] && errors[name] ? 'border-red-400/60' : ''
-    } ${touched[name] && !errors[name] && formData[name] ? 'border-green-500/40' : ''}`;
+  `bg-white/5 border-white/10 text-[#F5F2EB] focus:border-[#C8A850] transition-colors backdrop-blur-sm h-9 text-sm ${
+  touched[name] && errors[name] ? 'border-red-400/60' : ''} ${
+  touched[name] && !errors[name] && formData[name] ? 'border-green-500/40' : ''}`;
 
   return (
     <div className="bg-[#0A0A0A] h-[calc(100vh-80px)] overflow-hidden relative">
@@ -126,11 +126,11 @@ export default function Kontakt() {
             className="text-center mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+            transition={{ duration: 0.8 }}>
+
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-none mb-2">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8A850] to-[#3B5BDB]">
-                LET'S TALK
+              <span className="bg-transparent text-slate-100 from-[#C8A850] to-[#3B5BDB]">LET'S TALK
+
               </span>
             </h1>
             <p className="text-sm md:text-base text-[#F5F2EB]/50">
@@ -144,18 +144,18 @@ export default function Kontakt() {
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-3 bg-white/[0.03] border border-white/10 backdrop-blur-md p-5 md:p-6 rounded-xl"
-            >
-              {isSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-3 p-2.5 bg-green-500/10 border border-green-500/20 flex items-center gap-2 rounded text-sm"
-                >
+              className="lg:col-span-3 bg-white/[0.03] border border-white/10 backdrop-blur-md p-5 md:p-6 rounded-xl">
+
+              {isSuccess &&
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-3 p-2.5 bg-green-500/10 border border-green-500/20 flex items-center gap-2 rounded text-sm">
+
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <p className="text-green-500">Vielen Dank! Wir melden uns in Kürze.</p>
                 </motion.div>
-              )}
+              }
 
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -166,8 +166,8 @@ export default function Kontakt() {
                       onChange={(e) => handleFieldChange('name', e.target.value)}
                       onBlur={() => handleBlur('name')}
                       className={fc('name')}
-                      placeholder="Ihr Name"
-                    />
+                      placeholder="Ihr Name" />
+
                     <FieldError name="name" />
                   </div>
                   <div>
@@ -178,8 +178,8 @@ export default function Kontakt() {
                       onChange={(e) => handleFieldChange('email', e.target.value)}
                       onBlur={() => handleBlur('email')}
                       className={fc('email')}
-                      placeholder="ihre@email.de"
-                    />
+                      placeholder="ihre@email.de" />
+
                     <FieldError name="email" />
                   </div>
                 </div>
@@ -193,8 +193,8 @@ export default function Kontakt() {
                       onChange={(e) => handleFieldChange('phone', e.target.value)}
                       onBlur={() => handleBlur('phone')}
                       className={fc('phone')}
-                      placeholder="+49 123 456789"
-                    />
+                      placeholder="+49 123 456789" />
+
                     <FieldError name="phone" />
                   </div>
                   <div>
@@ -204,8 +204,8 @@ export default function Kontakt() {
                       onValueChange={(value) => {
                         handleFieldChange('service_type', value);
                         setTouched({ ...touched, service_type: true });
-                      }}
-                    >
+                      }}>
+
                       <SelectTrigger className={fc('service_type')}>
                         <SelectValue placeholder="Bitte wählen" />
                       </SelectTrigger>
@@ -226,16 +226,16 @@ export default function Kontakt() {
                     onChange={(e) => handleFieldChange('message', e.target.value)}
                     onBlur={() => handleBlur('message')}
                     className={`${fc('message')} min-h-[140px] md:min-h-[180px]`}
-                    placeholder="Beschreiben Sie Ihr Projekt..."
-                  />
+                    placeholder="Beschreiben Sie Ihr Projekt..." />
+
                   <FieldError name="message" />
                 </div>
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[#C8A850] to-[#3B5BDB] hover:opacity-90 text-white font-bold uppercase tracking-wider py-5 text-sm"
-                >
+                  disabled={isSubmitting} className="bg-zinc-800 text-slate-50 px-4 py-5 text-sm font-bold uppercase tracking-wider rounded-md inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow hover:bg-primary/90 h-9 w-full from-[#C8A850] to-[#3B5BDB] hover:opacity-90">
+
+
                   {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
                   <Send className="w-4 h-4 ml-2" />
                 </Button>
@@ -247,42 +247,42 @@ export default function Kontakt() {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="lg:col-span-2 flex flex-col gap-4"
-            >
+              className="lg:col-span-2 flex flex-col gap-4">
+
               {/* Contact cards */}
               {[
-                { icon: Mail, title: 'E-Mail', value: 'info@luckytech.de', href: 'mailto:info@luckytech.de', accent: '#C8A850' },
-                { icon: Phone, title: 'Telefon', value: '+49 123 456 7890', href: 'tel:+491234567890', accent: '#3B5BDB' },
-                { icon: MapPin, title: 'Standort', value: 'Musterstraße 123, 12345 Musterstadt', accent: '#F5F2EB' },
-              ].map((c, i) => (
-                <motion.div
-                  key={c.title}
-                  className="flex items-center gap-4 p-4 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + i * 0.1 }}
-                >
+              { icon: Mail, title: 'E-Mail', value: 'info@luckytech.de', href: 'mailto:info@luckytech.de', accent: '#C8A850' },
+              { icon: Phone, title: 'Telefon', value: '+49 123 456 7890', href: 'tel:+491234567890', accent: '#3B5BDB' },
+              { icon: MapPin, title: 'Standort', value: 'Musterstraße 123, 12345 Musterstadt', accent: '#F5F2EB' }].
+              map((c, i) =>
+              <motion.div
+                key={c.title}
+                className="flex items-center gap-4 p-4 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + i * 0.1 }}>
+
                   <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: c.accent + '15', border: `1px solid ${c.accent}30` }}>
                     <c.icon className="w-4 h-4" style={{ color: c.accent }} />
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs text-white/40">{c.title}</div>
-                    {c.href ? (
-                      <a href={c.href} className="text-sm text-white/80 hover:text-white transition-colors truncate block">{c.value}</a>
-                    ) : (
-                      <p className="text-sm text-white/80 truncate">{c.value}</p>
-                    )}
+                    {c.href ?
+                  <a href={c.href} className="text-sm text-white/80 hover:text-white transition-colors truncate block">{c.value}</a> :
+
+                  <p className="text-sm text-white/80 truncate">{c.value}</p>
+                  }
                   </div>
                 </motion.div>
-              ))}
+              )}
 
               {/* Opening hours */}
               <motion.div
                 className="p-4 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-              >
+                transition={{ delay: 0.9 }}>
+
                 <div className="flex items-center gap-2 mb-3">
                   <Clock className="w-4 h-4 text-[#C8A850]" />
                   <h3 className="font-bold text-sm">Öffnungszeiten</h3>
@@ -308,21 +308,21 @@ export default function Kontakt() {
                 className="p-4 bg-gradient-to-br from-[#C8A850]/5 to-[#3B5BDB]/5 border border-white/10 backdrop-blur-md rounded-xl"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-              >
+                transition={{ delay: 1 }}>
+
                 <div className="space-y-2">
-                  {['Kostenlose Erstberatung', 'Antwort in 24h', 'Persönliche Betreuung'].map((text) => (
-                    <div key={text} className="flex items-center gap-2">
+                  {['Kostenlose Erstberatung', 'Antwort in 24h', 'Persönliche Betreuung'].map((text) =>
+                  <div key={text} className="flex items-center gap-2">
                       <CheckCircle className="w-3.5 h-3.5 text-[#C8A850] flex-shrink-0" />
                       <span className="text-xs text-[#F5F2EB]/60">{text}</span>
                     </div>
-                  ))}
+                  )}
                 </div>
               </motion.div>
             </motion.div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
