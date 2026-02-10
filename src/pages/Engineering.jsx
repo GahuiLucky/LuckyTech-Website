@@ -305,5 +305,4 @@ export default function Engineering() {
         </div>
       </div>
     );
-  }
 }
