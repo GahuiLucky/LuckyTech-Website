@@ -51,6 +51,7 @@ import About from './pages/About';
 import Handwerk from './pages/Handwerk';
 import Home from './pages/Home';
 import Kontakt from './pages/Kontakt';
+import Engineering from './pages/Engineering';
 import __Layout from './Layout.jsx';
 
 
@@ -59,6 +60,7 @@ export const PAGES = {
     "Handwerk": Handwerk,
     "Home": Home,
     "Kontakt": Kontakt,
+    "Engineering": Engineering,
 }
 
 export const pagesConfig = {
