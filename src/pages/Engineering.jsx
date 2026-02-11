@@ -46,10 +46,10 @@ export default function Engineering() {
                 className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-transparent"
                 style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
               >
-                ENGI
+                INGENIEURS
               </span>
               <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#F5F2EB]">
-                NEERING
+                KUNST
               </span>
             </motion.h1>
           </div>

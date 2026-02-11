@@ -10,7 +10,7 @@ const values = [
 
 export default function AboutValues() {
   return (
-    <section className="bg-[#F0EDE6] text-[#0A0A0A] px-6 md:px-12 lg:px-16 py-24 md:py-36">
+    <section className="bg-[#F0EDE6] text-[#0A0A0A] px-6 md:px-12 lg:px-16 py-16 md:py-24">
       <motion.div
         className="mb-16"
         initial={{ opacity: 0 }}
