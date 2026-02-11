@@ -49,8 +49,8 @@
  */
 import About from './pages/About';
 import Engineering from './pages/Engineering';
-import Home from './pages/Home';
 import Handwerk from './pages/Handwerk';
+import Home from './pages/Home';
 import Kontakt from './pages/Kontakt';
 import __Layout from './Layout.jsx';
 
@@ -58,8 +58,8 @@ import __Layout from './Layout.jsx';
 export const PAGES = {
     "About": About,
     "Engineering": Engineering,
-    "Home": Home,
     "Handwerk": Handwerk,
+    "Home": Home,
     "Kontakt": Kontakt,
 }
 

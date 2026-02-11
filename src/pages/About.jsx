@@ -12,11 +12,11 @@ export default function About() {
   return (
     <div className="bg-[#0A0A0A] text-[#F5F2EB] overflow-x-hidden">
 
-      {/* ─── BLOCK 1: HERO STATEMENT — light bg, massive text ─── */}
-      <section className="bg-[#F0EDE6] text-[#0A0A0A] min-h-screen flex flex-col justify-between">
-        <div className="px-6 md:px-12 lg:px-16 pt-32 md:pt-44 pb-16 flex-1 flex flex-col justify-center">
+      {/* ─── BLOCK 1: HERO + GRÜNDER ─── */}
+      <section className="bg-[#F0EDE6] text-[#0A0A0A]">
+        <div className="px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-16">
           <motion.div
-            className="flex items-center gap-3 mb-8"
+            className="flex items-center gap-3 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -27,55 +27,52 @@ export default function About() {
           </motion.div>
 
           <motion.h1
-            className="text-[2rem] md:text-[4rem] lg:text-[5.5rem] xl:text-[6.5rem] font-light leading-[1.05] tracking-[-0.025em] max-w-[1200px]"
+            className="text-[2rem] md:text-[3.5rem] lg:text-[5rem] font-light leading-[1.05] tracking-[-0.025em] max-w-[1000px] mb-16"
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease }}
           >
             Wo <em className="italic text-[#C8A850]">Handwerk</em> auf Innovation trifft — Elektrotechnik und Engineering aus einer Hand.
           </motion.h1>
-        </div>
 
-        {/* 4-column text block */}
-        <div className="px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
-          <div className="border-t border-[#0A0A0A]/10 pt-10" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-            {[
-              'LuckyTech wurde aus der Überzeugung gegründet, dass die besten Ergebnisse entstehen, wenn handwerkliche Präzision auf kreatives Engineering trifft. Unser Team vereint Jahrzehnte Erfahrung in der Elektrotechnik.',
-              'Die Anforderungen moderner Projekte erfordern mehr als Standardlösungen. Unsere Arbeit verbindet bewährtes Handwerk mit den neuesten Methoden der Produktentwicklung und des Prototypenbaus.',
-              'Von der Installation einer Wallbox bis zum komplexen Prototyp — wir verstehen, dass jedes Projekt einzigartig ist. Deshalb arbeiten wir eng mit unseren Kunden zusammen, vom ersten Gespräch bis zur Übergabe.',
-              'Wir sind ein schlankes, vielseitiges Team aus Elektrotechnikern, Ingenieuren und kreativen Köpfen. Unser Standort verbindet regionale Nähe mit überregionalem Anspruch.',
-            ].map((text, i) => (
-              <motion.p
-                key={i}
-                className="text-sm text-[#0A0A0A]/45 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + i * 0.1, duration: 0.6 }}
-              >
-                {text}
-              </motion.p>
-            ))}
+          {/* Gründer — direkt im Hero */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-5xl border-t border-[#0A0A0A]/10 pt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.7 }}
+            >
+              <span className="text-[11px] tracking-[0.3em] uppercase text-[#0A0A0A]/25 block mb-4">Gründer</span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-[-0.02em] leading-[1.1] text-[#0A0A0A] mb-4">
+                Die treibende Kraft hinter <em className="italic text-[#0A0A0A]/40">LuckyTech</em>.
+              </h2>
+              <p className="text-sm text-[#0A0A0A]/40 leading-relaxed mb-6 max-w-md">
+                LuckyTech ist aktuell ein Ein-Mann-Betrieb — mit der Überzeugung, dass Qualität wichtiger ist als Größe. Von der Idee über die Planung bis zur Umsetzung liegt alles in einer Hand.
+              </p>
+              <div className="space-y-1">
+                <div className="text-xl md:text-2xl font-light text-[#0A0A0A]">Max Mustermann</div>
+                <div className="text-xs tracking-[0.2em] uppercase text-[#0A0A0A]/30">Gründer & Inhaber</div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.7 }}
+            >
+              <div className="aspect-[3/4] max-w-xs mx-auto lg:mx-0 overflow-hidden bg-[#0A0A0A]/5 rounded-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop"
+                  alt="Max Mustermann"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ─── BLOCK 2: FULL-WIDTH IMAGE ─── */}
-      <section className="relative w-full h-[50vh] md:h-[75vh] overflow-hidden">
-        <motion.img
-          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80&auto=format"
-          alt="Team bei der Arbeit"
-          className="w-full h-full object-cover"
-          initial={{ scale: 1.08 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease }}
-        />
-        <div className="absolute inset-0 bg-[#0A0A0A]/30" />
-      </section>
-
-      {/* ─── BLOCK 3: PHILOSOPHY — large quote on dark ─── */}
-      <section className="bg-[#0A0A0A] px-6 md:px-12 lg:px-16 py-28 md:py-44">
+      {/* ─── BLOCK 2: PHILOSOPHY — large quote on dark ─── */}
+      <section className="bg-[#0A0A0A] px-6 md:px-12 lg:px-16 py-20 md:py-28">
         <motion.div
           className="max-w-5xl"
           initial={{ opacity: 0, y: 50 }}
@@ -83,17 +80,17 @@ export default function About() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.9, ease }}
         >
-          <span className="text-[11px] tracking-[0.3em] uppercase text-white/20 block mb-10">Unsere Philosophie</span>
-          <h2 className="text-[1.6rem] md:text-[3rem] lg:text-[4rem] font-light leading-[1.1] tracking-[-0.02em] text-white">
+          <span className="text-[11px] tracking-[0.3em] uppercase text-white/20 block mb-8">Unsere Philosophie</span>
+          <h2 className="text-[1.5rem] md:text-[2.5rem] lg:text-[3.5rem] font-light leading-[1.1] tracking-[-0.02em] text-white">
             "Wir glauben, dass die besten <em className="italic text-white/40">Innovationen</em> entstehen, wenn man das Fundament des Handwerks mit der Freiheit kreativen Denkens verbindet."
           </h2>
         </motion.div>
       </section>
 
-      {/* ─── BLOCK 4: VALUES — 4 columns on light ─── */}
+      {/* ─── BLOCK 3: VALUES — compact ─── */}
       <AboutValues />
 
-      {/* ─── BLOCK 5: STATS — full-width dark strip ─── */}
+      {/* ─── BLOCK 4: STATS — full-width dark strip ─── */}
       <section className="bg-[#0A0A0A] border-y border-white/[0.06]">
         <div className="grid grid-cols-2 md:grid-cols-4">
           {[
@@ -104,66 +101,21 @@ export default function About() {
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="px-6 md:px-10 py-14 md:py-20 border-r border-white/[0.06] last:border-r-0"
+              className="px-6 md:px-10 py-10 md:py-14 border-r border-white/[0.06] last:border-r-0"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.6 }}
             >
-              <div className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">{stat.number}</div>
+              <div className="text-3xl md:text-4xl lg:text-5xl font-light text-white mb-2">{stat.number}</div>
               <div className="text-xs tracking-[0.15em] uppercase text-white/25">{stat.label}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ─── BLOCK 6: TEAM ─── */}
-      <AboutTeamGrid />
-
-      {/* ─── BLOCK 7: TWO-COLUMN APPROACH — light bg ─── */}
-      <section className="bg-[#F0EDE6] text-[#0A0A0A]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[70vh]">
-          {/* Left: Handwerk */}
-          <div className="px-8 md:px-14 lg:px-16 py-20 lg:py-28 flex items-center border-b lg:border-b-0 lg:border-r border-[#0A0A0A]/10">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease }}
-              className="max-w-md"
-            >
-              <span className="text-[11px] tracking-[0.3em] uppercase text-[#C8A850] block mb-6">Handwerk</span>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-[-0.02em] leading-[1.15] text-[#0A0A0A] mb-6">
-                Präzision, Erfahrung und handwerkliche <em className="italic text-[#0A0A0A]/40">Exzellenz</em>.
-              </h3>
-              <p className="text-sm text-[#0A0A0A]/40 leading-relaxed">
-                Mit über 15 Jahren Erfahrung in der Elektrotechnik kennen wir die Herausforderungen des Alltags. Jede Installation wird mit der Sorgfalt durchgeführt, die Sie erwarten dürfen — präzise, sauber, zuverlässig.
-              </p>
-            </motion.div>
-          </div>
-          {/* Right: Engineering */}
-          <div className="px-8 md:px-14 lg:px-16 py-20 lg:py-28 flex items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1, ease }}
-              className="max-w-md"
-            >
-              <span className="text-[11px] tracking-[0.3em] uppercase text-[#3B5BDB] block mb-6">Engineering</span>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-[-0.02em] leading-[1.15] text-[#0A0A0A] mb-6">
-                Kreative Lösungen für <em className="italic text-[#0A0A0A]/40">komplexe</em> Herausforderungen.
-              </h3>
-              <p className="text-sm text-[#0A0A0A]/40 leading-relaxed">
-                Unser Engineering-Team verbindet technisches Know-how mit kreativem Denken. Vom ersten Konzept bis zum fertigen Prototypen begleiten wir Ihre Vision mit innovativen Lösungsansätzen.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── BLOCK 8: CTA — dark, massive text ─── */}
-      <section className="bg-[#0A0A0A] px-6 md:px-12 lg:px-16 py-32 md:py-48">
+      {/* ─── BLOCK 5: CTA — dark, massive text ─── */}
+      <section className="bg-[#0A0A0A] px-6 md:px-12 lg:px-16 py-24 md:py-36">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
