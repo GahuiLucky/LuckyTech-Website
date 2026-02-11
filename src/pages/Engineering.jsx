@@ -30,7 +30,7 @@ export default function Engineering() {
           <div className="max-w-7xl mx-auto w-full">
             <motion.div
               className="text-xs tracking-[0.5em] text-[#3B5BDB]/70 uppercase mb-8 font-mono"
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
             >
@@ -46,10 +46,10 @@ export default function Engineering() {
                 className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-transparent"
                 style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
               >
-                INGENIEURS
+                ENGI
               </span>
               <span className="block text-[3.5rem] md:text-[7rem] lg:text-[10rem] text-[#F5F2EB]">
-                KUNST
+                NEERING
               </span>
             </motion.h1>
           </div>
@@ -257,85 +257,27 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* ─── BLOCK 6: LEISTUNGEN — process steps ─── */}
-      <section className="bg-[#F0EDE6] text-[#0A0A0A] relative overflow-hidden">
-        <div className="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#3B5BDB]/[0.03] rounded-full translate-y-1/3 translate-x-1/4 pointer-events-none" />
-        <div className="relative px-6 md:px-12 lg:px-16 py-24 md:py-36">
-          <motion.div
-            className="flex items-center gap-4 mb-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <div className="w-10 h-px bg-[#3B5BDB]" />
-            <span className="text-[11px] tracking-[0.3em] uppercase text-[#0A0A0A]/35">Unser Prozess</span>
-          </motion.div>
+      {/* ─── BLOCK 6: FULL-WIDTH VIDEO + overlaid statement ─── */}
+      <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+        />
+        <div className="absolute inset-0 bg-[#0A0A0A]/45" />
+        <div className="absolute inset-0 flex items-end px-6 md:px-12 lg:px-16 pb-12 md:pb-20">
           <motion.h2
-            className="text-[1.6rem] md:text-[2.8rem] lg:text-[3.5rem] font-light leading-[1.1] tracking-[-0.02em] max-w-4xl mb-20"
+            className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[-0.03em] leading-[1] text-white max-w-4xl"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9 }}
           >
-            Von der ersten <em className="italic text-[#0A0A0A]/40">Idee</em> bis zum fertigen Produkt — in vier klaren Schritten.
+            Schnellere Entwicklungszyklen. <em className="italic text-white/50">Messbare</em> Ergebnisse.
           </motion.h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-[#0A0A0A]/10">
-            {[
-              {
-                num: '01',
-                title: 'Analyse & Konzept',
-                desc: 'Anforderungsanalyse, Machbarkeitsstudie und technische Konzeption. Wir definieren gemeinsam die Ziele und den Fahrplan.',
-                deliverables: ['Lastenheft', 'Technisches Konzept', 'Zeitplan'],
-                accent: '#3B5BDB',
-              },
-              {
-                num: '02',
-                title: 'Design & Entwicklung',
-                desc: 'CAD-Modellierung, Schaltungsdesign, Firmware-Entwicklung — interdisziplinär und iterativ unter einem Dach.',
-                deliverables: ['3D-Modelle', 'Schaltpläne', 'Software-Architektur'],
-                accent: '#C8A850',
-              },
-              {
-                num: '03',
-                title: 'Prototyp & Testing',
-                desc: 'Rapid Prototyping, funktionale Tests und Optimierung. Schnelle Zyklen für echtes Feedback und messbare Ergebnisse.',
-                deliverables: ['Funktionsprototyp', 'Testberichte', 'Optimierung'],
-                accent: '#3B5BDB',
-              },
-              {
-                num: '04',
-                title: 'Produktion & Übergabe',
-                desc: 'Fertigungsbegleitung, Dokumentation und Serienvorbereitung. Ihr Produkt ist bereit für den Markt.',
-                deliverables: ['Serienstückliste', 'Dokumentation', 'Fertigungsdaten'],
-                accent: '#C8A850',
-              },
-            ].map((step, i) => (
-              <motion.div
-                key={step.num}
-                className="pt-8 pb-10 px-5 first:pl-0 last:pr-0 border-l border-[#0A0A0A]/[0.08] first:border-l-0 group"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-              >
-                <div className="w-5 h-px mb-6 transition-all duration-500 group-hover:w-10" style={{ backgroundColor: step.accent }} />
-                <span className="text-[10px] tracking-[0.3em] uppercase mb-4 block" style={{ color: step.accent + '80' }}>
-                  {step.num}
-                </span>
-                <h3 className="text-lg font-medium text-[#0A0A0A] mb-3 tracking-tight">{step.title}</h3>
-                <p className="text-sm text-[#0A0A0A]/40 leading-[1.7] mb-6">{step.desc}</p>
-                <div className="space-y-1.5">
-                  {step.deliverables.map((d) => (
-                    <div key={d} className="flex items-center gap-2 text-[11px] text-[#0A0A0A]/30">
-                      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: step.accent + '60' }} />
-                      {d}
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -360,7 +302,8 @@ export default function Engineering() {
         </motion.div>
       </section>
 
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
