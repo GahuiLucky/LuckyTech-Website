@@ -16,7 +16,7 @@ export default function Engineering() {
   return (
     <div className="overflow-x-hidden relative text-[#F5F2EB]">
       {/* HeroBackground fixed behind everything (very low z so it is visible through transparent sections) */}
-      <div className="fixed inset-0 -z-30 pointer-events-none">
+      <div className="fixed inset-0 -z-0 pointer-events-none">
         <HeroBackground />
       </div>
 
