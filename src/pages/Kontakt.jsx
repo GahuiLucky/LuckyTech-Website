@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import HomeContactSection from '../components/HomeContactSection';
+import HomeContactSection from "src/components/home/HomeContactSection.jsx";
 
 export default function Contact() {
   return (
