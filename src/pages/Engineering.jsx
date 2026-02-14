@@ -221,34 +221,6 @@ export default function Engineering() {
           </div>
         </section>
 
-        {/* Product -> Video transition (diagonal, subtle) */}
-        <SectionTransition fromColor="rgba(240,237,230,0.95)" toColor="transparent" variant="diagonal" />
-
-        {/* ===== VIDEO STATEMENT (make HeroBackground visible through video) ===== */}
-        <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply"
-            src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
-          />
-          {/* transparent overlay so HeroBackground can be seen */}
-          <div className="absolute inset-0 bg-transparent pointer-events-none" />
-          <div className="absolute inset-0 flex items-end px-4 md:px-12 lg:px-16 pb-12 md:pb-20">
-            <motion.h2
-              className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[-0.03em] leading-[1] text-white max-w-4xl"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
-            >
-              Schnellere Entwicklungszyklen. <em className="italic text-white/50">Messbare</em> Ergebnisse.
-            </motion.h2>
-          </div>
-        </section>
-
         {/* Video -> CTA transition (wave) */}
         <SectionTransition fromColor="transparent" toColor="rgba(10,10,10,0.85)" variant="wave" />
 
