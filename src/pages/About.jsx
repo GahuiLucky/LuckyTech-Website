@@ -50,7 +50,7 @@ export default function About() {
             >
               <div className="aspect-[4/5] max-w-sm mx-auto lg:mx-0 overflow-hidden bg-[#0A0A0A]/5">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop"
+                  src="src/assets/AchimKolb.png"
                   alt="Max Mustermann"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
