@@ -6,6 +6,8 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
 import HeroBackground from '../components/home/HeroBackground';
 import ServiceTilesWithDialog from '../components/handwerk/ServiceTilesWithDialog';
 import ScrollProcessSection from '../components/handwerk/ScrollProcessSection';
+import ImageShowcase from '../components/handwerk/ImageShowcase';
+import FullWidthImage from '../components/handwerk/FullWidthImage';
 
 export default function Handwerk() {
   const heroRef = useRef(null);
