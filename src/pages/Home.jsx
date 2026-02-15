@@ -320,7 +320,7 @@ export default function Home() {
       </section>
 
       {/* Transition: Engineering → Contact */}
-      <SectionTransition fromColor="rgba(10, 10, 10, 0.4)" toColor="#000000" variant="shards" />
+      <SectionTransition fromColor="rgba(10, 10, 10, 0.4)" toColor="#000000" variant="wave" />
 
       {/* Contact Section with Map */}
       <HomeContactSection />

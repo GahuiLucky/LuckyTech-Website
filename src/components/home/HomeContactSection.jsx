@@ -75,6 +75,7 @@ export default function HomeContactSection() {
       {/* Vollflächige Karte als Hintergrund (immer interaktiv geladen, interactions off by default) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <MapContainer
+          className="leaflet-map"
           center={[49.08994, 9.19641]} // inline tuple — avoids TS tuple annotation issues in .jsx
           zoom={15}
           dragging={false}
