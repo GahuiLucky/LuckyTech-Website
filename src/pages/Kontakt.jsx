@@ -1,34 +1,59 @@
-// src/pages/Contact.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import HomeContactSection from "../components/home/HomeContactSection";
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import ContactForm from '../components/kontakt/ContactForm';
+
+function FixMapResize() {
+  const map = useMap();
+  useEffect(() => {
+    if (!map) return;
+    const t = setTimeout(() => {
+      try { map.invalidateSize(); } catch (e) {}
+    }, 150);
+    const onResize = () => { try { map.invalidateSize(); } catch (e) {} };
+    window.addEventListener('resize', onResize);
+    return () => { clearTimeout(t); window.removeEventListener('resize', onResize); };
+  }, [map]);
+  return null;
+}
 
 export default function Contact() {
   return (
-    <main className="bg-[#0A0A0A] text-white min-h-screen">
+    <main className="bg-[#0A0A0A] text-white min-h-screen relative">
+      {/* Full-screen map background */}
+      <div className="absolute inset-0 z-0">
+        <MapContainer
+          center={[49.08994, 9.19641]}
+          zoom={15}
+          dragging={false}
+          touchZoom={false}
+          scrollWheelZoom={false}
+          doubleClickZoom={false}
+          boxZoom={false}
+          keyboard={false}
+          zoomControl={false}
+          style={{ height: '100%', width: '100%' }}
+          attributionControl={false}
+        >
+          <FixMapResize />
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+        </MapContainer>
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
 
-
-      {/* Main contact section (map background + contact cards + form) */}
-      <HomeContactSection />
-
-      {/* Footer CTA */}
-      <section className="px-6 md:px-12 py-12 md:py-20 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="max-w-5xl mx-auto text-center">
-          <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-2xl md:text-3xl font-semibold mb-4">
-            Bereit loszulegen?
-          </motion.h2>
-          <p className="text-white/70 mb-6">Erzählen Sie uns kurz von Ihrem Vorhaben — wir melden uns zeitnah mit einem Vorschlag.</p>
-          <div className="flex items-center justify-center gap-3">
-            <Link to="/kontakt" className="inline-flex items-center gap-2 px-5 py-3 rounded bg-[#C8A850] text-black font-semibold hover:brightness-95 transition">
-              Anfrage senden
-            </Link>
-            <a href="tel:+491234567890" className="inline-flex items-center gap-2 px-4 py-3 rounded border border-white/10 text-white hover:bg-white/5 transition">
-              Anrufen
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Content over map */}
+      <div className="relative z-10 min-h-screen flex items-center px-4 md:px-8 py-20 md:py-28">
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <ContactForm />
+        </motion.div>
+      </div>
     </main>
   );
 }
