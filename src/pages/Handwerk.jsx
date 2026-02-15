@@ -53,19 +53,19 @@ export default function Handwerk() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.15, duration: 0.9, type: 'spring', stiffness: 40 }}
               >
-                <div className="flex items-baseline gap-6"> {/* etwas mehr Abstand zwischen Wörtern */}
-                  <span
-                    className="text-[3.5rem] md:text-[7rem] lg:text-[10rem] font-extrabold text-transparent"
-                    style={{ WebkitTextStroke: '2px rgba(191,255,0,0.3)' }}
-                    aria-hidden="true"
-                  >
-                    HAND
-                  </span>
+                {/* erste Zeile (Outline / Stroke) */}
+                <span
+                  className="block text-[3.5rem] md:text-[6.5rem] lg:text-[9.5rem] font-extrabold text-transparent"
+                  style={{ WebkitTextStroke: '2px rgba(59,91,219,0.18)' }}
+                  aria-hidden="true"
+                >
+                  HAND
+                </span>
 
-                  <span className="text-[3.5rem] md:text-[7rem] lg:text-[10rem] font-extrabold text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)]">
-                    WERK
-                  </span>
-                </div>
+                {/* zweite Zeile (Filled) */}
+                <span className="block text-[3.5rem] md:text-[6.5rem] lg:text-[9.5rem] font-extrabold text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)]">
+                  WERK
+                </span>
               </motion.h1>
 
               <motion.p
