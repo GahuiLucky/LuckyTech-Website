@@ -7,33 +7,7 @@ import HomeContactSection from "../components/home/HomeContactSection";
 export default function Contact() {
   return (
     <main className="bg-[#0A0A0A] text-white min-h-screen">
-      {/* Top hero for contact page */}
-      <header className="relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="text-xs tracking-[0.4em] text-white/60 mb-4">/ KONTAKT</div>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Kontakt</h1>
-            <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto">
-              Wir freuen uns auf Ihre Nachricht. Ob Projektanfrage, Support oder allgemeine Fragen — schreiben Sie uns.
-            </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to="/"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded bg-white text-black font-semibold hover:brightness-95 transition"
-              >
-                Zurück zur Startseite
-              </Link>
-              <a
-                href="mailto:info.luckytech@icloud.com"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded border border-white/20 text-white hover:bg-white/5 transition"
-              >
-                E‑Mail schreiben
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </header>
 
       {/* Main contact section (map background + contact cards + form) */}
       <HomeContactSection />
