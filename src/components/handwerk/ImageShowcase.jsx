@@ -38,7 +38,7 @@ export default function ImageShowcase() {
   return (
     <section className="py-12 md:py-20 px-4 md:px-8">
       <div className="max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {images.map((img, i) => (
             <motion.div
               key={i}
