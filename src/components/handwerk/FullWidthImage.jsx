@@ -5,8 +5,8 @@ export default function FullWidthImage() {
   return (
     <section className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
       <motion.img
-        src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1600&q=80&auto=format"
-        alt="Elektroplanung"
+        src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=1600&q=80&auto=format"
+        alt="Elektro-CAD Plan"
         className="absolute inset-0 w-full h-full object-cover"
         initial={{ scale: 1.08 }}
         whileInView={{ scale: 1 }}
