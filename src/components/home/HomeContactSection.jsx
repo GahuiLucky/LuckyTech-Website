@@ -128,33 +128,6 @@ export default function HomeContactSection() {
                 Kontakt aufnehmen
                 <ArrowRight className="w-4 h-4" />
               </Link>
-
-              <button
-                onClick={() => {
-                  if (!mapRef.current) return;
-                  const container = mapRef.current.getContainer();
-                  if (container) container.style.pointerEvents = 'auto';
-                  try {
-                    // enable interactions safely (guarded)
-                    mapRef.current.dragging && mapRef.current.dragging.enable && mapRef.current.dragging.enable();
-                    mapRef.current.touchZoom && mapRef.current.touchZoom.enable && mapRef.current.touchZoom.enable();
-                    mapRef.current.scrollWheelZoom && mapRef.current.scrollWheelZoom.enable && mapRef.current.scrollWheelZoom.enable();
-                    mapRef.current.doubleClickZoom && mapRef.current.doubleClickZoom.enable && mapRef.current.doubleClickZoom.enable();
-                    mapRef.current.boxZoom && mapRef.current.boxZoom.enable && mapRef.current.boxZoom.enable();
-                    mapRef.current.keyboard && mapRef.current.keyboard.enable && mapRef.current.keyboard.enable();
-                    // add zoom control if available
-                    if (mapRef.current.zoomControl && typeof mapRef.current.zoomControl.addTo === 'function') {
-                      try { mapRef.current.zoomControl.addTo(mapRef.current); } catch (e) {}
-                    }
-                  } catch (e) {
-                    // fail silently if some handlers are not present
-                  }
-                }}
-                className="inline-flex items-center gap-2 bg-transparent border border-white/20 text-white text-sm px-4 py-3 rounded hover:bg-white/5 transition w-full sm:w-auto justify-center"
-                aria-label="Karte interaktiv aktivieren"
-              >
-                Karte interaktiv aktivieren
-              </button>
             </div>
           </div>
         </motion.div>
