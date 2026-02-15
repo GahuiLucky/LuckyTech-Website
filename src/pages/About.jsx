@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import AboutValues from '../components/about/AboutValues';
 import HeroBackground from '../components/home/HeroBackground';
+import SectionTransition from '../components/home/SectionTransition';
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -70,18 +71,18 @@ export default function About() {
             >
               <span className="text-[11px] tracking-[0.3em] uppercase text-[#C8A850] block mb-5">Die Person dahinter</span>
               <h2 className="text-2xl md:text-3xl lg:text-[2.8rem] font-light tracking-[-0.02em] leading-[1.1] text-[#0A0A0A] mb-5">
-                Max Mustermann
+                Achim Kolb
               </h2>
               <p className="text-[15px] text-[#0A0A0A]/50 leading-[1.7] mb-8 max-w-lg">
                 LuckyTech ist aktuell ein Ein-Mann-Betrieb — mit der Überzeugung, dass Qualität wichtiger ist als Größe. Von der Idee über die Planung bis zur Umsetzung liegt alles in einer Hand. Jedes Projekt wird mit dem gleichen Anspruch an Exzellenz behandelt.
               </p>
               <div className="flex gap-8 border-t border-[#0A0A0A]/10 pt-6">
                 <div>
-                  <div className="text-2xl md:text-3xl font-light text-[#0A0A0A]">15+</div>
+                  <div className="text-2xl md:text-3xl font-light text-[#0A0A0A]">5+</div>
                   <div className="text-[10px] tracking-[0.15em] uppercase text-[#0A0A0A]/30 mt-1">Jahre Erfahrung</div>
                 </div>
                 <div>
-                  <div className="text-2xl md:text-3xl font-light text-[#0A0A0A]">500+</div>
+                  <div className="text-2xl md:text-3xl font-light text-[#0A0A0A]">50+</div>
                   <div className="text-[10px] tracking-[0.15em] uppercase text-[#0A0A0A]/30 mt-1">Projekte</div>
                 </div>
               </div>
@@ -127,12 +128,10 @@ export default function About() {
 
       {/* ─── BLOCK 4: STATS — refined ─── */}
       <section className="bg-[#0A0A0A] border-y border-white/[0.06]">
-        <div className="grid grid-cols-2 md:grid-cols-4">
+        <div className="grid grid-cols-2 md:grid-cols-2">
           {[
-            { number: '15+', label: 'Jahre Erfahrung', accent: '#C8A850' },
-            { number: '500+', label: 'Abgeschlossene Projekte', accent: '#3B5BDB' },
-            { number: '100%', label: 'Kundenzufriedenheit', accent: '#C8A850' },
-            { number: '24/7', label: 'Support & Service', accent: '#3B5BDB' },
+            { number: '5+', label: 'Jahre Erfahrung', accent: '#C8A850' },
+            { number: '50+', label: 'Abgeschlossene Projekte', accent: '#3B5BDB' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -150,32 +149,21 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── BLOCK 5: CTA ─── */}
-      <section className="bg-[#0A0A0A] px-6 md:px-12 lg:px-16 py-24 md:py-36 relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-[#3B5BDB]/[0.03] rounded-full translate-y-1/2 -translate-x-1/4 pointer-events-none" />
-        <motion.div
-          className="relative z-10"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease }}
-        >
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-12 h-px bg-[#C8A850]" />
-            <span className="text-[11px] tracking-[0.3em] uppercase text-white/20">Nächster Schritt</span>
-          </div>
-          <h2 className="text-4xl md:text-6xl lg:text-[6rem] font-light tracking-[-0.03em] leading-[0.95] text-white mb-10 max-w-4xl">
-            Bereit für Ihr nächstes <em className="italic text-white/40">Projekt</em>?
-          </h2>
-          <Link
-            to={createPageUrl('Kontakt')}
-            className="inline-flex items-center gap-3 bg-white/[0.05] border border-white/10 px-8 py-4 text-white/60 text-sm tracking-[0.2em] uppercase hover:bg-white/[0.1] hover:text-white transition-all duration-300 group"
-          >
-            LET'S TALK
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-          </Link>
-        </motion.div>
-      </section>
+        {/* Video -> CTA transition (wave) */}
+        <SectionTransition fromColor="transparent" toColor="rgba(10,10,10,0.85)" variant="wave" />
+
+        {/* ===== CTA (semi-transparent so background peeks through) ===== */}
+        <section className="px-4 md:px-12 lg:px-16 py-24 md:py-40 bg-[rgba(10,10,10,0.85)]">
+          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
+            <h2 className="text-4xl md:text-6xl lg:text-[6.5rem] font-light tracking-[-0.03em] leading-[0.95] text-white mb-8 max-w-5xl">
+              Bereit für Ihr nächstes <em className="italic text-white/40">Projekt</em>?
+            </h2>
+            <Link to={createPageUrl('Kontakt')} className="inline-flex items-center gap-3 text-white/40 text-sm tracking-[0.2em] uppercase hover:text-white transition-colors group border-b border-white/15 pb-3 hover:border-white/50">
+              LET'S TALK
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
+        </section>
 
     </div>
   );

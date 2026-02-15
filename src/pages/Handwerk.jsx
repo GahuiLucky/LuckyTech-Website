@@ -8,6 +8,7 @@ import ServiceTilesWithDialog from '../components/handwerk/ServiceTilesWithDialo
 import ScrollProcessSection from '../components/handwerk/ScrollProcessSection';
 import ImageShowcase from '../components/handwerk/ImageShowcase';
 import FullWidthImage from '../components/handwerk/FullWidthImage';
+import SectionTransition from '../components/home/SectionTransition';
 
 export default function Handwerk() {
   const heroRef = useRef(null);
@@ -177,29 +178,20 @@ export default function Handwerk() {
         {/* ===== FULL WIDTH IMAGE ===== */}
         <FullWidthImage />
 
-        {/* ===== CTA ===== */}
-        <section className="py-20 md:py-32 px-4 md:px-8">
-          <div className="max-w-screen-xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] text-white mb-6">
-                Bereit für Ihr
-                <br />
-                nächstes Projekt?
-              </h2>
-              <Link
-                to={createPageUrl('Kontakt')}
-                className="inline-flex items-center gap-3 text-lg font-medium text-[#C8A850] border-b-2 border-[#C8A850] pb-2 hover:text-white hover:border-white transition-all group"
-              >
-                Kontakt aufnehmen
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-              </Link>
-            </motion.div>
-          </div>
+        {/* Video -> CTA transition (wave) */}
+        <SectionTransition fromColor="transparent" toColor="rgba(10,10,10,0.85)" variant="wave" />
+
+        {/* ===== CTA (semi-transparent so background peeks through) ===== */}
+        <section className="px-4 md:px-12 lg:px-16 py-24 md:py-40 bg-[rgba(10,10,10,0.85)]">
+          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
+            <h2 className="text-4xl md:text-6xl lg:text-[6.5rem] font-light tracking-[-0.03em] leading-[0.95] text-white mb-8 max-w-5xl">
+              Bereit für Ihr nächstes <em className="italic text-white/40">Projekt</em>?
+            </h2>
+            <Link to={createPageUrl('Kontakt')} className="inline-flex items-center gap-3 text-white/40 text-sm tracking-[0.2em] uppercase hover:text-white transition-colors group border-b border-white/15 pb-3 hover:border-white/50">
+              LET'S TALK
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
         </section>
       </div>
     </div>
