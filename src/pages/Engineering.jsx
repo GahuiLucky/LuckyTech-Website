@@ -179,7 +179,7 @@ export default function Engineering() {
         </section>
 
         {/* Tiles -> Product (shards) transition */}
-        <SectionTransition fromColor="transparent" toColor="rgba(240,237,230,0.95)" variant="shards" />
+        <SectionTransition fromColor="rgba(14, 14, 13, 0.65)" toColor="rgba(55, 55, 55, 0.53)" variant="wave" />
 
         {/* ===== SOLUTION TILE 2 (reversed) ===== */}
         <section className="w-full grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]">
