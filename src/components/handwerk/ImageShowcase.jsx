@@ -13,9 +13,9 @@ const images = [
     caption: 'Intelligente Steuerung',
   },
   {
-    src: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80&auto=format',
-    alt: 'Modernes Smarthome',
-    caption: 'Modernes Wohnen',
+    src: 'https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=1200&q=80&auto=format',
+    alt: 'Wallbox Ladestation',
+    caption: 'Wallbox Installation',
   },
 ];
 
