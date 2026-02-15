@@ -4,18 +4,33 @@ import { motion } from 'framer-motion';
 const images = [
   {
     src: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80&auto=format',
-    alt: 'Elektroinstallation',
+    alt: 'Verkabelung',
     caption: 'Präzise Verkabelung',
   },
   {
     src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80&auto=format',
-    alt: 'Smarthome Steuerung',
-    caption: 'Intelligente Steuerung',
+    alt: 'Smarthome',
+    caption: 'Smarthome Steuerung',
   },
   {
     src: 'https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=1200&q=80&auto=format',
-    alt: 'Wallbox Ladestation',
+    alt: 'Wallbox',
     caption: 'Wallbox Installation',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80&auto=format',
+    alt: 'Photovoltaik',
+    caption: 'Photovoltaik Anlagen',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&q=80&auto=format',
+    alt: 'Reparatur',
+    caption: 'Reparatur & Service',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=1200&q=80&auto=format',
+    alt: 'Rolladensteuerung',
+    caption: 'Rolladensteuerung',
   },
 ];
 
