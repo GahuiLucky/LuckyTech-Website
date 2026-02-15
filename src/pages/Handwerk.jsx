@@ -168,8 +168,14 @@ export default function Handwerk() {
           </div>
         </section>
 
+        {/* ===== IMAGE SHOWCASE ===== */}
+        <ImageShowcase />
+
         {/* ===== PROCESS — Scroll-reveal timeline ===== */}
         <ScrollProcessSection />
+
+        {/* ===== FULL WIDTH IMAGE ===== */}
+        <FullWidthImage />
 
         {/* ===== CTA ===== */}
         <section className="py-20 md:py-32 px-4 md:px-8">
