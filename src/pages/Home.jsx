@@ -218,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* Transition: Handwerk → Engineering */}
-      <SectionTransition fromColor="rgba(245,242,235,0.95)" toColor="rgba(10,10,10,0.9)" variant="diagonal" />
+      <SectionTransition fromColor="rgba(245,242,235,0.95)" toColor="rgba(10, 10, 10, 0.44)" variant="diagonal" />
 
       {/* Engineering Section — eloyb brutalist style */}
       <section 

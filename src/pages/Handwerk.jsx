@@ -56,7 +56,7 @@ export default function Handwerk() {
                 {/* erste Zeile (Outline / Stroke) */}
                 <span
                   className="block text-[3.5rem] md:text-[6.5rem] lg:text-[9.5rem] font-extrabold text-transparent"
-                  style={{ WebkitTextStroke: '2px rgba(59,91,219,0.18)' }}
+                  style={{ WebkitTextStroke: '2px rgba(191,255,0,0.3)' }}
                   aria-hidden="true"
                 >
                   HAND
