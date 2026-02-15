@@ -28,7 +28,7 @@ const images = [
     caption: 'Reparatur & Service',
   },
   {
-    src: 'src/assets/Rolladensteuerung.jpg',
+    src: 'src/assets/Rolladensteuerung.jpeg',
     alt: 'Rolladensteuerung',
     caption: 'Rolladensteuerung',
   },
