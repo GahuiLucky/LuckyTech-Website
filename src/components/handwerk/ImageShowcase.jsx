@@ -8,17 +8,17 @@ const images = [
     caption: 'Präzise Verkabelung',
   },
   {
-    src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80&auto=format',
+    src: 'src/assets/SmartHome.jpg',
     alt: 'Smarthome',
     caption: 'Smarthome Steuerung',
   },
   {
-    src: 'https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=1200&q=80&auto=format',
+    src: 'src/assets/Wallbox.jpg',
     alt: 'Wallbox',
     caption: 'Wallbox Installation',
   },
   {
-    src: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80&auto=format',
+    src: 'src/assets/Photovoltaik.jpg',
     alt: 'Photovoltaik',
     caption: 'Photovoltaik Anlagen',
   },
@@ -28,7 +28,7 @@ const images = [
     caption: 'Reparatur & Service',
   },
   {
-    src: 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=1200&q=80&auto=format',
+    src: 'src/assets/Rolladensteuerung.mp4',
     alt: 'Rolladensteuerung',
     caption: 'Rolladensteuerung',
   },
