@@ -49,7 +49,7 @@ export default function Engineering() {
                 {/* erste Zeile (Outline / Stroke) */}
                 <span
                   className="block text-[3.5rem] md:text-[6.5rem] lg:text-[9.5rem] font-extrabold text-transparent"
-                  style={{ WebkitTextStroke: '2px rgba(18, 154, 179, 0.7)' }}
+                  style={{ WebkitTextStroke: '2px rgba(2, 110, 218, 0.7)' }}
                   aria-hidden="true"
                 >
                   INGENIEURS
