@@ -88,16 +88,16 @@ export default function Home() {
               </span>
             </motion.h1>
 
-            {/* Subtitle row */}
+            {/* Subtitle row: replaced with single line "Elektrotechnik + Ingenieurskunst" */}
             <motion.div
-              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mt-8"
+              className="mt-8"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.7 }}
             >
-              <span className="text-lg md:text-xl text-[#F5F2EB]/80 font-light tracking-wider">Elektrotechnik</span>
-              <span className="hidden md:block w-12 h-px bg-[#C8A850]/50" />
-              <span className="text-lg md:text-xl text-[#F5F2EB]/80 font-light tracking-wider">Engineering</span>
+              <span className="text-lg md:text-xl text-[#F5F2EB]/80 font-light tracking-wider">
+                Elektrotechnik + Ingenieurskunst
+              </span>
             </motion.div>
           </motion.div>
         </div>

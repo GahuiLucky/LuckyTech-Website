@@ -97,7 +97,7 @@ export default function Layout({ children, currentPageName }) {
   const navItems = [
     { name: 'Home', path: 'Home' },
     { name: 'Handwerk', path: 'Handwerk' },
-    { name: 'Engineering', path: 'Engineering' },
+    { name: 'Ingenieurskunst', path: 'Engineering' },
     { name: 'About', path: 'About' },
     { name: 'Kontakt', path: 'Kontakt' }
   ];
