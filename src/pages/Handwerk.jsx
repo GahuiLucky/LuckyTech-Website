@@ -59,12 +59,12 @@ export default function Handwerk() {
                   style={{ WebkitTextStroke: '2px rgba(191,255,0,0.3)' }}
                   aria-hidden="true"
                 >
-                  HAND
+                  ELEKTRO
                 </span>
 
                 {/* zweite Zeile (Filled) */}
                 <span className="block text-[3.5rem] md:text-[6.5rem] lg:text-[9.5rem] font-extrabold text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)]">
-                  WERK
+                  TECHNIK
                 </span>
               </motion.h1>
 
