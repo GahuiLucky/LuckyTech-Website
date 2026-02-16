@@ -17,15 +17,12 @@ function Modal({ open, title, children, onClose }) {
     if (open) {
       lastActiveRef.current = document.activeElement;
       document.addEventListener('keydown', onKey);
-      // focus the close button after a tick
       setTimeout(() => closeBtnRef.current && closeBtnRef.current.focus(), 0);
-      // prevent background scroll
       document.body.style.overflow = 'hidden';
     }
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
-      // restore focus
       if (lastActiveRef.current && typeof lastActiveRef.current.focus === 'function') {
         lastActiveRef.current.focus();
       }
@@ -94,66 +91,71 @@ export default function Layout({ children, currentPageName }) {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   const navItems = [
     { name: 'Home', path: 'Home' },
-    { name: 'Elektrotechnik', path: 'Handwerk' },
-    { name: 'Ingenieurskunst', path: 'Engineering' },
+    { name: 'Handwerk', path: 'Handwerk' },
+    { name: 'Engineering', path: 'Engineering' },
     { name: 'About', path: 'About' },
     { name: 'Kontakt', path: 'Kontakt' }
   ];
 
-  // Beispieltexte für Impressum und Datenschutz. Ersetze durch deine echten Inhalte.
+  // Beispieltexte für Impressum und Datenschutz (ersetzen durch echte Inhalte)
   const impressumText = (
     <>
       <p className="mb-2"><strong>LuckyTech</strong></p>
       <p className="mb-2">Im Rappen 11<br/>74388 Talheim</p>
-      <p className="mb-2">Geschäftsführer: Achim Kolb</p>
-      <p className="mb-2">Kontakt: info.luckytech@icloud.com</p>
+      <p className="mb-2">Inhaber: Achim Kolb</p>
+      <p className="mb-2">Telefon: 0179 2612732</p>
+      <p className="mb-2">E‑Mail: info.luckytech@icloud.com</p>
       <p className="text-xs text-white/60 mt-4">Trotz sorgfältiger Kontrolle übernehme ich keine Haftung für die Inhalte externer Links. Für den Inhalt verlinkter Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
     </>
   );
 
-const privacyText = (
-  <div className="space-y-3">
-    <p className="font-semibold">1. Verantwortlicher</p>
-    <p>
-      LuckyTech<br />
-      Inhaber: Achim Kolb<br />
-      Im Rappen 11, 74388 Talheim<br />
-      Telefon: 0179 2612732<br />
-      E‑Mail: info.luckytech@icloud.com
-    </p>
+  const privacyText = (
+    <div className="space-y-3">
+      <p className="font-semibold">1. Verantwortlicher</p>
+      <p>
+        LuckyTech<br />
+        Inhaber: Achim Kolb<br />
+        Im Rappen 11, 74388 Talheim<br />
+        Telefon: 0179 2612732<br />
+        E‑Mail: info.luckytech@icloud.com
+      </p>
 
-    <p className="font-semibold">2. Allgemeine Hinweise</p>
-    <p>
-      Der Schutz Ihrer personenbezogenen Daten ist mir wichtig. Daten werden ausschließlich gemäß DSGVO verarbeitet. Es werden keine Cookies, Analyse‑Tools oder eingebetteten Inhalte eingesetzt.
-    </p>
+      <p className="font-semibold">2. Allgemeine Hinweise</p>
+      <p>
+        Der Schutz Ihrer personenbezogenen Daten ist mir wichtig. Daten werden ausschließlich gemäß DSGVO verarbeitet. Es werden keine Cookies, Analyse‑Tools oder eingebetteten Inhalte eingesetzt.
+      </p>
 
-    <p className="font-semibold">3. Webhosting bei STRATO</p>
-    <p>
-      Beim Aufruf der Website erhebt STRATO automatisch Server‑Logfiles (anonymisiert): IP‑Adresse, Datum/Uhrzeit, Browser, Betriebssystem, besuchte Seiten. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
-    </p>
+      <p className="font-semibold">3. Webhosting bei STRATO</p>
+      <p>
+        Beim Aufruf der Website erhebt STRATO automatisch Server‑Logfiles (anonymisiert): IP‑Adresse, Datum/Uhrzeit, Browser, Betriebssystem, besuchte Seiten. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
+      </p>
 
-    <p className="font-semibold">4. Kontaktformular</p>
-    <p>
-      Daten aus dem Kontaktformular (Name, E‑Mail, Telefonnummer, Nachricht) werden zur Bearbeitung Ihrer Anfrage verarbeitet. Rechtsgrundlagen: Art. 6 Abs. 1 lit. b &amp; f DSGVO.
-    </p>
+      <p className="font-semibold">4. Kontaktformular</p>
+      <p>
+        Daten aus dem Kontaktformular (Name, E‑Mail, Telefonnummer, Nachricht) werden zur Bearbeitung Ihrer Anfrage verarbeitet. Rechtsgrundlagen: Art. 6 Abs. 1 lit. b &amp; f DSGVO.
+      </p>
 
-    <p className="font-semibold">5. Nutzung von sevDesk</p>
-    <p>
-      Für Rechnungs‑ und Angebotsverwaltung nutze ich sevDesk (sevDesk GmbH, Offenburg). Es besteht ein Auftragsverarbeitungsvertrag. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
-    </p>
+      <p className="font-semibold">5. Nutzung von sevDesk</p>
+      <p>
+        Für Rechnungs‑ und Angebotsverwaltung nutze ich sevDesk (sevDesk GmbH, Offenburg). Es besteht ein Auftragsverarbeitungsvertrag. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
+      </p>
 
-    <p className="font-semibold">6. Ihre Rechte</p>
-    <p>
-      Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde.
-    </p>
+      <p className="font-semibold">6. Ihre Rechte</p>
+      <p>
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde.
+      </p>
 
-    <p className="font-semibold">7. Aktualität</p>
-    <p>Stand: 2025</p>
-  </div>
-);
-
+      <p className="font-semibold">7. Aktualität</p>
+      <p>Stand: 2025</p>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F2EB]">
@@ -170,12 +172,15 @@ const privacyText = (
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-[#F5F2EB]/10">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-          <Link to={createPageUrl('Home')} className="text-2xl font-bold tracking-tighter hover:text-white/70 transition-colors">
-            LUCKYTECH
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          {/* Logo + brand */}
+          <Link to={createPageUrl('Home')} className="flex items-center gap-3">
+            <img src="src/assets/luckytech-logo.png" alt="LuckyTech Logo" className="w-10 h-10 object-contain" />
+            <span className="hidden sm:inline-block text-2xl font-bold tracking-tighter hover:text-white/70 transition-colors">LUCKYTECH</span>
           </Link>
 
-          <div className="hidden md:flex gap-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -183,30 +188,47 @@ const privacyText = (
                 className={`text-sm uppercase tracking-wider hover:text-white/70 transition-colors ${
                   currentPageName === item.path ? 'text-white' : 'text-white/60'
                 }`}
+                aria-current={currentPageName === item.path ? 'page' : undefined}
               >
                 {item.name}
               </Link>
             ))}
           </div>
 
-          <button
-            className="md:hidden z-50"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Navigation öffnen"
-          >
-            {menuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-3">
+            <button
+              className="md:hidden z-50 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#C8A850]/40"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? 'Navigation schließen' : 'Navigation öffnen'}
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            {/* small CTA on desktop */}
+            <div className="hidden md:block">
+              <Link
+                to={createPageUrl('Kontakt')}
+                className="inline-flex items-center gap-2 bg-[#C8A850] text-black font-semibold px-4 py-2 rounded shadow hover:brightness-95 transition"
+                aria-label="Kontakt aufnehmen"
+              >
+                Kontakt
+              </Link>
+            </div>
+          </div>
         </div>
 
+        {/* Mobile Menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              exit={{ opacity: 0, y: -12 }}
               className="md:hidden bg-[#0A0A0A] border-t border-[#F5F2EB]/10"
             >
-              <div className="px-6 py-8 space-y-6">
+              <div className="px-6 py-6 space-y-6">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
@@ -215,10 +237,22 @@ const privacyText = (
                     className={`block text-2xl uppercase tracking-wider hover:text-white/70 transition-colors ${
                       currentPageName === item.path ? 'text-white' : 'text-white/60'
                     }`}
+                    aria-current={currentPageName === item.path ? 'page' : undefined}
                   >
                     {item.name}
                   </Link>
                 ))}
+
+                <div className="pt-2 border-t border-white/6">
+                  <Link
+                    to={createPageUrl('Kontakt')}
+                    onClick={() => setMenuOpen(false)}
+                    className="block mt-4 inline-flex items-center gap-2 bg-[#C8A850] text-black font-semibold px-4 py-3 rounded shadow w-full justify-center"
+                    aria-label="Kontakt aufnehmen"
+                  >
+                    Kontakt
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}
