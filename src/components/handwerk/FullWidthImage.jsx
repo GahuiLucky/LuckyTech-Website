@@ -23,7 +23,7 @@ export default function FullWidthImage() {
         >
           <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-2">/ Qualität</span>
           <h3 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-white max-w-2xl leading-[1.1]">
-            Jedes Detail zählt — von der <em className="italic text-white/50">Planung</em> bis zur letzten Schraube.
+            Jedes Detail zählt — von der <em className="italic text-white/50">Planung</em> bis zum letzten Kabel.
           </h3>
         </motion.div>
       </div>
