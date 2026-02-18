@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import HeroBackground from '../components/home/HeroBackground';
 import SectionTransition from '../components/home/SectionTransition';
-
+/**/
 export default function Engineering() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
