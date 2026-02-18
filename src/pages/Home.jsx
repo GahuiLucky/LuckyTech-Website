@@ -314,7 +314,7 @@ export default function Home() {
             src={"src/assets/luckytech-logo-transparent.png"}
             alt=""
             aria-hidden="true"
-            className="absolute right-[-8%] md:right-[2%] top-8 md:top-12 w-[55vw] md:w-[38vw] lg:w-[30vw] max-w-[480px] object-contain pointer-events-none select-none"
+            className="absolute right-[-8%] md:right-[2%] -top-4 md:-top-8 w-[55vw] md:w-[38vw] lg:w-[30vw] max-w-[480px] object-contain pointer-events-none select-none"
             style={{ opacity: 0.06 }}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 0.06, x: 0 }}
