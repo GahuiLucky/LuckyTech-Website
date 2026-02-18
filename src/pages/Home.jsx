@@ -402,7 +402,6 @@ export default function Home() {
         </section>
 
         {/* Transition: Handwerk → Engineering */}
-        </div>
         <SectionTransition fromColor="rgba(245,242,235,0.95)" toColor="rgba(10, 10, 10, 0.44)" variant="diagonal" />
 
         {/* ENGINEERING */}
