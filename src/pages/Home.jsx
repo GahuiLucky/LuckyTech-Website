@@ -37,46 +37,55 @@ function TileModal({ open, title, children, onClose }) {
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             aria-hidden="true"
           />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={title}
-            initial={{ opacity: 0, y: 12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.18 }}
-            className="relative z-10 max-w-3xl w-full bg-[#0A0A0A] border border-white/8 rounded-xl shadow-xl p-6 text-white"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-10 max-w-lg w-full bg-[#111] border border-white/[0.06] shadow-2xl text-white m-4 md:m-0"
           >
-            <div className="flex items-start justify-between gap-4">
-              <h3 className="text-lg font-semibold">{title}</h3>
-              <button
-                ref={closeRef}
-                onClick={onClose}
-                aria-label="Schließen"
-                className="ml-auto text-white/80 hover:text-white rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#C8A850]/40"
-              >
-                ✕
-              </button>
-            </div>
+            {/* Top accent line */}
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#C8A850]/60 via-[#C8A850]/20 to-transparent" />
 
-            <div className="mt-4 text-sm leading-relaxed">{children}</div>
+            <div className="p-8 md:p-10">
+              <div className="flex items-start justify-between gap-6 mb-8">
+                <div>
+                  <span className="text-[10px] tracking-[0.3em] uppercase text-white/20 font-mono block mb-3">Service</span>
+                  <h3 className="text-xl md:text-2xl font-light tracking-[-0.02em]">{title}</h3>
+                </div>
+                <button
+                  ref={closeRef}
+                  onClick={onClose}
+                  aria-label="Schließen"
+                  className="text-white/30 hover:text-white transition-colors p-1 focus:outline-none focus:ring-1 focus:ring-white/20 flex-shrink-0"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="1.5"/></svg>
+                </button>
+              </div>
 
-            <div className="mt-6 text-right">
-              <button
-                onClick={onClose}
-                className="inline-flex items-center gap-2 bg-[#C8A850] text-black font-semibold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-[#C8A850]/40"
-              >
-                Schließen
-              </button>
+              <div className="text-sm leading-[1.8] text-white/50">{children}</div>
+
+              <div className="mt-10 pt-6 border-t border-white/[0.06] flex justify-end">
+                <button
+                  onClick={onClose}
+                  className="text-[11px] tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors inline-flex items-center gap-2"
+                >
+                  Schließen
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
