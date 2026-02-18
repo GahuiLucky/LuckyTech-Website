@@ -271,7 +271,7 @@ export default function Home() {
           
           <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: heroReady ? 1 : 0 }} transition={{ duration: 0.8 }}>
-              <motion.div className="text-xs md:text-sm tracking-[0.5em] text-[#C8A850]/70 mb-6 font-mono uppercase" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
+              <motion.div className="text-xs md:text-sm tracking-[0.0em] text-[#C8A850]/70 mb-6 font-mono uppercase" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
                 Wo Handwerk auf Innovation trifft
               </motion.div>
 
