@@ -97,7 +97,6 @@ export default function Layout({ children, currentPageName }) {
   }, [location.pathname]);
 
   const navItems = [
-    { name: 'Home', path: 'Home' },
     { name: 'Handwerk', path: 'Handwerk' },
     { name: 'Engineering', path: 'Engineering' },
     { name: 'About', path: 'About' }
@@ -174,7 +173,6 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           {/* Logo + brand */}
           <Link to={createPageUrl('Home')} className="flex items-center gap-3">
-            <img src="src/assets/luckytech-logo.png" alt="LuckyTech Logo" className="w-10 h-10 object-contain" />
             <span className="hidden sm:inline-block text-2xl font-bold tracking-tighter hover:text-white/70 transition-colors">LUCKYTECH</span>
           </Link>
 

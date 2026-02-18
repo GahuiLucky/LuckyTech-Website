@@ -14,19 +14,13 @@ export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
 
   const handwerkRef = useRef(null);
-  const transitionRef = useRef(null);
   const engineeringRef = useRef(null);
 
   const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
   const { scrollYProgress: handwerkProgress } = useScroll({
     target: handwerkRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const { scrollYProgress: transitionProgress } = useScroll({
-    target: transitionRef,
     offset: ['start end', 'end start'],
   });
 
@@ -75,7 +69,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#0A0A0A] overflow-x-hidden relative">
-      {/* Animated electrotechnical canvas — full page background */}
+      {/* Hintergrund-Canvas */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <HeroBackground />
       </div>
@@ -83,37 +77,19 @@ export default function Home() {
       <div className="relative z-10">
         {/* HERO */}
         <section className="h-screen flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
-          {/* Text layer */}
           <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: heroReady ? 1 : 0 }} transition={{ duration: 0.8 }}>
-              <motion.div
-                className="text-xs md:text-sm tracking-[0.5em] text-[#C8A850]/70 mb-6 font-mono uppercase"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-              >
+              <motion.div className="text-xs md:text-sm tracking-[0.5em] text-[#C8A850]/70 mb-6 font-mono uppercase" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
                 Wo Handwerk auf Innovation trifft
               </motion.div>
 
-              {/* Main title */}
-              <motion.h1
-                className="font-bold tracking-tighter leading-[0.85] mb-4"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 1, type: 'spring', stiffness: 40 }}
-              >
-                <span
-                  className="block text-7xl md:text-9xl lg:text-[11rem] text-transparent"
-                  style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}
-                >
+              <motion.h1 className="font-bold tracking-tighter leading-[0.85] mb-4" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 1, type: 'spring', stiffness: 40 }}>
+                <span className="block text-7xl md:text-9xl lg:text-[11rem] text-transparent" style={{ WebkitTextStroke: '2px rgba(245,242,235,0.9)' }}>
                   LUCKY
                 </span>
-                <span className="block text-7xl md:text-9xl lg:text-[11rem] text-[#F5F2EB]">
-                  TECH
-                </span>
+                <span className="block text-7xl md:text-9xl lg:text-[11rem] text-[#F5F2EB]">TECH</span>
               </motion.h1>
 
-              {/* Subtitle: Elektrotechnik + Ingenieurskunst */}
               <motion.div className="mt-8" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.7 }}>
                 <span className="text-lg md:text-xl text-[#F5F2EB]/80 font-light tracking-wider">Elektrotechnik + Ingenieurskunst</span>
               </motion.div>
@@ -128,15 +104,10 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Small brand block between Hero and Elektrotechnik */}
+        {/* LOGO BLOCK zwischen Hero und Elektrotechnik */}
         <section className="relative z-10 bg-transparent">
           <div className="max-w-4xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-            <img
-              src={"src/assets/luckytech-logo.png"}
-              alt="LuckyTech Logo"
-              className="w-36 h-auto object-contain opacity-95"
-              loading="lazy"
-            />
+            <img src={"src/assets/luckytech-logo.png"} alt="LuckyTech Logo" className="w-36 h-auto object-contain opacity-95" loading="lazy" />
             <div className="max-w-2xl">
               <h3 className="text-xl md:text-2xl font-semibold text-[#F5F2EB]">Elektrotechnik trifft Ingenieurskunst</h3>
               <p className="mt-2 text-sm text-[#F5F2EB]/70">
@@ -146,25 +117,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Transition: Hero → Handwerk */}
+        {/* Transition to Handwerk */}
         <SectionTransition fromColor="#0A0A0A" toColor="rgba(245,242,235,0.95)" variant="wave" />
 
         {/* HANDWERK */}
         <section ref={handwerkRef} className="relative py-24 md:py-40 px-6 md:px-16 bg-[#F5F2EB]/95 overflow-hidden" aria-labelledby="handwerk-heading">
-          <div
-            className="absolute inset-0 pointer-events-none opacity-[0.02]"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)',
-            }}
-          />
+          <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)' }} />
 
-          <motion.div
-            className="max-w-6xl mx-auto relative z-10"
-            style={{
-              y: useTransform(handwerkProgress, [0, 1], [80, -80]),
-              opacity: useTransform(handwerkProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3]),
-            }}
-          >
+          <motion.div className="max-w-6xl mx-auto relative z-10" style={{ y: useTransform(handwerkProgress, [0, 1], [80, -80]), opacity: useTransform(handwerkProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3]) }}>
             <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
               <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#0A0A0A]/30">/ HANDWERK</span>
               <div className="h-px flex-1 bg-[#0A0A0A]/10" />
@@ -203,20 +163,9 @@ export default function Home() {
 
         {/* ENGINEERING */}
         <section ref={engineeringRef} className="relative py-24 md:py-40 px-6 md:px-16 bg-[#0A0A0A]/90 overflow-hidden" aria-labelledby="engineering-heading">
-          <div
-            className="absolute inset-0 pointer-events-none opacity-[0.015]"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.2) 2px, rgba(59,91,219,0.2) 4px)',
-            }}
-          />
+          <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(59,91,219,0.2) 2px, rgba(59,91,219,0.2) 4px)' }} />
 
-          <motion.div
-            className="max-w-6xl mx-auto relative z-10"
-            style={{
-              y: useTransform(engineeringProgress, [0, 1], [80, -80]),
-              opacity: useTransform(engineeringProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3]),
-            }}
-          >
+          <motion.div className="max-w-6xl mx-auto relative z-10" style={{ y: useTransform(engineeringProgress, [0, 1], [80, -80]), opacity: useTransform(engineeringProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3]) }}>
             <motion.div className="flex items-center gap-4 mb-6" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
               <span className="text-[10px] md:text-xs tracking-[0.5em] uppercase font-mono text-[#3B5BDB]/40">/ ENGINEERING</span>
               <div className="h-px flex-1 bg-[#3B5BDB]/10" />
