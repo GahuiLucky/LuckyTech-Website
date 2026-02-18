@@ -40,7 +40,7 @@ export default function Home() {
       title: 'SMARTHOME',
       subtitle: 'Installation & Automatisierung',
       description:
-        'Wir planen und installieren SmartHome‑Lösungen: Steuerung, Szenen, Sicherheit und Integration in bestehende Systeme. Beratung, Inbetriebnahme und Wartung inklusive.',
+        'Wir planen und installieren SmartHome ‑ Lösungen: Steuerung, Szenen, Sicherheit und Integration in bestehende Systeme. Beratung, Inbetriebnahme und Wartung inklusive.',
     },
     {
       icon: Cable,
