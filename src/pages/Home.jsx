@@ -141,31 +141,36 @@ function EngineeringCard({ service, index }) {
     <>
       <motion.button
         onClick={() => setOpen(true)}
-        initial={{ opacity: 0, scale: 0.98 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.04 + index * 0.03 }}
-        className="group relative flex flex-col items-center justify-center gap-3 p-5 rounded-xl bg-gradient-to-b from-white/6 to-white/3 hover:from-white/8 hover:to-white/6 border border-white/6 hover:border-white/10 transition transform hover:-translate-y-1 cursor-pointer"
+        transition={{ delay: 0.04 + index * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="group relative flex flex-col items-start gap-4 p-6 border border-white/[0.06] hover:border-white/15 bg-transparent hover:bg-white/[0.03] transition-all duration-300 cursor-pointer overflow-hidden"
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        <div className="p-3 rounded-full bg-white/8 group-hover:bg-white/12 transition">
-          <service.icon className="w-6 h-6 text-white/90" />
-        </div>
-        <div className="text-sm font-semibold text-white">{service.title}</div>
-        <div className="text-xs text-white/60 text-center">{service.short ?? ''}</div>
+        {/* Hover accent line */}
+        <div className="absolute top-0 left-0 w-0 group-hover:w-full h-[2px] bg-[#3B5BDB] transition-all duration-500" />
 
-        {/* subtle hover overlay */}
-        <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/10 to-transparent" />
+        <div className="flex items-center gap-2">
+          <service.icon className="w-4 h-4 text-white/30 group-hover:text-[#3B5BDB] transition-colors duration-300" />
+          <span className="text-[10px] tracking-[0.3em] uppercase text-white/15 font-mono">0{index + 1}</span>
+        </div>
+
+        <div className="text-sm uppercase tracking-[0.12em] text-white/90 font-medium">{service.title}</div>
+        <div className="text-[12px] text-white/25 leading-relaxed">{service.short ?? ''}</div>
+
+        <div className="mt-auto flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase text-white/15 group-hover:text-white/50 transition-colors">
+          <span>Mehr</span>
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+        </div>
       </motion.button>
 
       <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
         {service.description ? (
-          <div className="space-y-3">
-            <p className="text-sm text-white/90">{service.description}</p>
-          </div>
+          <p className="text-sm text-white/80 leading-relaxed">{service.description}</p>
         ) : (
-          <p className="text-sm text-white/80">Keine zusätzlichen Informationen vorhanden.</p>
+          <p className="text-sm text-white/60">Keine zusätzlichen Informationen vorhanden.</p>
         )}
       </TileModal>
     </>
