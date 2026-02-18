@@ -309,25 +309,22 @@ export default function Home() {
           {/* Subtle texture */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)' }} />
 
-          {/* Logo intro area */}
-          <div className="relative z-10 pt-16 md:pt-24 pb-20 md:pb-28">
-            <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
-              {/* Logo */}
-              <motion.div
-                className="relative mb-8"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <img
-                  src={"src/assets/luckytech-logo-transparent.png"}
-                  alt="LuckyTech Logo"
-                  className="relative w-20 h-20 md:w-24 md:h-24 object-contain"
-                  loading="lazy"
-                />
-              </motion.div>
+          {/* Background logo — large, offset to the right */}
+          <motion.img
+            src={"src/assets/luckytech-logo-transparent.png"}
+            alt=""
+            aria-hidden="true"
+            className="absolute right-[-8%] md:right-[2%] top-8 md:top-12 w-[55vw] md:w-[38vw] lg:w-[30vw] max-w-[480px] object-contain pointer-events-none select-none"
+            style={{ opacity: 0.06 }}
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 0.06, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          />
 
+          {/* Logo intro area */}
+          <div className="relative z-10 pt-16 md:pt-24 pb-16 md:pb-20">
+            <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
               {/* Label */}
               <motion.span
                 className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase text-[#0A0A0A]/30 font-mono mb-5"
@@ -350,20 +347,19 @@ export default function Home() {
                 Wir verbinden präzise Elektroinstallation mit innovativer Produktentwicklung —{' '}
                 <span className="text-[#0A0A0A]/70">von der Idee bis zur Serienreife.</span>
               </motion.p>
-
-              {/* Divider to Handwerk content */}
-              <motion.div
-                className="mt-16 w-16 h-px bg-[#0A0A0A]/10"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-              />
             </div>
           </div>
 
+          {/* Wave transition into Handwerk content */}
+          <div className="relative -mb-1">
+            <svg className="w-full h-16 md:h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
+              <path d="M0,60 C360,0 720,100 1080,40 C1200,20 1320,50 1440,30 L1440,100 L0,100 Z" fill="#F0EDE6" />
+              <path d="M0,70 C400,20 800,90 1200,50 C1320,35 1380,55 1440,45 L1440,100 L0,100 Z" fill="#EBE7DF" />
+            </svg>
+          </div>
+
           {/* Handwerk content */}
-          <div className="relative z-10 pb-24 md:pb-40 px-6 md:px-16">
+          <div className="relative z-10 bg-[#EBE7DF] pb-24 md:pb-40 px-6 md:px-16 -mt-1">
           <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)' }} />
 
           <motion.div className="max-w-6xl mx-auto relative z-10" style={{ y: useTransform(handwerkProgress, [0, 1], [80, -80]), opacity: useTransform(handwerkProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3]) }}>
