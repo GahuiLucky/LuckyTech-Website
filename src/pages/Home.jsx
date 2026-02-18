@@ -95,31 +95,36 @@ function HandwerkCard({ service, index }) {
     <>
       <motion.button
         onClick={() => setOpen(true)}
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.06 + index * 0.04 }}
-        className="w-full text-left p-6 bg-white/95 rounded-lg shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all flex items-start gap-4"
+        transition={{ delay: 0.06 + index * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="group w-full text-left border border-[#0A0A0A]/8 hover:border-[#0A0A0A]/20 bg-transparent hover:bg-white/60 backdrop-blur-sm transition-all duration-300 p-8 relative overflow-hidden"
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        <div className="w-12 h-12 rounded-full bg-[#0A0A0A] flex items-center justify-center text-white flex-shrink-0">
-          <service.icon className="w-5 h-5" />
+        {/* Hover accent line */}
+        <div className="absolute top-0 left-0 w-0 group-hover:w-full h-[2px] bg-[#C8A850] transition-all duration-500" />
+
+        <div className="flex items-center gap-2 mb-6">
+          <service.icon className="w-4 h-4 text-[#0A0A0A]/40 group-hover:text-[#C8A850] transition-colors duration-300" />
+          <span className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/30 font-mono">0{index + 1}</span>
         </div>
 
-        <div>
-          <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/90 font-semibold">{service.title}</div>
-          <div className="text-sm text-[#0A0A0A]/60 mt-1">{service.subtitle}</div>
+        <div className="text-sm uppercase tracking-[0.15em] text-[#0A0A0A] font-medium mb-2">{service.title}</div>
+        <div className="text-[13px] text-[#0A0A0A]/40 leading-relaxed">{service.subtitle}</div>
+
+        <div className="mt-6 flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#0A0A0A]/25 group-hover:text-[#0A0A0A]/60 transition-colors">
+          <span>Details</span>
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
         </div>
       </motion.button>
 
       <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
         {service.description ? (
-          <div className="space-y-3">
-            <p className="text-sm text-white/90">{service.description}</p>
-          </div>
+          <p className="text-sm text-white/80 leading-relaxed">{service.description}</p>
         ) : (
-          <p className="text-sm text-white/80">Keine zusätzlichen Informationen vorhanden.</p>
+          <p className="text-sm text-white/60">Keine zusätzlichen Informationen vorhanden.</p>
         )}
       </TileModal>
     </>
