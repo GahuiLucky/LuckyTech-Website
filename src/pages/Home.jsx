@@ -296,71 +296,74 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Logo interlude */}
-        <section className="relative z-10 py-24 md:py-32 overflow-hidden">
-          {/* Top accent line */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[#C8A850]/25 to-transparent" />
+        {/* Transition: Hero → Light section */}
+        <div className="relative z-10 -mt-1">
+          <svg className="w-full h-32 md:h-48" viewBox="0 0 1440 200" preserveAspectRatio="none">
+            <path d="M0,0 L1440,0 L1440,200 L0,200 Z" fill="#F0EDE6" />
+            <path d="M0,0 C480,180 960,180 1440,0 L1440,0 L0,0 Z" fill="#0A0A0A" />
+          </svg>
+        </div>
 
-          <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
-            {/* Logo with ambient glow */}
-            <motion.div
-              className="relative mb-10"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="absolute inset-0 blur-[60px] bg-[#C8A850]/8 rounded-full scale-[2]" />
-              <img
-                src={"src/assets/luckytech-logo.png"}
-                alt="LuckyTech Logo"
-                className="relative w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-[0_0_40px_rgba(200,168,80,0.15)]"
-                loading="lazy"
+        {/* Combined: Logo + Handwerk — unified light background */}
+        <section ref={handwerkRef} className="relative bg-[#F0EDE6] overflow-hidden" aria-labelledby="handwerk-heading">
+          {/* Subtle texture */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)' }} />
+
+          {/* Logo intro area */}
+          <div className="relative z-10 pt-16 md:pt-24 pb-20 md:pb-28">
+            <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
+              {/* Logo */}
+              <motion.div
+                className="relative mb-8"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <img
+                  src={"src/assets/luckytech-logo.png"}
+                  alt="LuckyTech Logo"
+                  className="relative w-20 h-20 md:w-24 md:h-24 object-contain"
+                  loading="lazy"
+                />
+              </motion.div>
+
+              {/* Label */}
+              <motion.span
+                className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase text-[#0A0A0A]/30 font-mono mb-5"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                Elektrotechnik + Engineering
+              </motion.span>
+
+              {/* Statement */}
+              <motion.p
+                className="text-xl md:text-2xl lg:text-[1.75rem] font-light text-[#0A0A0A]/35 max-w-2xl leading-[1.5] tracking-[-0.01em]"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              >
+                Wir verbinden präzise Elektroinstallation mit innovativer Produktentwicklung —{' '}
+                <span className="text-[#0A0A0A]/70">von der Idee bis zur Serienreife.</span>
+              </motion.p>
+
+              {/* Divider to Handwerk content */}
+              <motion.div
+                className="mt-16 w-16 h-px bg-[#0A0A0A]/10"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.8 }}
               />
-            </motion.div>
-
-            {/* Mono label */}
-            <motion.span
-              className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase text-[#C8A850]/50 font-mono mb-5"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              Elektrotechnik + Engineering
-            </motion.span>
-
-            {/* Statement */}
-            <motion.p
-              className="text-xl md:text-2xl lg:text-[1.75rem] font-light text-[#F5F2EB]/40 max-w-2xl leading-[1.5] tracking-[-0.01em]"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Wir verbinden präzise Elektroinstallation mit innovativer Produktentwicklung —{' '}
-              <span className="text-[#F5F2EB]/80">von der Idee bis zur Serienreife.</span>
-            </motion.p>
-
-            {/* Decorative accent */}
-            <motion.div
-              className="mt-12 w-12 h-px bg-gradient-to-r from-transparent via-[#C8A850]/40 to-transparent"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-            />
+            </div>
           </div>
 
-          {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[#C8A850]/25 to-transparent" />
-        </section>
-
-        {/* Transition to Handwerk */}
-        <SectionTransition fromColor="#0A0A0A" toColor="rgba(245,242,235,0.95)" variant="wave" />
-
-        {/* HANDWERK */}
-        <section ref={handwerkRef} className="relative py-24 md:py-40 px-6 md:px-16 bg-[#F5F2EB]/95 overflow-hidden" aria-labelledby="handwerk-heading">
+          {/* Handwerk content */}
+          <div className="relative z-10 pb-24 md:pb-40 px-6 md:px-16">
           <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10,10,10,0.15) 2px, rgba(10,10,10,0.15) 4px)' }} />
 
           <motion.div className="max-w-6xl mx-auto relative z-10" style={{ y: useTransform(handwerkProgress, [0, 1], [80, -80]), opacity: useTransform(handwerkProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0.3]) }}>
