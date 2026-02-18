@@ -296,40 +296,64 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Modern logo block + animated divider */}
-        <section className="relative z-10 bg-transparent">
-          <div className="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center gap-6">
-            <div className="flex-shrink-0">
-              <img src={"src/assets/luckytech-logo.png"} alt="LuckyTech Logo" className="w-40 h-auto object-contain" loading="lazy" />
-            </div>
+        {/* Logo interlude */}
+        <section className="relative z-10 py-24 md:py-32 overflow-hidden">
+          {/* Top accent line */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[#C8A850]/25 to-transparent" />
 
-            <div className="flex-1">
-              <motion.h3 initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="text-2xl md:text-3xl font-semibold text-[#F5F2EB]">
-                Elektrotechnik trifft Ingenieurskunst
-              </motion.h3>
-
-              <motion.p initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06, duration: 0.4 }} className="mt-3 text-sm text-[#F5F2EB]/70 max-w-2xl">
-                Wir verbinden präzise Elektroinstallation mit innovativer Produktentwicklung — von der Idee bis zur Serienreife. Unser Team kombiniert praktisches Handwerk mit systematischem Engineering.
-              </motion.p>
-
-              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.4 }} className="mt-6">
-                <Link to={createPageUrl('Kontakt')} className="inline-flex items-center gap-3 bg-[#C8A850] text-black font-semibold px-4 py-2 rounded shadow hover:brightness-95 transition">
-                  Kontakt aufnehmen <ArrowRight className="w-4 h-4" />
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* animated divider */}
-          <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
+            {/* Logo with ambient glow */}
             <motion.div
-              initial={{ opacity: 0, scaleX: 0.98 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.45 }}
-              className="h-px bg-gradient-to-r from-transparent via-[#C8A850]/30 to-transparent mt-2"
-              style={{ transformOrigin: 'left' }}
+              className="relative mb-10"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="absolute inset-0 blur-[60px] bg-[#C8A850]/8 rounded-full scale-[2]" />
+              <img
+                src={"src/assets/luckytech-logo.png"}
+                alt="LuckyTech Logo"
+                className="relative w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-[0_0_40px_rgba(200,168,80,0.15)]"
+                loading="lazy"
+              />
+            </motion.div>
+
+            {/* Mono label */}
+            <motion.span
+              className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase text-[#C8A850]/50 font-mono mb-5"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              Elektrotechnik + Engineering
+            </motion.span>
+
+            {/* Statement */}
+            <motion.p
+              className="text-xl md:text-2xl lg:text-[1.75rem] font-light text-[#F5F2EB]/40 max-w-2xl leading-[1.5] tracking-[-0.01em]"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Wir verbinden präzise Elektroinstallation mit innovativer Produktentwicklung —{' '}
+              <span className="text-[#F5F2EB]/80">von der Idee bis zur Serienreife.</span>
+            </motion.p>
+
+            {/* Decorative accent */}
+            <motion.div
+              className="mt-12 w-12 h-px bg-gradient-to-r from-transparent via-[#C8A850]/40 to-transparent"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.8 }}
             />
           </div>
+
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[#C8A850]/25 to-transparent" />
         </section>
 
         {/* Transition to Handwerk */}
