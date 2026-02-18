@@ -321,7 +321,7 @@ export default function Home() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               >
                 <img
-                  src={"src/assets/luckytech-logo.png"}
+                  src={"src/assets/luckytech-logo-transparent.png"}
                   alt="LuckyTech Logo"
                   className="relative w-20 h-20 md:w-24 md:h-24 object-contain"
                   loading="lazy"
