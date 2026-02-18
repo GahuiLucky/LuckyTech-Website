@@ -398,6 +398,7 @@ export default function Home() {
               </Link>
             </motion.div>
           </motion.div>
+          </div>
         </section>
 
         {/* Transition: Handwerk → Engineering */}
