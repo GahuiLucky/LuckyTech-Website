@@ -308,7 +308,7 @@ export default function Home() {
         <section className="relative z-10 bg-transparent">
           <div className="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center gap-6">
             <div className="flex-shrink-0">
-              <img src={logoImage} alt="LuckyTech Logo" className="w-40 h-auto object-contain" loading="lazy" />
+              <img src={"src/assets/luckytech-logo.png"} alt="LuckyTech Logo" className="w-40 h-auto object-contain" loading="lazy" />
             </div>
 
             <div className="flex-1">
