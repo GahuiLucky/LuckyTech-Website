@@ -268,15 +268,7 @@ export default function Home() {
         {/* HERO */}
         <section className="h-screen flex items-center justify-center relative overflow-hidden" aria-label="Hero section">
           {/* subtle decorative logo behind the title (kept very subtle) */}
-          <img
-            src={"src/assets/luckytech-logo.png"}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[900px] opacity-8 mix-blend-screen"
-            style={{ zIndex: 0 }}
-          />
-
+          
           <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: heroReady ? 1 : 0 }} transition={{ duration: 0.8 }}>
               <motion.div className="text-xs md:text-sm tracking-[0.5em] text-[#C8A850]/70 mb-6 font-mono uppercase" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
