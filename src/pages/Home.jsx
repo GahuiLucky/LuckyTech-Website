@@ -37,55 +37,46 @@ function TileModal({ open, title, children, onClose }) {
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <motion.div
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
             aria-hidden="true"
           />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={title}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 max-w-lg w-full bg-[#111] border border-white/[0.06] shadow-2xl text-white m-4 md:m-0"
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            transition={{ duration: 0.18 }}
+            className="relative z-10 max-w-3xl w-full bg-[#0A0A0A] border border-white/8 rounded-xl shadow-xl p-6 text-white"
           >
-            {/* Top accent line */}
-            <div className="h-[2px] w-full bg-gradient-to-r from-[#C8A850]/60 via-[#C8A850]/20 to-transparent" />
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="text-lg font-semibold">{title}</h3>
+              <button
+                ref={closeRef}
+                onClick={onClose}
+                aria-label="Schließen"
+                className="ml-auto text-white/80 hover:text-white rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#C8A850]/40"
+              >
+                ✕
+              </button>
+            </div>
 
-            <div className="p-8 md:p-10">
-              <div className="flex items-start justify-between gap-6 mb-8">
-                <div>
-                  <span className="text-[10px] tracking-[0.3em] uppercase text-white/20 font-mono block mb-3">Service</span>
-                  <h3 className="text-xl md:text-2xl font-light tracking-[-0.02em]">{title}</h3>
-                </div>
-                <button
-                  ref={closeRef}
-                  onClick={onClose}
-                  aria-label="Schließen"
-                  className="text-white/30 hover:text-white transition-colors p-1 focus:outline-none focus:ring-1 focus:ring-white/20 flex-shrink-0"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="1.5"/></svg>
-                </button>
-              </div>
+            <div className="mt-4 text-sm leading-relaxed">{children}</div>
 
-              <div className="text-sm leading-[1.8] text-white/50">{children}</div>
-
-              <div className="mt-10 pt-6 border-t border-white/[0.06] flex justify-end">
-                <button
-                  onClick={onClose}
-                  className="text-[11px] tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors inline-flex items-center gap-2"
-                >
-                  Schließen
-                </button>
-              </div>
+            <div className="mt-6 text-right">
+              <button
+                onClick={onClose}
+                className="inline-flex items-center gap-2 bg-[#C8A850] text-black font-semibold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-[#C8A850]/40"
+              >
+                Schließen
+              </button>
             </div>
           </motion.div>
         </div>
@@ -104,36 +95,31 @@ function HandwerkCard({ service, index }) {
     <>
       <motion.button
         onClick={() => setOpen(true)}
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.06 + index * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="group w-full text-left border border-[#0A0A0A]/8 hover:border-[#0A0A0A]/20 bg-transparent hover:bg-white/60 backdrop-blur-sm transition-all duration-300 p-8 relative overflow-hidden"
+        transition={{ delay: 0.06 + index * 0.04 }}
+        className="w-full text-left p-6 bg-white/95 rounded-lg shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all flex items-start gap-4"
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        {/* Hover accent line */}
-        <div className="absolute top-0 left-0 w-0 group-hover:w-full h-[2px] bg-[#C8A850] transition-all duration-500" />
-
-        <div className="flex items-center gap-2 mb-6">
-          <service.icon className="w-4 h-4 text-[#0A0A0A]/40 group-hover:text-[#C8A850] transition-colors duration-300" />
-          <span className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/30 font-mono">0{index + 1}</span>
+        <div className="w-12 h-12 rounded-full bg-[#0A0A0A] flex items-center justify-center text-white flex-shrink-0">
+          <service.icon className="w-5 h-5" />
         </div>
 
-        <div className="text-sm uppercase tracking-[0.15em] text-[#0A0A0A] font-medium mb-2">{service.title}</div>
-        <div className="text-[13px] text-[#0A0A0A]/40 leading-relaxed">{service.subtitle}</div>
-
-        <div className="mt-6 flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#0A0A0A]/25 group-hover:text-[#0A0A0A]/60 transition-colors">
-          <span>Details</span>
-          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+        <div>
+          <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/90 font-semibold">{service.title}</div>
+          <div className="text-sm text-[#0A0A0A]/60 mt-1">{service.subtitle}</div>
         </div>
       </motion.button>
 
       <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
         {service.description ? (
-          <p className="text-sm text-white/80 leading-relaxed">{service.description}</p>
+          <div className="space-y-3">
+            <p className="text-sm text-white/90">{service.description}</p>
+          </div>
         ) : (
-          <p className="text-sm text-white/60">Keine zusätzlichen Informationen vorhanden.</p>
+          <p className="text-sm text-white/80">Keine zusätzlichen Informationen vorhanden.</p>
         )}
       </TileModal>
     </>
@@ -150,36 +136,31 @@ function EngineeringCard({ service, index }) {
     <>
       <motion.button
         onClick={() => setOpen(true)}
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.04 + index * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="group relative flex flex-col items-start gap-4 p-6 border border-white/[0.06] hover:border-white/15 bg-transparent hover:bg-white/[0.03] transition-all duration-300 cursor-pointer overflow-hidden"
+        transition={{ delay: 0.04 + index * 0.03 }}
+        className="group relative flex flex-col items-center justify-center gap-3 p-5 rounded-xl bg-gradient-to-b from-white/6 to-white/3 hover:from-white/8 hover:to-white/6 border border-white/6 hover:border-white/10 transition transform hover:-translate-y-1 cursor-pointer"
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        {/* Hover accent line */}
-        <div className="absolute top-0 left-0 w-0 group-hover:w-full h-[2px] bg-[#3B5BDB] transition-all duration-500" />
-
-        <div className="flex items-center gap-2">
-          <service.icon className="w-4 h-4 text-white/30 group-hover:text-[#3B5BDB] transition-colors duration-300" />
-          <span className="text-[10px] tracking-[0.3em] uppercase text-white/15 font-mono">0{index + 1}</span>
+        <div className="p-3 rounded-full bg-white/8 group-hover:bg-white/12 transition">
+          <service.icon className="w-6 h-6 text-white/90" />
         </div>
+        <div className="text-sm font-semibold text-white">{service.title}</div>
+        <div className="text-xs text-white/60 text-center">{service.short ?? ''}</div>
 
-        <div className="text-sm uppercase tracking-[0.12em] text-white/90 font-medium">{service.title}</div>
-        <div className="text-[12px] text-white/25 leading-relaxed">{service.short ?? ''}</div>
-
-        <div className="mt-auto flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase text-white/15 group-hover:text-white/50 transition-colors">
-          <span>Mehr</span>
-          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-        </div>
+        {/* subtle hover overlay */}
+        <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/10 to-transparent" />
       </motion.button>
 
       <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
         {service.description ? (
-          <p className="text-sm text-white/80 leading-relaxed">{service.description}</p>
+          <div className="space-y-3">
+            <p className="text-sm text-white/90">{service.description}</p>
+          </div>
         ) : (
-          <p className="text-sm text-white/60">Keine zusätzlichen Informationen vorhanden.</p>
+          <p className="text-sm text-white/80">Keine zusätzlichen Informationen vorhanden.</p>
         )}
       </TileModal>
     </>
@@ -290,7 +271,7 @@ export default function Home() {
           
           <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: heroReady ? 1 : 0 }} transition={{ duration: 0.8 }}>
-              <motion.div className="text-xs md:text-sm tracking-[0.0em] text-[#C8A850]/70 mb-6 font-mono uppercase" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
+              <motion.div className="text-xs md:text-sm tracking-[0.5em] text-[#C8A850]/70 mb-6 font-mono uppercase" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}>
                 Wo Handwerk auf Innovation trifft
               </motion.div>
 
