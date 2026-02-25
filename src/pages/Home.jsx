@@ -84,7 +84,8 @@ function TileModal({ open, title, children, onClose }) {
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
 
