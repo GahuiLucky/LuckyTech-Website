@@ -311,16 +311,27 @@ export default function Home() {
 
           {/* Background logo — large, offset to the right */}
           <motion.img
-            src={"src/assets/luckytech-logo-transparent.png"}
+            src={"/src/assets/luckytech-logo-transparent.png"}
             alt=""
             aria-hidden="true"
-            className="absolute right-[-8%] md:right-[2%] -top-4 md:-top-8 w-[55vw] md:w-[38vw] lg:w-[30vw] max-w-[480px] object-contain pointer-events-none select-none"
-            style={{ opacity: 0.06 }}
+            className="
+              absolute 
+              right-10 
+              top-10
+              w-[420px] 
+              lg:w-[520px] 
+              max-w-none
+              object-contain 
+              pointer-events-none 
+              select-none
+            "
+            style={{ opacity: 0.08 }}
             initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 0.06, x: 0 }}
+            whileInView={{ opacity: 0.08, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           />
+
 
           {/* Logo intro area */}
           <div className="relative z-10 pt-16 md:pt-24 pb-16 md:pb-20">
