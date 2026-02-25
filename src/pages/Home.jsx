@@ -1,5 +1,6 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
