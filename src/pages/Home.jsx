@@ -54,7 +54,17 @@ function TileModal({ open, title, children, onClose }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.18 }}
-            className="relative z-10 max-w-3xl w-full bg-[#0A0A0A] border border-white/8 rounded-xl shadow-xl p-6 text-white"
+            className="
+              relative z-10 
+              max-w-3xl w-full 
+              bg-gradient-to-b from-[#111] to-[#0A0A0A]
+              border border-white/10 
+              rounded-2xl 
+              shadow-2xl 
+              p-8 
+              text-white
+              backdrop-blur-xl
+            "
           >
             <div className="flex items-start justify-between gap-4">
               <h3 className="text-lg font-semibold">{title}</h3>
@@ -70,14 +80,6 @@ function TileModal({ open, title, children, onClose }) {
 
             <div className="mt-4 text-sm leading-relaxed">{children}</div>
 
-            <div className="mt-6 text-right">
-              <button
-                onClick={onClose}
-                className="inline-flex items-center gap-2 bg-[#C8A850] text-black font-semibold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-[#C8A850]/40"
-              >
-                Schließen
-              </button>
-            </div>
           </motion.div>
         </div>
       )}
@@ -114,14 +116,78 @@ function HandwerkCard({ service, index }) {
       </motion.button>
 
       <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
-        {service.description ? (
-          <div className="space-y-3">
-            <p className="text-sm text-white/90">{service.description}</p>
+        <div className="space-y-8">
+
+          {/* Header Bereich */}
+          <div className="flex items-center gap-5">
+            <div className="w-16 h-16 rounded-2xl bg-[#C8A850]/10 flex items-center justify-center">
+              <service.icon className="w-8 h-8 text-[#C8A850]" />
+            </div>
+
+            <div>
+              <div className="text-lg font-semibold">{service.title}</div>
+              <div className="text-sm text-white/50">{service.subtitle}</div>
+            </div>
           </div>
-        ) : (
-          <p className="text-sm text-white/80">Keine zusätzlichen Informationen vorhanden.</p>
-        )}
+
+          {/* Beschreibung */}
+          <p className="text-white/70 leading-relaxed max-w-xl">
+            {service.description}
+          </p>
+
+          {/* Feature Cards */}
+          {service.features && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {service.features.map((item, i) => (
+                <div 
+                  key={i}
+                  className="
+                    p-4 rounded-xl 
+                    bg-white/5 
+                    border border-white/10
+                    hover:border-[#C8A850]/40
+                    transition
+                  "
+                >
+                  <div className="text-sm text-white/80">{item}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Highlight */}
+          {service.highlight && (
+            <div className="pt-4 border-t border-white/10 text-sm text-[#C8A850] font-medium">
+              {service.highlight}
+            </div>
+          )}
+
+          {/* Optional Download Link */}
+          {service.download && (
+            <div>
+              <a
+                href={service.download}
+                download
+                className="
+                  inline-flex items-center gap-2
+                  mt-4
+                  bg-[#C8A850]
+                  text-black
+                  px-5 py-3
+                  rounded-xl
+                  font-semibold
+                  hover:scale-[1.03]
+                  transition
+                "
+              >
+                Formular herunterladen
+              </a>
+            </div>
+          )}
+
+        </div>
       </TileModal>
+
     </>
   );
 }
@@ -155,14 +221,56 @@ function EngineeringCard({ service, index }) {
       </motion.button>
 
       <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
-        {service.description ? (
-          <div className="space-y-3">
-            <p className="text-sm text-white/90">{service.description}</p>
+        <div className="space-y-8">
+
+          {/* Header */}
+          <div className="flex items-center gap-5">
+            <div className="w-16 h-16 rounded-2xl bg-[#3B5BDB]/10 flex items-center justify-center">
+              <service.icon className="w-8 h-8 text-[#3B5BDB]" />
+            </div>
+
+            <div>
+              <div className="text-lg font-semibold">{service.title}</div>
+              <div className="text-sm text-white/40">{service.short}</div>
+            </div>
           </div>
-        ) : (
-          <p className="text-sm text-white/80">Keine zusätzlichen Informationen vorhanden.</p>
-        )}
+
+          {/* Description */}
+          <p className="text-white/70 leading-relaxed max-w-xl">
+            {service.description}
+          </p>
+
+          {/* Feature Grid */}
+          {service.features && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {service.features.map((item, i) => (
+                <div
+                  key={i}
+                  className="
+                    p-4 rounded-xl
+                    bg-white/5
+                    border border-white/10
+                    hover:border-[#3B5BDB]/40
+                    transition
+                  "
+                >
+                  <div className="text-sm text-white/80">{item}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Highlight */}
+          {service.highlight && (
+            <div className="pt-4 border-t border-white/10 text-sm text-[#3B5BDB] font-medium">
+              {service.highlight}
+            </div>
+          )}
+
+        </div>
       </TileModal>
+
+
     </>
   );
 }
@@ -200,22 +308,44 @@ export default function Home() {
       title: 'SMARTHOME',
       subtitle: 'Installation & Automatisierung',
       description:
-        'Wir planen und installieren SmartHome‑Lösungen: Steuerung, Szenen, Sicherheit und Integration in bestehende Systeme. Beratung, Inbetriebnahme und Wartung inklusive.',
+        'Intelligente Vernetzung für Wohn- und Gewerbeobjekte – komfortabel, energieeffizient und zukunftssicher.',
+      features: [
+        'KNX & moderne Bussysteme',
+        'Licht-, Klima- & Jalousiesteuerung',
+        'Sicherheits- & Zugangssysteme',
+        'App- & Fernsteuerung'
+      ],
+      highlight: 'Individuell geplant. Zukunftssicher umgesetzt.'
     },
     {
       icon: Cable,
       title: 'WALLBOX',
-      subtitle: 'E‑Mobility Solutions',
+      subtitle: 'E-Mobility Solutions',
       description:
-        'Wallbox‑Installation für Zuhause und Gewerbe, Lastmanagement, Fördermittelberatung und Anschluss an PV‑Systeme.',
+        'Professionelle Ladeinfrastruktur für private Haushalte und Unternehmen.',
+      features: [
+        'Installation & Netzprüfung',
+        'Lastmanagement-Systeme',
+        'PV-Integration möglich',
+        'Fördermittelberatung'
+      ],
+      highlight: 'Sicher laden. Nachhaltig investieren.',
+      download: '/downloads/wallbox-anfrageformular.pdf'
     },
     {
       icon: Wrench,
       title: 'ELEKTROINSTALLATION',
       subtitle: 'Planung & Installation',
       description:
-        'Komplette Elektroinstallationen: Neubau, Sanierung, Beleuchtungskonzepte, Schutzmaßnahmen und Prüfungen nach DIN.',
-    },
+        'Moderne Elektroinstallationen für Neubau, Sanierung und Gewerbe.',
+      features: [
+        'Komplette Hausinstallation',
+        'Beleuchtungskonzepte',
+        'Zählerschränke & Verteilungen',
+        'Prüfung nach DIN/VDE'
+      ],
+      highlight: 'Präzision im Detail. Sicherheit im System.'
+    }
   ];
 
   const engineeringServices = [
@@ -223,38 +353,86 @@ export default function Home() {
       icon: Cpu,
       title: 'Prototyping',
       short: 'Schnelle Iteration',
-      description: 'Rapid Prototyping: Elektronik, Gehäuse, Fertigungstests und schnelle Iterationen.',
+      description:
+        'Von der Idee zum funktionalen Prototyp – schnell, effizient und validierbar.',
+      features: [
+        'Elektronik-Prototypen',
+        '3D-gedruckte Gehäuse',
+        'Rapid PCB-Design',
+        'Funktions- & Belastungstests'
+      ],
+      highlight: 'Schnell entwickeln. Früh validieren.'
     },
     {
       icon: Lightbulb,
       title: 'Development',
       short: 'Hardware & Software',
-      description: 'Hardware‑ und Softwareentwicklung: von Konzept bis funktionsfähigem Prototyp.',
+      description:
+        'Ganzheitliche Entwicklung von Embedded-Systemen und Hardwarelösungen.',
+      features: [
+        'Schaltplan- & Layoutdesign',
+        'Firmware-Entwicklung',
+        'Mikrocontroller-Systeme',
+        'Systemintegration'
+      ],
+      highlight: 'Technik durchdacht bis ins Detail.'
     },
     {
       icon: Sparkles,
       title: 'Innovation',
       short: 'Ideen & Konzepte',
-      description: 'Ideation, Konzeptvalidierung und Machbarkeitsstudien.',
+      description:
+        'Von der Vision zur validierten Produktidee.',
+      features: [
+        'Machbarkeitsstudien',
+        'Technologie-Recherche',
+        'Konzeptentwicklung',
+        'Risikoanalyse'
+      ],
+      highlight: 'Ideen strukturiert zur Marktreife führen.'
     },
     {
       icon: Wrench,
       title: 'Consulting',
       short: 'Technische Beratung',
-      description: 'Technische Beratung, Systemarchitektur und Fertigungsoptimierung.',
+      description:
+        'Strategische Beratung für technische Produktentwicklung.',
+      features: [
+        'Systemarchitektur',
+        'Design for Manufacturing',
+        'Technische Risikoanalyse',
+        'Produktoptimierung'
+      ],
+      highlight: 'Komplexität reduzieren. Qualität steigern.'
     },
     {
       icon: Cpu,
       title: 'Testing',
       short: 'Verifikation',
-      description: 'Testaufbauten, Messungen und Verifikation.',
+      description:
+        'Zuverlässige Verifikation und Qualitätssicherung.',
+      features: [
+        'Testkonzepte & Prüfstände',
+        'EMV-Pre-Compliance',
+        'Funktions- & Dauerlauftests',
+        'Messdatenauswertung'
+      ],
+      highlight: 'Validierte Technik schafft Vertrauen.'
     },
     {
       icon: Sparkles,
       title: '3D Design',
       short: 'Gehäuse & DFM',
-      description: 'Gehäusedesign, DFM‑Optimierung und 3D‑Druck‑Prototypen.',
-    },
+      description:
+        'Mechanische Konstruktion und produktionsoptimiertes Design.',
+      features: [
+        'Gehäusekonstruktion',
+        '3D-Modellierung',
+        'DFM-Optimierung',
+        'Prototypenfertigung'
+      ],
+      highlight: 'Design trifft Funktionalität.'
+    }
   ];
 
   return (
@@ -315,17 +493,13 @@ export default function Home() {
             alt=""
             aria-hidden="true"
             className="
-              absolute 
-              right-10 
-              top-10
-              w-[420px] 
-              lg:w-[520px] 
-              max-w-none
-              object-contain 
-              pointer-events-none 
-              select-none
+              absolute
+              right-16
+              top-20
+              w-[520px]
+              z-50
             "
-            style={{ opacity: 0.08 }}
+            style={{ opacity: 1 }}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 0.08, x: 0 }}
             viewport={{ once: true }}
