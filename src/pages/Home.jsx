@@ -408,20 +408,6 @@ export default function Home() {
       highlight: 'Komplexität reduzieren. Qualität steigern.'
     },
     {
-      icon: Cpu,
-      title: 'Testing',
-      short: 'Verifikation',
-      description:
-        'Zuverlässige Verifikation und Qualitätssicherung.',
-      features: [
-        'Testkonzepte & Prüfstände',
-        'EMV-Pre-Compliance',
-        'Funktions- & Dauerlauftests',
-        'Messdatenauswertung'
-      ],
-      highlight: 'Validierte Technik schafft Vertrauen.'
-    },
-    {
       icon: Sparkles,
       title: '3D Design',
       short: 'Gehäuse & DFM',
@@ -430,7 +416,7 @@ export default function Home() {
       features: [
         'Gehäusekonstruktion',
         '3D-Modellierung',
-        'DFM-Optimierung',
+        'Wunsch Bestellungen',
         'Prototypenfertigung'
       ],
       highlight: 'Design trifft Funktionalität.'
