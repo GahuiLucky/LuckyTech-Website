@@ -74,7 +74,7 @@ export default function About() {
                 Achim Kolb
               </h2>
               <p className="text-[15px] text-[#0A0A0A]/50 leading-[1.7] mb-8 max-w-lg">
-                LuckyTech ist aktuell ein Ein-Mann-Betrieb — mit der Überzeugung, dass Qualität wichtiger ist als Größe. Von der Idee über die Planung bis zur Umsetzung liegt alles in einer Hand. Jedes Projekt wird mit dem gleichen Anspruch an Exzellenz behandelt.
+                LuckyTech ist aktuell ein Ein-Mann-Betrieb — mit der Überzeugung, dass Qualität wichtiger ist als Quantität. Von der Idee über die Planung bis zur Umsetzung liegt alles in einer Hand. Jedes Projekt wird mit dem gleichen Anspruch an Exzellenz behandelt.
               </p>
               <div className="flex gap-8 border-t border-[#0A0A0A]/10 pt-6">
                 <div>
@@ -109,7 +109,7 @@ export default function About() {
               <span className="text-[11px] tracking-[0.3em] uppercase text-[#C8A850]/60">Philosophie</span>
             </div>
             <h2 className="text-[1.5rem] md:text-[2.5rem] lg:text-[3.5rem] font-light leading-[1.15] tracking-[-0.02em] text-white">
-              "Wir glauben, dass die besten <em className="italic text-white/40">Innovationen</em> entstehen, wenn man das Fundament des Handwerks mit der Freiheit kreativen Denkens verbindet."
+              "Ich glaube, dass die besten <em className="italic text-white/40">Innovationen</em> entstehen, wenn man das Fundament des Handwerks mit der Freiheit kreativen Denkens verbindet."
             </h2>
             <motion.div
               className="w-24 h-px bg-gradient-to-r from-[#C8A850] to-[#3B5BDB] mt-10"
