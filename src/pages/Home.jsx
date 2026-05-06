@@ -171,7 +171,11 @@ function EngineeringCard({ service, index }) {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.04 + index * 0.03 }}
-        className="group relative flex flex-col items-center justify-center gap-3 p-5 rounded-xl bg-gradient-to-b from-white/6 to-white/3 hover:from-white/8 hover:to-white/6 border border-white/6 hover:border-white/10 transition transform hover:-translate-y-1 cursor-pointer"
+        className="group relative flex flex-col items-center justify-center
+        gap-3 p-6 rounded-xl bg-gradient-to-b from-white/6 to-white/3
+        hover:from-white/8 hover:to-white/6 border border-white/6
+        hover:border-white/10 transition transform hover:-translate-y-1
+        cursor-pointer w-full"
         aria-haspopup="dialog"
         aria-expanded={open}
       >
