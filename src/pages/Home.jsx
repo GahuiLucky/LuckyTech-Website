@@ -394,20 +394,6 @@ export default function Home() {
       highlight: 'Ideen strukturiert zur Marktreife führen.'
     },
     {
-      icon: Wrench,
-      title: 'Consulting',
-      short: 'Technische Beratung',
-      description:
-        'Strategische Beratung für technische Produktentwicklung.',
-      features: [
-        'Systemarchitektur',
-        'Design for Manufacturing',
-        'Technische Risikoanalyse',
-        'Produktoptimierung'
-      ],
-      highlight: 'Komplexität reduzieren. Qualität steigern.'
-    },
-    {
       icon: Sparkles,
       title: '3D Design',
       short: 'Gehäuse & DFM',
