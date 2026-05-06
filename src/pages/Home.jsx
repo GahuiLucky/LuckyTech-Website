@@ -95,101 +95,64 @@ function TileModal({ open, title, children, onClose }) {
 function HandwerkCard({ service, index }) {
   const [open, setOpen] = useState(false);
 
+  const isComingSoon = service.title === "WALLBOX";
+
   return (
     <>
-      <motion.button
-        onClick={() => setOpen(true)}
+      <motion.div
         initial={{ opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.06 + index * 0.04 }}
-        className="w-full text-left p-6 bg-white/95 rounded-lg shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all flex items-start gap-4"
-        aria-haspopup="dialog"
-        aria-expanded={open}
+        className={`
+          w-full text-left p-6 rounded-lg shadow-sm flex items-start gap-4
+          ${isComingSoon 
+            ? "bg-white/60 cursor-not-allowed opacity-60" 
+            : "bg-white/95 hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer"
+          }
+        `}
+        onClick={() => !isComingSoon && setOpen(true)}
       >
         <div className="w-12 h-12 rounded-full bg-[#0A0A0A] flex items-center justify-center text-white flex-shrink-0">
           <service.icon className="w-5 h-5" />
         </div>
 
         <div>
-          <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/90 font-semibold">{service.title}</div>
-          <div className="text-sm text-[#0A0A0A]/60 mt-1">{service.subtitle}</div>
-        </div>
-      </motion.button>
-
-      <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
-        <div className="space-y-8">
-
-          {/* Header Bereich */}
-          <div className="flex items-center gap-5">
-            <div className="w-16 h-16 rounded-2xl bg-[#C8A850]/10 flex items-center justify-center">
-              <service.icon className="w-8 h-8 text-[#C8A850]" />
+          {isComingSoon && (
+            <div className="text-[10px] font-bold text-red-600 tracking-wide mb-1">
+              COMING SOON
             </div>
+          )}
 
-            <div>
-              <div className="text-lg font-semibold">{service.title}</div>
-              <div className="text-sm text-white/50">{service.subtitle}</div>
-            </div>
+          <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/90 font-semibold">
+            {service.title}
           </div>
 
-          {/* Beschreibung */}
-          <p className="text-white/70 leading-relaxed max-w-xl">
-            {service.description}
-          </p>
-
-          {/* Feature Cards */}
-          {service.features && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {service.features.map((item, i) => (
-                <div 
-                  key={i}
-                  className="
-                    p-4 rounded-xl 
-                    bg-white/5 
-                    border border-white/10
-                    hover:border-[#C8A850]/40
-                    transition
-                  "
-                >
-                  <div className="text-sm text-white/80">{item}</div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Highlight */}
-          {service.highlight && (
-            <div className="pt-4 border-t border-white/10 text-sm text-[#C8A850] font-medium">
-              {service.highlight}
-            </div>
-          )}
-
-          {/* Optional Download Link */}
-          {service.download && (
-            <div>
-              <a
-                href={service.download}
-                download
-                className="
-                  inline-flex items-center gap-2
-                  mt-4
-                  bg-[#C8A850]
-                  text-black
-                  px-5 py-3
-                  rounded-xl
-                  font-semibold
-                  hover:scale-[1.03]
-                  transition
-                "
-              >
-                Formular herunterladen
-              </a>
-            </div>
-          )}
-
+          <div className="text-sm text-[#0A0A0A]/60 mt-1">
+            {service.subtitle}
+          </div>
         </div>
-      </TileModal>
+      </motion.div>
 
+      {!isComingSoon && (
+        <TileModal open={open} title={service.title} onClose={() => setOpen(false)}>
+          <div className="space-y-8">
+            <div className="flex items-center gap-5">
+              <div className="w-16 h-16 rounded-2xl bg-[#C8A850]/10 flex items-center justify-center">
+                <service.icon className="w-8 h-8 text-[#C8A850]" />
+              </div>
+              <div>
+                <div className="text-lg font-semibold">{service.title}</div>
+                <div className="text-sm text-white/50">{service.subtitle}</div>
+              </div>
+            </div>
+
+            <p className="text-white/70 leading-relaxed max-w-xl">
+              {service.description}
+            </p>
+          </div>
+        </TileModal>
+      )}
     </>
   );
 }
@@ -583,7 +546,7 @@ export default function Home() {
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
               {engineeringServices.map((service, index) => (
                 <EngineeringCard key={service.title + index} service={service} index={index} />
               ))}
