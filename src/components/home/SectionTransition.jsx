@@ -145,7 +145,7 @@ export default function SectionTransition({ fromColor, toColor, variant = 'wave'
           initial={{ pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 1.6, delay: 0.3, ease: "easeInOut" }}
         />
       </svg>
     </div>
