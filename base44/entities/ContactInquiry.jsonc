@@ -1,0 +1,47 @@
+{
+  "name": "ContactInquiry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name des Kontakts"
+    },
+    "email": {
+      "type": "string",
+      "description": "E-Mail-Adresse"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Telefonnummer"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "handwerk",
+        "engineering",
+        "beide"
+      ],
+      "description": "Art der angefragten Dienstleistung"
+    },
+    "message": {
+      "type": "string",
+      "description": "Nachricht"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "neu",
+        "in_bearbeitung",
+        "abgeschlossen"
+      ],
+      "default": "neu",
+      "description": "Status der Anfrage"
+    }
+  },
+  "required": [
+    "name",
+    "email",
+    "service_type",
+    "message"
+  ]
+}
